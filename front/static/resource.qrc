@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/1904671-arrow-arrow-right-change-direction-next-page-right_122521.png</file>
+    <file>icons/arrows_chevron_direction_left_move_next_right_icon_123222.png</file>
+    <file>icons/3844432-magnifier-search-zoom_110300.png</file>
+    <file>icons/1491254405-plusaddmoredetail_82972.png</file>
+    <file>icons/down-arrow.png</file>
+    <file>icons/expand_circle_down_FILL0_wght400_GRAD0_opsz24.ico</file>
+  </qresource>
+</RCC>
