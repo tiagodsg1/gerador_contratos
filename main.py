@@ -12,6 +12,9 @@ from back.docx.gerar_docx import GerarDocx
 from front.ui.pages_functions.administracao_locacao import administracao_locacao
 from front.ui.pages_functions.auto_venda import autorizacao
 from front.ui.pages_functions.compra_venda import compra_venda
+from front.ui.pages_functions.locacao import locacao
+from front.ui.pages_functions.recibo import recibo
+from front.ui.pages_functions.consultoria import consultoria
 
 class WorkerDownload(QThread):
     sucesso = pyqtSignal(str)
@@ -43,9 +46,18 @@ class Worker(QThread):
         self.percentual = None
         self.download = None
         self.corretor = None
+        self.tipo_pag = None
+        self.min_valor = None
+        self.av_valor = None
+        self.pro_valor = None
+        self.cons_valor = None
+        self.mot_pag = None
+        self.quant_pag = None
+        self.data_pag = None
 
     def run(self):
-        dados_imovel = GetDados(self.imovel).get_imoveis(self.tipo)
+        if self.t_contrato != 'Recibo de Pagamento':
+            dados_imovel = GetDados(self.imovel).get_imoveis(self.tipo)
         dados_corretor = GetDados(self.corretor).get_corretores()
         dados_cliente2 = None
         dados_cliente3 = None
@@ -94,6 +106,32 @@ class Worker(QThread):
                                 'sucesso': self.sucesso,
                                 'error': self.error}
             self.contrato = GerarDocx(self.t_contrato, "./Contratos/Compromisso de Compra e Venda.docx", self.dicionario)
+
+        if self.t_contrato == 'Locação':
+            self.dicionario = {'cliente': dados_cliente,
+                               'corretor': dados_corretor,
+                               'imovel': dados_imovel,
+                               'sucesso': self.sucesso,
+                               'error': self.error}
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Contrato de Locação.docx", self.dicionario)
+
+        if self.t_contrato == 'Recibo de Pagamento':
+            self.dicionario = {'corretor': dados_corretor,
+                               'pagador': dados_cliente,
+                               'recebedor': dados_cliente2,
+                               'tipo_pag': self.tipo_pag,
+                               'quant_pag': self.quant_pag,
+                               'mot_pag': self.mot_pag,
+                               'data_pag': self.data_pag,
+                               'sucesso': self.sucesso,
+                               'error': self.error}
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Recibo de Pagamento.docx", self.dicionario)
+
+        if self.t_contrato == 'Consultoria':
+            self.dicionario = {'corretor': dados_corretor,
+                               'sucesso': self.sucesso,
+                               'error': self.error}
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Consultoria.docx", self.dicionario)
             
 class MainWindow(QMainWindow):
 
@@ -109,6 +147,11 @@ class MainWindow(QMainWindow):
         self.administracao_locacao = administracao_locacao()
         self.autorizacao = autorizacao()
         self.compra_venda = compra_venda()
+        self.locacao = locacao()
+        self.recibo = recibo()
+        self.consultoria = consultoria()
+
+        self.tipo = None
 
         self.ui.pushButton.clicked.connect(self.click)
         
@@ -138,21 +181,34 @@ class MainWindow(QMainWindow):
         
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
             self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3 = self.compra_venda.get_dados()
+
+        if self.ui.comboBox.currentText() == 'Locação':
+            self.worker.cliente, self.worker.corretor, self.worker.cliente2 = self.locacao.get_dados()
+
+        if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
+            self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
+
+        if self.ui.comboBox.currentText() == 'Consultoria':
+            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.cons_valor = self.consultoria.get_dados()
+
         self.worker.tipo = self.tipo
         self.iniciar()
 
     def buscar_imovel(self):
-        self.tipo = self.ui.comboBox_5.currentText()
-        if self.tipo == 'Logradouro':
-            imovel_lista = [imovel for imovel in self.bd.get_imoveis(self.tipo)]
-            self.ui.comboBox_2.clear()
-            self.ui.comboBox_2.addItems(imovel_lista)
-
+        if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
+            self.tipo = None
         else:
-            imovel_lista = [imovel[0] for imovel in self.bd.get_imoveis(self.tipo)]
-            imovel_lista.sort()
-            self.ui.comboBox_2.clear()
-            self.ui.comboBox_2.addItems(imovel_lista)
+            self.tipo = self.ui.comboBox_5.currentText()
+            if self.tipo == 'Logradouro':
+                imovel_lista = [imovel for imovel in self.bd.get_imoveis(self.tipo)]
+                self.ui.comboBox_2.clear()
+                self.ui.comboBox_2.addItems(imovel_lista)
+
+            else:
+                imovel_lista = [imovel[0] for imovel in self.bd.get_imoveis(self.tipo)]
+                imovel_lista.sort()
+                self.ui.comboBox_2.clear()
+                self.ui.comboBox_2.addItems(imovel_lista)
 
     def esconder(self):
         pass
@@ -176,6 +232,24 @@ class MainWindow(QMainWindow):
             self.compra_venda.insert_dados(self.cliente_lista, self.cliente_lista, self.corretor_lista)
             self.compra_venda.setParent(self.ui.frame_3)
             self.compra_venda.show()
+
+        if self.ui.comboBox.currentText() == 'Locação':
+            self.clear_frame(self.ui.frame_3)
+            self.locacao.insert_dados(self.cliente_lista, self.corretor_lista)
+            self.locacao.setParent(self.ui.frame_3)
+            self.locacao.show()
+
+        if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
+            self.clear_frame(self.ui.frame_3)
+            self.recibo.insert_dados(self.corretor_lista, self.cliente_lista)
+            self.recibo.setParent(self.ui.frame_3)
+            self.recibo.show()
+
+        if self.ui.comboBox.currentText() == 'Consultoria':
+            self.clear_frame(self.ui.frame_3)
+            self.consultoria.insert_dados(self.corretor_lista)
+            self.consultoria.setParent(self.ui.frame_3)
+            self.consultoria.show()
 
     def iniciar(self):
         self.worker.start()

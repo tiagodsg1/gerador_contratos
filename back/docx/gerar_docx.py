@@ -1,6 +1,8 @@
 from back.docx.admin_locacao import administracao_locacao
 from back.docx.auto_venda import auto_venda
 #from back.docx.compra_venda import compra_venda
+from back.docx.locacao import locacao
+from back.docx.recibo_pagamento import recibo_pagamento
 class GerarDocx:
     def __init__(self, t_contrato, caminho_documento, dicionario):
         
@@ -74,4 +76,14 @@ class GerarDocx:
             self.error = dicionario['error']
             compra_venda(self.dados_comprador, self.dados_vendedor, self.dados_imovel, self.dados_corretor, self.dados_cliente2, self.dados_cliente3, self.sucesso, self.error, self.cartorio)'''
             
-    
+        if self.t_contrato == 'Recibo de Pagamento':
+            self.dados_corretor = dicionario['corretor']
+            self.dados_pagador = dicionario['pagador']
+            self.dados_recebedor = dicionario['recebedor']
+            self.tipo_pagamento = dicionario['tipo_pag']
+            self.motivo_pagamento = dicionario['mot_pag']
+            self.quantia_pagamento = dicionario['quant_pag']
+            self.data_pag = dicionario['data_pag']
+            self.sucesso = dicionario['sucesso']
+            self.error = dicionario['error']
+            recibo_pagamento(self.dados_corretor, self.dados_pagador, self.dados_recebedor, self.tipo_pagamento, self.motivo_pagamento, self.quantia_pagamento, self.caminho_documento, self.data_pag, self.sucesso, self.error)

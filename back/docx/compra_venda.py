@@ -9,7 +9,7 @@ from back.docx.inserir_tabelas import inserir_tabelas
 
 
 def compra_venda(dados_comprador, dados_vendedor, dados_imovel, dados_corretor, dados_cliente2, dados_cliente3, sucesso, error, cartorio):
-   try:
+    try:
         documento = Document('./Contratos/Compromisso de Compra e Venda.docx')
         inserir_tabelas(documento, documento.tables[0], dados_cliente2, dados_cliente3)
 
@@ -168,6 +168,8 @@ def compra_venda(dados_comprador, dados_vendedor, dados_imovel, dados_corretor, 
 
                         else:
                             celula.text = celula.text.replace('#3CEP', dados_imovel['cep'])
-                    
+    except:
+        error.emit('Erro ao preencher o contrato de compra e venda')
+        return                 
                     
 

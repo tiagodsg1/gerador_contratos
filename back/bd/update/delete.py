@@ -1,14 +1,16 @@
 import psycopg2
-
+from dotenv import load_dotenv
+import os
 class Delete:
     def __init__(self, nomes, imoveis):
         super().__init__()
+        load_dotenv()
         self.servidor = psycopg2.connect(
-            dbname="houseup",
-            user="postgres",      
-            password="houseuptec",    
-            host="fdfd::1acd:4580",  
-            port="5432"              
+            dbname= os.getenv("DB_NAME"),  # Substitua pelo nome do seu banco de dados
+            user= os.getenv("USER"),      # Substitua pelo seu nome de usuário
+            password= os.getenv("PASSWORD"),    # Substitua pela sua senha
+            host= os.getenv("HOST"),  # Endereço IPv6 do servidor PostgreSQL (Radmin VPN)
+            port= os.getenv("PORT")            
         )
         self.nomes = nomes
         self.imoveis = imoveis

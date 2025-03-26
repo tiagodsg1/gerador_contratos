@@ -148,42 +148,22 @@ QComboBox::down-arrow::hover{
           </item>
           <item>
            <property name="text">
-            <string>Parceira Comercial</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Prestação de Serviços</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Visita com Arras</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
             <string>Autorização de Venda</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Corretor Associado HouseUp</string>
+            <string>Locação</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Locação Residencial</string>
+            <string>Recibo de Pagamaento</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Recibo de Entrega de Chaves</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Termo de Confissão de Dívida</string>
+            <string>Consultoria</string>
            </property>
           </item>
          </widget>

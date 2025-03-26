@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 import os, psycopg2, openpyxl, sys
-
+from dotenv import load_dotenv
 from back.bd.update.update import Update_Dados
 from back.bd.update.delete import Delete
 
@@ -10,13 +10,15 @@ class Dados:
         self.sucesso = sucesso  
         self.error = error
         self.finished = finished
+        load_dotenv()
+
         try:
             self.servidor = psycopg2.connect(
-                dbname="houseup",  
-                user="postgres",      
-                password="houseuptec",    
-                host="fdfd::1acd:4580",  
-                port="5432"              
+                dbname= os.getenv("DB_NAME"),  # Substitua pelo nome do seu banco de dados
+                user= os.getenv("USER"),      # Substitua pelo seu nome de usuário
+                password= os.getenv("PASSWORD"),    # Substitua pela sua senha
+                host= os.getenv("HOST"),  # Endereço IPv6 do servidor PostgreSQL (Radmin VPN)
+                port= os.getenv("PORT")             
             )
         except Exception as e:
             '''self.error.emit(f'Erro ao conectar com o banco de dados: {e}')'''

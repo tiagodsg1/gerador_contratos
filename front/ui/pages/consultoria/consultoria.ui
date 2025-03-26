@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>529</width>
+    <height>595</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLineEdit{
+	border: 3px solid gray;
+	border-radius: 10px;
+}
+
+QComboBox{
+	border: 2px solid gray;
+	border-radius: 10px;
+}
+
+QComboBox::drop-down{
+	border-left: 1px solid gray;
+	width: 25px;
+}
+
+QComboBox::down-arrow{
+	image: url(:/icons/icons/down-arrow.png);
+}
+
+QComboBox::down-arrow::hover{
+	
+	image: url(:/icons/icons/expand_circle_down_FILL0_wght400_GRAD0_opsz24.ico);
+}
+
+QPushButton{
+	border: 0px;
+}
+
+QDateEdit{
+	border: 3px solid gray;
+	border-radius: 10px;
+}
+
+QDateEdit::down-arrow, QDateEdit::up-arrow {
+	border: 0px;
+	width: 0px;
+}
+
+QDateEdit::down-button, QDateEdit::up-button {
+    width: 0px;
+    height: 0px;
+    border: none;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Variaveis</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>507</width>
+        <height>544</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>185</x>
+            <y>120</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Corretor</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_3">
+          <property name="geometry">
+           <rect>
+            <x>155</x>
+            <y>160</y>
+            <width>171</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_2">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>240</y>
+            <width>201</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Mudança no valor Mínimo ?</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_4">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>280</y>
+            <width>131</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="placeholderText">
+           <string>R$ </string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_4">
+          <property name="geometry">
+           <rect>
+            <x>250</x>
+            <y>240</y>
+            <width>221</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Mudança no valor de Avaliação ?</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_6">
+          <property name="geometry">
+           <rect>
+            <x>295</x>
+            <y>280</y>
+            <width>131</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="placeholderText">
+           <string>R$ </string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_7">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>340</y>
+            <width>141</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="placeholderText">
+           <string>Valor Proposta R$</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_8">
+          <property name="geometry">
+           <rect>
+            <x>255</x>
+            <y>340</y>
+            <width>141</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="placeholderText">
+           <string>Valor Consultoria R$</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../static/resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

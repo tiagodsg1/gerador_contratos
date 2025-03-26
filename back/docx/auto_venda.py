@@ -274,7 +274,7 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
                 paragrafo.text = paragrafo.text.replace('#CAPTADOR', dados_corretor['nome'])
 
             if '#CAPTA_CPF' in paragrafo.text:
-                paragrafo.text = paragrafo.text.replace('#CAPTA_CPF', dados_corretor['cpf'])
+                paragrafo.text = paragrafo.text.replace('#CAPTA_CPF', dados_corretor['cpf_cnpj'])
             if '#FORO' in paragrafo.text:
                 paragrafo.text = paragrafo.text.replace('#FORO', dados_imovel['cidade'])
         
