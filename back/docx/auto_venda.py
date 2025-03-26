@@ -55,6 +55,7 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
                                 tabela_remove = documento.tables[tabela_index]
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
+                                
                             else:
                                 celula.text = celula.text.replace('#E_MAIL', dados_cliente['email'])
 
