@@ -1,8 +1,8 @@
-from back.docx.admin_locacao import administracao_locacao
-from back.docx.auto_venda import auto_venda
-#from back.docx.compra_venda import compra_venda
-from back.docx.locacao import locacao
-from back.docx.recibo_pagamento import recibo_pagamento
+from back.docx.contratos.admin_locacao import administracao_locacao
+from back.docx.contratos.auto_venda import auto_venda
+#from back.docx.contratos.compra_venda import compra_venda
+from back.docx.contratos.locacao import locacao
+from back.docx.contratos.recibo_pagamento import recibo_pagamento
 class GerarDocx:
     def __init__(self, t_contrato, caminho_documento, dicionario):
         
