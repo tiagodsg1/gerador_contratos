@@ -4,8 +4,8 @@ from docx.shared import Cm
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-from back.docx.inserir_tabelas import inserir_tabelas
-from back.docx.save_document import save_document
+from back.docx.src.inserir_tabelas import inserir_tabelas
+from back.docx.src.save_document import save_document
 
 def add_table_borders(table):
     """

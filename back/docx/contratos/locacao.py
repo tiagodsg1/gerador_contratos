@@ -5,7 +5,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Pt
 
-from back.docx.inserir_tabelas import inserir_tabelas
+from back.docx.src.inserir_tabelas import inserir_tabelas
 
 def locacao():
     '''Função para gerar o contrato de locação'''

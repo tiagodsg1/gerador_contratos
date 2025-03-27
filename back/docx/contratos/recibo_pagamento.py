@@ -1,5 +1,5 @@
 from docx import Document
-from back.docx.save_document import save_document
+from back.docx.src.save_document import save_document
 
 def recibo_pagamento(corretor, pagador, recebedor, tipo_pag, mot_pag, quant_pag, caminho_documento, data_pag, sucesso, error):
     try:
