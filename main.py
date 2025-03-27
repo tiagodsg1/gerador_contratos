@@ -85,7 +85,7 @@ class Worker(QThread):
                                'error':self.error, 
                                'percentual':self.percentual}
             
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Contrato de Administração de Locação.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Contrato de Administração de Locação.docx", self.dicionario)
 
         if self.t_contrato == 'Autorização de Venda':
             self.dicionario = {'cliente': dados_cliente,
@@ -95,7 +95,7 @@ class Worker(QThread):
                                 'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
                                 'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Autorização de Venda.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Autorização de Venda.docx", self.dicionario)
 
         if self.t_contrato == 'Compromisso de Compra e Venda':
             self.dicionario = {'comprador': dados_comprador,
@@ -105,7 +105,7 @@ class Worker(QThread):
                                 'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
                                 'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Compromisso de Compra e Venda.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Compromisso de Compra e Venda.docx", self.dicionario)
 
         if self.t_contrato == 'Locação':
             self.dicionario = {'cliente': dados_cliente,
@@ -113,7 +113,7 @@ class Worker(QThread):
                                'imovel': dados_imovel,
                                'sucesso': self.sucesso,
                                'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Contrato de Locação.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Contrato de Locação.docx", self.dicionario)
 
         if self.t_contrato == 'Recibo de Pagamento':
             self.dicionario = {'corretor': dados_corretor,
@@ -125,13 +125,26 @@ class Worker(QThread):
                                'data_pag': self.data_pag,
                                'sucesso': self.sucesso,
                                'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Recibo de Pagamento.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Recibo de Pagamento.docx", self.dicionario)
 
         if self.t_contrato == 'Consultoria':
+            if self.min_valor == None:
+                self.min_valor = dados_imovel['valor']
+
+            if self.av_valor == None:
+                self.av_valor = dados_imovel['valor']
+
             self.dicionario = {'corretor': dados_corretor,
+                               'cliente': dados_cliente,
+                               'imovel': dados_imovel,
+                               'min_valor': self.min_valor,
+                               'av_valor': self.av_valor,
+                               'pro_valor': self.pro_valor,
+                               'cons_valor': self.cons_valor,
                                'sucesso': self.sucesso,
                                'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Consultoria.docx", self.dicionario)
+            
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
             
 class MainWindow(QMainWindow):
 
@@ -189,7 +202,7 @@ class MainWindow(QMainWindow):
             self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
 
         if self.ui.comboBox.currentText() == 'Consultoria':
-            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.cons_valor = self.consultoria.get_dados()
+            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente= self.consultoria.get_dados()
 
         self.worker.tipo = self.tipo
         self.iniciar()
@@ -247,7 +260,7 @@ class MainWindow(QMainWindow):
 
         if self.ui.comboBox.currentText() == 'Consultoria':
             self.clear_frame(self.ui.frame_3)
-            self.consultoria.insert_dados(self.corretor_lista)
+            self.consultoria.insert_dados(self.corretor_lista, self.cliente_lista)
             self.consultoria.setParent(self.ui.frame_3)
             self.consultoria.show()
 
