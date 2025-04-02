@@ -113,7 +113,7 @@ class Worker(QThread):
                                'imovel': dados_imovel,
                                'sucesso': self.sucesso,
                                'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Contrato de Locação.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Locação.docx", self.dicionario)
 
         if self.t_contrato == 'Recibo de Pagamento':
             self.dicionario = {'corretor': dados_corretor,
@@ -125,7 +125,7 @@ class Worker(QThread):
                                'data_pag': self.data_pag,
                                'sucesso': self.sucesso,
                                'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Recibo de Pagamento.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos/Recibo.docx", self.dicionario)
 
         if self.t_contrato == 'Consultoria':
             self.dicionario = {'corretor': dados_corretor,

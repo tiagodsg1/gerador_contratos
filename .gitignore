@@ -1,0 +1,4 @@
+.gitattributes
+Contratos_docx
+venv
+.env
