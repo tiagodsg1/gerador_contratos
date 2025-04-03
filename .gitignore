@@ -1,3 +1,5 @@
-venv
+.gitattributes
+Contratos_docx
 __pycache__
+venv
 .env
