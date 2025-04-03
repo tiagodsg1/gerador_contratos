@@ -2,4 +2,6 @@
 Contratos_docx
 __pycache__
 venv
+build
+dist
 .env

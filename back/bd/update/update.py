@@ -2,10 +2,12 @@ import psycopg2, openpyxl
 from dotenv import load_dotenv
 import os
 
+from back.bd.verif import get_env_path
 class Update_Dados:
     def __init__(self, nomes, imoveis, caminho):
         super().__init__()
-        load_dotenv()
+        self.bd = get_env_path()
+        load_dotenv(self.bd)
         self.servidor = psycopg2.connect(
             dbname= os.getenv("DB_NAME"),  # Substitua pelo nome do seu banco de dados
             user= os.getenv("USER"),      # Substitua pelo seu nome de usuário

@@ -1,8 +1,10 @@
 from playwright.sync_api import sync_playwright
 import os, psycopg2, openpyxl, sys
 from dotenv import load_dotenv
+
 from back.bd.update.update import Update_Dados
 from back.bd.update.delete import Delete
+from back.bd.verif import get_env_path
 
 class Dados:
     def __init__(self, sucesso, error, finished):
@@ -10,7 +12,8 @@ class Dados:
         self.sucesso = sucesso  
         self.error = error
         self.finished = finished
-        load_dotenv()
+        self.bd = get_env_path()
+        load_dotenv(self.bd)
 
         try:
             self.servidor = psycopg2.connect(

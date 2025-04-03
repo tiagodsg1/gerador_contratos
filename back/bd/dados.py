@@ -2,11 +2,16 @@ import psycopg2
 from psycopg2.extras import DictCursor
 from dotenv import load_dotenv
 import os
+
+from back.bd.verif import get_env_path
+
 class GetDados():
     def __init__(self, nome):
         super().__init__()
         self.nome = nome
-        load_dotenv()
+        self.bd = get_env_path()
+
+        load_dotenv(self.bd)
         self.servidor = psycopg2.connect(
             dbname= os.getenv("DB_NAME"),  # Substitua pelo nome do seu banco de dados
             user= os.getenv("USER"),      # Substitua pelo seu nome de usuário
