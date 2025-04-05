@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtWidgets import QFileDialog
 
 from front.ui.Main import Ui_MainWindow
 
@@ -31,6 +32,8 @@ class Worker(QThread):
 
     sucesso = pyqtSignal(str)
     error = pyqtSignal(str)
+    finished = pyqtSignal(str)
+    download_docx = pyqtSignal(object)
 
     def __init__(self):
         super().__init__()
@@ -54,6 +57,7 @@ class Worker(QThread):
         self.mot_pag = None
         self.quant_pag = None
         self.data_pag = None
+        self.infor_ad = None
 
     def run(self):
         if self.t_contrato != 'Recibo de Pagamento':
@@ -83,8 +87,8 @@ class Worker(QThread):
                                'cliente3': dados_cliente3, 
                                'sucesso':self.sucesso, 
                                'error':self.error, 
-                               'percentual':self.percentual}
-            
+                               'percentual':self.percentual,
+                               'download': self.download_docx}            
             self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Contrato de Administração de Locação.docx", self.dicionario)
 
         if self.t_contrato == 'Autorização de Venda':
@@ -94,7 +98,8 @@ class Worker(QThread):
                                 'cliente2': dados_cliente2,
                                 'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
-                                'error': self.error}
+                                'error': self.error,
+                                'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Autorização de Venda.docx", self.dicionario)
 
         if self.t_contrato == 'Compromisso de Compra e Venda':
@@ -104,16 +109,20 @@ class Worker(QThread):
                                 'cliente2': dados_cliente2,
                                 'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
-                                'error': self.error}
+                                'error': self.error,
+                                'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Compromisso de Compra e Venda.docx", self.dicionario)
 
         if self.t_contrato == 'Locação':
             self.dicionario = {'cliente': dados_cliente,
+                               'cliente2': dados_cliente2,
                                'corretor': dados_corretor,
                                'imovel': dados_imovel,
+                               'info_ad': self.infor_ad,
                                'sucesso': self.sucesso,
-                               'error': self.error}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Contrato de Locação.docx", self.dicionario)
+                               'error': self.error,
+                               'download': self.download_docx}
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Locação Residencial.docx", self.dicionario)
 
         if self.t_contrato == 'Recibo de Pagamento':
             self.dicionario = {'corretor': dados_corretor,
@@ -124,7 +133,8 @@ class Worker(QThread):
                                'mot_pag': self.mot_pag,
                                'data_pag': self.data_pag,
                                'sucesso': self.sucesso,
-                               'error': self.error}
+                               'error': self.error,
+                               'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Recibo de Pagamento.docx", self.dicionario)
 
         if self.t_contrato == 'Consultoria':
@@ -142,7 +152,8 @@ class Worker(QThread):
                                'pro_valor': self.pro_valor,
                                'cons_valor': self.cons_valor,
                                'sucesso': self.sucesso,
-                               'error': self.error}
+                               'error': self.error,
+                               'download': self.download_docx}
             
             self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
             
@@ -185,6 +196,7 @@ class MainWindow(QMainWindow):
         self.worker.imovel = item
         self.worker.sucesso.connect(self.download_sucesso)
         self.worker.error.connect(self.download_error)
+        self.worker.download_docx.connect(self.download_docx)
 
         if self.ui.comboBox.currentText() == 'Administração de Locação':
             self.worker.percentual, self.worker.cliente, self.worker.cliente2, self.worker.cliente3 = self.administracao_locacao.get_dados()
@@ -196,7 +208,7 @@ class MainWindow(QMainWindow):
             self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3 = self.compra_venda.get_dados()
 
         if self.ui.comboBox.currentText() == 'Locação':
-            self.worker.cliente, self.worker.corretor, self.worker.cliente2 = self.locacao.get_dados()
+            self.worker.cliente, self.worker.cliente2, self.worker.corretor, self.worker.infor_ad = self.locacao.get_dados()
 
         if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
             self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
@@ -290,7 +302,13 @@ class MainWindow(QMainWindow):
         for child in frame.children():
             if isinstance(child, QWidget):
                 child.hide()
-                
+    
+    def download_docx(self, documento):
+        file_name, _ = QFileDialog.getSaveFileName(None, "Save Document", "", "Word Document (*.docx)")
+        if file_name:
+            documento.save(file_name)
+            QMessageBox.information(self, 'Sucesso', 'Documento salvo com sucesso!')
+            
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
