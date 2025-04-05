@@ -1,7 +1,6 @@
 from docx import Document
-from back.docx.src.save_document import save_document
 
-def recibo_pagamento(corretor, pagador, recebedor, tipo_pag, mot_pag, quant_pag, caminho_documento, data_pag, sucesso, error):
+def recibo_pagamento(corretor, pagador, recebedor, tipo_pag, mot_pag, quant_pag, caminho_documento, data_pag, sucesso, error, download):
     try:
         documento = Document(caminho_documento)
 
@@ -52,8 +51,7 @@ def recibo_pagamento(corretor, pagador, recebedor, tipo_pag, mot_pag, quant_pag,
             if '#DATA_TRANSFERENCIA' in paragrafo.text:
                 paragrafo.text = paragrafo.text.replace('#DATA_TRANSFERENCIA', data_pag)
     
-        file_name = save_document()
-        documento.save(file_name)
+        download.emit(documento)
         sucesso.emit("Contrato gerado com sucesso!")
     except Exception as e:
         error(e)

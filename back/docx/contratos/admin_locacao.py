@@ -1,31 +1,9 @@
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.shared import Cm
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
 
 from back.docx.src.inserir_tabelas import inserir_tabelas
-from back.docx.src.save_document import save_document
-
-def add_table_borders(table):
-    """
-    Adiciona bordas à tabela.
-    """
-    tbl = table._element  # Obtenha o elemento XML subjacente da tabela
-    tbl_pr = tbl.tblPr  # Acesse as propriedades da tabela
-    tbl_borders = OxmlElement('w:tblBorders')
-
-    for border in ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']:
-        border_el = OxmlElement(f'w:{border}')
-        border_el.set(qn('w:val'), 'single')  # Tipo de borda
-        border_el.set(qn('w:sz'), '4')  # Espessura (em oitavos de ponto)
-        border_el.set(qn('w:space'), '0')  # Espaçamento
-        border_el.set(qn('w:color'), '000000')  # Cor (hexadecimal)
-        tbl_borders.append(border_el)
-
-    tbl_pr.append(tbl_borders)
     
-def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cliente3, caminho_documento, sucesso, error, percentual, cartorio, iptu, luz, relogio, monobitrifasico, gas, funesbom):
+def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cliente3, caminho_documento, sucesso, error, percentual, download):
 
     try:
         documento = Document(caminho_documento)
@@ -199,13 +177,13 @@ def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cli
 
                     if dados_imovel:
                         #Parte do Imóvel
-                        if '#CARTORIO' == celula.text:
+                        '''if '#CARTORIO' == celula.text:
                             if cartorio == None:
                                 tabela_para_remover = documento.tables[tabela_index]
                                 remover_linha = tabela_para_remover.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#CARTORIO', cartorio)
+                                celula.text = celula.text.replace('#CARTORIO', cartorio)'''
 
                         if '#MATRICULA' == celula.text:
                             if dados_imovel['matricula'] == None:
@@ -215,7 +193,7 @@ def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cli
                             else:
                                 celula.text = celula.text.replace('#MATRICULA', dados_imovel['matricula'])
 
-                        if '#INSCRICAO_IPTU' == celula.text:
+                        '''if '#INSCRICAO_IPTU' == celula.text:
                             if iptu == None:
                                 tabela_para_remover = documento.tables[tabela_index]
                                 remover_linha = tabela_para_remover.rows[linha._index]._element
@@ -261,7 +239,7 @@ def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cli
                                 remover_linha = tabela_para_remover.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#FUNESBOM', funesbom)
+                                celula.text = celula.text.replace('#FUNESBOM', funesbom)'''
 
         for paragrafo in documento.paragraphs:
             if 'São Gonçalo' in paragrafo.text:
@@ -295,8 +273,7 @@ def administracao_locacao(dados_cliente, dados_imovel, dados_cliente2, dados_cli
                     paragrafo.text = paragrafo.text.replace('de R$ 100,00 (R$50,00 se for no plano de 20%)', 'R$ 50,00')
                 else:
                     paragrafo.text = paragrafo.text.replace('de R$ 100,00 (R$50,00 se for no plano de 20%)', 'R$ 100,00')
-        file_name = save_document(documento)
-        documento.save(file_name)
+        download.emit(documento)
         sucesso.emit('Contrato gerado com sucesso!')
         
     except Exception as e:

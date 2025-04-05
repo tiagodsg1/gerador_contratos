@@ -1,14 +1,9 @@
 from docx import Document
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.shared import Cm
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
-from docx.shared import Pt
 
 from back.docx.src.inserir_tabelas import inserir_tabelas
 
 
-def compra_venda(dados_comprador, dados_vendedor, dados_imovel, dados_corretor, dados_cliente2, dados_cliente3, sucesso, error, cartorio):
+def compra_venda(dados_comprador, dados_vendedor, dados_imovel, dados_corretor, dados_cliente2, dados_cliente3, sucesso, error, download):
     try:
         documento = Document('./Contratos/Compromisso de Compra e Venda.docx')
         inserir_tabelas(documento, documento.tables[0], dados_cliente2, dados_cliente3)

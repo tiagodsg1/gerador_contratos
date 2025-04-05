@@ -3,12 +3,11 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 
 from back.docx.src.inserir_tabelas import inserir_tabelas
-from back.docx.src.save_document import save_document
 
 
-def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, sucesso, error, cartorio, iptu, luz, relogio, monobitrifasico, gas, funesbom):
+def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, sucesso, error, download):
     try:
-        documento = Document("./Contratos/Autorização de Venda.docx")
+        documento = Document(caminho_documento)
 
         inserir_tabelas(documento, documento.tables[0], dados_cliente2, dados_cliente3)
         
@@ -189,13 +188,13 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
                         else:
                             celula.text = celula.text.replace('#CEP_IMOVEL', dados_imovel['cep'])
 
-                    if '#CARTORIO' in celula.text:
+                    '''if '#CARTORIO' in celula.text:
                         if cartorio == None:
                             tabela_remove = documento.tables[tabela_index]
                             remover_linha = tabela_remove.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CARTORIO', dados_imovel['cartorio'])
+                            celula.text = celula.text.replace('#CARTORIO', dados_imovel['cartorio'])'''
 
                     if '#MATRICULA' in celula.text:
                         if dados_imovel['matricula'] == None:
@@ -205,7 +204,7 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
                         else:
                             celula.text = celula.text.replace('#MATRICULA', dados_imovel['matricula'])
 
-                    if '#INSCRICAO_IPTU' in celula.text:
+                    ''''if '#INSCRICAO_IPTU' in celula.text:
                         if iptu == None:
                             tabela_remove = documento.tables[tabela_index]
                             remover_linha = tabela_remove.rows[linha._index]._element
@@ -259,7 +258,7 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
                             remover_linha = tabela_remove.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#FUNESBOM', funesbom)
+                            celula.text = celula.text.replace('#FUNESBOM', funesbom)'''
 
                     if '#HIDROMETRO' in celula.text:
                         tabela_remove = documento.tables[tabela_index]
@@ -276,8 +275,6 @@ def auto_venda(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dado
             if '#FORO' in paragrafo.text:
                 paragrafo.text = paragrafo.text.replace('#FORO', dados_imovel['cidade'])
         
-        sucesso.emit("Contrato gerado com sucesso!")
-        file_name = save_document(documento)
-        documento.save(file_name)
+        download.emit(documento)
     except Exception as e:
-        print(e)
+        error.emit(e)

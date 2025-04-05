@@ -1,9 +1,8 @@
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
-from back.docx.src.save_document import save_document
 
-def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_valor, caminho_documento, sucesso, error):
+def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_valor, caminho_documento, sucesso, error, download):
     try:
         documento = Document(caminho_documento)
 
@@ -67,9 +66,6 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                                 paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                                 paragrafo.style.font.name = 'Times New Roman'
                                 paragrafo.style.font.size = Pt(12)
-                                
-                                
-                                
 
         #Parte Imobiliária
         for paragrafo in documento.paragraphs:
@@ -100,8 +96,7 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
             if '#FORO' in paragrafo.text:
                 paragrafo.text = paragrafo.text.replace('#FORO', imovel['cidade'])
         
-        file_name = save_document()
-        documento.save(file_name)
+        download.emit(documento)
         sucesso.emit("Contrato gerado com sucesso!")
     except Exception as e:
         error.emit(str(e))              
