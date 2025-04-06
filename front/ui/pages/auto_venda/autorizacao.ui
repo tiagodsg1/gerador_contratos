@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>429</height>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -220,6 +220,126 @@ QPushButton{
     </item>
    </layout>
   </widget>
+  <widget class="QLineEdit" name="lineEdit_14">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>400</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Nº Cons Gás</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_12">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>550</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="placeholderText">
+    <string>Nº Cons Luz</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_13">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>500</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Monobitrifasico</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_16">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>350</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Nº Cons D'Água</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_8">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>350</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Cartorio</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_9">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>400</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Inscrição IPTU</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_15">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>450</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Funesbom</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_11">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>500</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Matricula</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_10">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>450</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Relogio</string>
+   </property>
+  </widget>
   <zorder>layoutWidget</zorder>
   <zorder>label</zorder>
   <zorder>layoutWidget</zorder>
@@ -227,6 +347,15 @@ QPushButton{
   <zorder>pushButton_3</zorder>
   <zorder>layoutWidget_3</zorder>
   <zorder>pushButton_4</zorder>
+  <zorder>lineEdit_14</zorder>
+  <zorder>lineEdit_12</zorder>
+  <zorder>lineEdit_13</zorder>
+  <zorder>lineEdit_16</zorder>
+  <zorder>lineEdit_8</zorder>
+  <zorder>lineEdit_9</zorder>
+  <zorder>lineEdit_15</zorder>
+  <zorder>lineEdit_11</zorder>
+  <zorder>lineEdit_10</zorder>
  </widget>
  <resources>
   <include location="../../../static/resource.qrc"/>

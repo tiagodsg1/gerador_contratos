@@ -1,12 +1,9 @@
 from docx import Document
-from docx.enum.text import WD_COLOR_INDEX
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 
-def delete_paragraph(paragraph):
-    p = paragraph._element
-    p.getparent().remove(p)
-    paragraph._p = paragraph._element = None  # desvincula o parágrafo do Python
+from back.docx.src.retirar import delete_paragraph
+from back.docx.src.retirar import retirar
 
 def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho_documento, info_ad, sucesso, error, download):
 
@@ -23,8 +20,8 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                         cell.text = cell.text.replace('#CEP', dados_imovel['cep'])
 
                     if '#MATRICULA' in cell.text:
-                        if info_ad['matricula'] == None:
-                            if dados_imovel['matricula'] == 'None':
+                        if info_ad['matricula'] == '':
+                            if dados_imovel['matricula'] == None:
                                 tabela_remove = documento.tables[table_index]
                                 remover_linha = tabela_remove.rows[row._index]._element
                                 remover_linha.getparent().remove(remover_linha)
@@ -229,9 +226,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
 
         #Texto do documento
         for paragraph in documento.paragraphs:
-            for run in paragraph.runs:
-                if run.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                    run.font.highlight_color = None
+            retirar(paragraph)
             text = paragraph.text
             if 'Entretanto, como a data de assinatura é diferente da data da entrega das chaves, o período de ' in text:
                 if info_ad['chav_agr'] == True :
@@ -287,4 +282,4 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
 
         download.emit(documento)
     except Exception as e:
-        error.emit(e)
+        error.emit(str(e))

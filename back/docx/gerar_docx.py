@@ -16,11 +16,12 @@ class GerarDocx:
             self.dados_imovel = dicionario['imovel']
             self.dados_cliente2 = dicionario['cliente2']
             self.dados_cliente3 = dicionario['cliente3']
+            self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.percentual = dicionario['percentual']
             self.download = dicionario['download']
-            administracao_locacao(self.dados_cliente, self.dados_imovel, self.dados_cliente2, self.dados_cliente3, self.caminho_documento, self.sucesso, self.error, self.percentual, self.download)
+            administracao_locacao(self.dados_cliente, self.dados_imovel, self.dados_cliente2, self.dados_cliente3, self.info_ad, self.caminho_documento, self.sucesso, self.error, self.percentual, self.download)
 
         if self.t_contrato == 'Autorização de Venda':
 
@@ -29,10 +30,11 @@ class GerarDocx:
             self.dados_imovel = dicionario['imovel']
             self.dados_cliente2 = dicionario['cliente2']
             self.dados_cliente3 = dicionario['cliente3']
+            self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            auto_venda(self.caminho_documento, self.dados_cliente, self.dados_corretor, self.dados_imovel, self.dados_cliente2, self.dados_cliente3, self.sucesso, self.error, self.download)
+            auto_venda(self.caminho_documento, self.dados_cliente, self.dados_corretor, self.dados_imovel, self.dados_cliente2, self.dados_cliente3, self.info_ad, self.sucesso, self.error, self.download)
                         
         if self.t_contrato == 'Compromisso de Compra e Venda':
             self.dados_comprador = dicionario['comprador']
@@ -41,10 +43,11 @@ class GerarDocx:
             self.dados_corretor = dicionario['corretor']
             self.dados_cliente2 = dicionario['cliente2']
             self.dados_cliente3 = dicionario['cliente3']
+            self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            compra_venda(self.caminho_documento, self.dados_comprador, self.dados_vendedor, self.dados_imovel, self.dados_corretor, self.dados_cliente2, self.dados_cliente3, self.sucesso, self.error, self.download)
+            compra_venda(self.caminho_documento, self.dados_comprador, self.dados_vendedor, self.dados_imovel, self.dados_corretor, self.dados_cliente2, self.dados_cliente3, self.info_ad, self.sucesso, self.error, self.download)
             
         if self.t_contrato == 'Recibo de Pagamento':
             self.dados_corretor = dicionario['corretor']

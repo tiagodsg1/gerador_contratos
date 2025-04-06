@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog
+import os
 
 from front.ui.Main import Ui_MainWindow
 
@@ -57,7 +58,7 @@ class Worker(QThread):
         self.mot_pag = None
         self.quant_pag = None
         self.data_pag = None
-        self.infor_ad = None
+        self.info_ad = None
 
     def run(self):
         if self.t_contrato != 'Recibo de Pagamento':
@@ -80,51 +81,65 @@ class Worker(QThread):
             dados_vendedor = GetDados(self.vendedor).get_clientes()
         
         if self.t_contrato == 'Administração de Locação':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Administração de Locação.docx')
 
             self.dicionario = {'cliente' : dados_cliente, 
                                'imovel': dados_imovel, 
                                'cliente2': dados_cliente2, 
                                'cliente3': dados_cliente3, 
+                               'info_ad': self.info_ad,
                                'sucesso':self.sucesso, 
                                'error':self.error, 
                                'percentual':self.percentual,
                                'download': self.download_docx}            
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Contrato de Administração de Locação.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Autorização de Venda':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Autorização de Venda.docx')
             self.dicionario = {'cliente': dados_cliente,
                                'corretor': dados_corretor,
                                 'imovel': dados_imovel,
                                 'cliente2': dados_cliente2,
                                 'cliente3': dados_cliente3,
+                                'info_ad': self.info_ad,
                                 'sucesso': self.sucesso,
                                 'error': self.error,
                                 'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Autorização de Venda.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Compromisso de Compra e Venda':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Compromisso de Compra e Venda.docx')
             self.dicionario = {'comprador': dados_comprador,
+                               'imovel': dados_imovel,
                                 'vendedor': dados_vendedor,
                                 'corretor': dados_corretor,
                                 'cliente2': dados_cliente2,
                                 'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
+                                'info_ad': self.info_ad,
                                 'error': self.error,
                                 'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Compromisso de Compra e Venda.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Locação':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Locação Residencial.docx')
             self.dicionario = {'cliente': dados_cliente,
                                'cliente2': dados_cliente2,
                                'corretor': dados_corretor,
                                'imovel': dados_imovel,
-                               'info_ad': self.infor_ad,
+                               'info_ad': self.info_ad,
                                'sucesso': self.sucesso,
                                'error': self.error,
                                'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Locação Residencial.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Recibo de Pagamento':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Recibo de Pagamento.docx')
             self.dicionario = {'corretor': dados_corretor,
                                'pagador': dados_cliente,
                                'recebedor': dados_cliente2,
@@ -135,7 +150,7 @@ class Worker(QThread):
                                'sucesso': self.sucesso,
                                'error': self.error,
                                'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Recibo de Pagamento.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Consultoria':
             if self.min_valor == None:
@@ -199,22 +214,22 @@ class MainWindow(QMainWindow):
         self.worker.download_docx.connect(self.download_docx)
 
         if self.ui.comboBox.currentText() == 'Administração de Locação':
-            self.worker.percentual, self.worker.cliente, self.worker.cliente2, self.worker.cliente3 = self.administracao_locacao.get_dados()
+            self.worker.percentual, self.worker.cliente, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.administracao_locacao.get_dados()
 
         if self.ui.comboBox.currentText() == 'Autorização de Venda':
-            self.worker.cliente, self.worker.corretor, self.worker.cliente2, self.worker.cliente3 = self.autorizacao.get_dados()
+            self.worker.cliente, self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.autorizacao.get_dados()
         
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
-            self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3 = self.compra_venda.get_dados()
+            self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.compra_venda.get_dados()
 
         if self.ui.comboBox.currentText() == 'Locação':
-            self.worker.cliente, self.worker.cliente2, self.worker.corretor, self.worker.infor_ad = self.locacao.get_dados()
+            self.worker.cliente, self.worker.cliente2, self.worker.corretor, self.worker.info_ad = self.locacao.get_dados()
 
         if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
             self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
 
         if self.ui.comboBox.currentText() == 'Consultoria':
-            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente= self.consultoria.get_dados()
+            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()
 
         self.worker.tipo = self.tipo
         self.iniciar()

@@ -56,15 +56,45 @@ class compra_venda(QWidget):
         self.cliente_3 = True
 
     def get_dados(self):
-        lista_comprador_vendedor = []
+
+        cartorio = self.ui.lineEdit_9.text()
+        n_iptu = self.ui.lineEdit_10.text()
+        matricula = self.ui.lineEdit_11.text()
+        valor = self.ui.lineEdit.text()
+        sinal = self.ui.lineEdit_2.text()
+        entrada = self.ui.lineEdit_3.text()
+        financiamento = self.ui.lineEdit_4.text()
+        fgts = self.ui.lineEdit_5.text()
+        subsidio = self.ui.lineEdit_6.text()
+        isencao = self.ui.lineEdit_7.text()
+        prazo = self.ui.lineEdit_8.text()
+        posse = self.ui.textEdit.toPlainText()
+
+        info_ad = {
+            'cartorio': cartorio,
+            'n_iptu': n_iptu,
+            'matricula': matricula,
+            'valor': valor,
+            'sinal': sinal,
+            'entrada': entrada,
+            'financiamento': financiamento,
+            'fgts': fgts,
+            'subsidio': subsidio,
+            'isencao': isencao,
+            'prazo': prazo,
+            'posse': posse,
+            'escritura': False
+        }
         if self.cliente_2:
             self.cliente_2 = self.ui.comboBox_4.currentText()
         if self.cliente_3:
             self.cliente_3 = self.ui.comboBox_5.currentText()
 
+        if self.ui.checkBox_16.isChecked():
+            info_ad['escritura'] = True
+
         self.vendedor = self.ui.comboBox.currentText()
         self.comprador = self.ui.comboBox_2.currentText()
         self.corretor = self.ui.comboBox_3.currentText()
         
-        return self.comprador, self.vendedor, self.corretor, self.cliente_2, self.cliente_3
-    
+        return self.comprador, self.vendedor, self.corretor, self.cliente_2, self.cliente_3, info_ad

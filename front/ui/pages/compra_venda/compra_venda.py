@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(529, 595)
+        Form.resize(529, 580)
         Form.setStyleSheet("QLineEdit{\n"
 "    border: 3px solid gray;\n"
 "    border-radius: 10px;\n"
@@ -41,7 +41,9 @@ class Ui_Form(object):
 "\n"
 "QPushButton{\n"
 "    border: 0px;\n"
-"}")
+"}\n"
+"\n"
+"")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(11, 11, 82, 22))
         font = QtGui.QFont()
@@ -61,8 +63,8 @@ class Ui_Form(object):
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_2.setEnabled(True)
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 508, 700))
-        self.scrollAreaWidgetContents_2.setMinimumSize(QtCore.QSize(0, 700))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, -355, 508, 900))
+        self.scrollAreaWidgetContents_2.setMinimumSize(QtCore.QSize(0, 900))
         self.scrollAreaWidgetContents_2.setMaximumSize(QtCore.QSize(508, 549))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
@@ -73,8 +75,8 @@ class Ui_Form(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
         self.widget.setSizePolicy(sizePolicy)
-        self.widget.setMinimumSize(QtCore.QSize(511, 721))
-        self.widget.setMaximumSize(QtCore.QSize(511, 721))
+        self.widget.setMinimumSize(QtCore.QSize(511, 800))
+        self.widget.setMaximumSize(QtCore.QSize(511, 640))
         self.widget.setObjectName("widget")
         self.comboBox_3 = QtWidgets.QComboBox(self.widget)
         self.comboBox_3.setGeometry(QtCore.QRect(160, 280, 171, 21))
@@ -92,7 +94,7 @@ class Ui_Form(object):
         self.lineEdit_6.setGeometry(QtCore.QRect(165, 540, 131, 22))
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.line_4 = QtWidgets.QFrame(self.widget)
-        self.line_4.setGeometry(QtCore.QRect(15, 560, 471, 20))
+        self.line_4.setGeometry(QtCore.QRect(15, 560, 291, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
@@ -154,10 +156,6 @@ class Ui_Form(object):
         self.line_7.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_7.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_7.setObjectName("line_7")
-        self.lineEdit_17 = QtWidgets.QLineEdit(self.widget)
-        self.lineEdit_17.setGeometry(QtCore.QRect(315, 500, 171, 61))
-        self.lineEdit_17.setAlignment(QtCore.Qt.AlignCenter)
-        self.lineEdit_17.setObjectName("lineEdit_17")
         self.checkBox_6 = QtWidgets.QCheckBox(self.widget)
         self.checkBox_6.setGeometry(QtCore.QRect(165, 500, 151, 31))
         self.checkBox_6.setObjectName("checkBox_6")
@@ -212,6 +210,31 @@ class Ui_Form(object):
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
+        self.lineEdit_9 = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_9.setGeometry(QtCore.QRect(340, 540, 121, 22))
+        self.lineEdit_9.setObjectName("lineEdit_9")
+        self.lineEdit_11 = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_11.setGeometry(QtCore.QRect(340, 500, 121, 22))
+        self.lineEdit_11.setObjectName("lineEdit_11")
+        self.lineEdit_10 = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_10.setGeometry(QtCore.QRect(340, 580, 121, 22))
+        self.lineEdit_10.setObjectName("lineEdit_10")
+        self.line_8 = QtWidgets.QFrame(self.widget)
+        self.line_8.setGeometry(QtCore.QRect(20, 660, 471, 20))
+        self.line_8.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_8.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_8.setObjectName("line_8")
+        self.textEdit = QtWidgets.QTextEdit(self.widget)
+        self.textEdit.setGeometry(QtCore.QRect(20, 670, 471, 87))
+        self.textEdit.setStyleSheet("\n"
+"    border: 20px solid-gray;\n"
+"    border-radius: 10px;")
+        self.textEdit.setFrameShape(QtWidgets.QFrame.Box)
+        self.textEdit.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.textEdit.setObjectName("textEdit")
+        self.checkBox_16 = QtWidgets.QCheckBox(self.widget)
+        self.checkBox_16.setGeometry(QtCore.QRect(20, 630, 271, 31))
+        self.checkBox_16.setObjectName("checkBox_16")
         self.comboBox_3.raise_()
         self.label_3.raise_()
         self.line_6.raise_()
@@ -229,7 +252,6 @@ class Ui_Form(object):
         self.lineEdit_2.raise_()
         self.lineEdit_4.raise_()
         self.line_7.raise_()
-        self.lineEdit_17.raise_()
         self.checkBox_6.raise_()
         self.checkBox_7.raise_()
         self.comboBox_4.raise_()
@@ -246,6 +268,12 @@ class Ui_Form(object):
         self.line.raise_()
         self.pushButton_2.raise_()
         self.pushButton.raise_()
+        self.lineEdit_9.raise_()
+        self.lineEdit_11.raise_()
+        self.lineEdit_10.raise_()
+        self.line_8.raise_()
+        self.textEdit.raise_()
+        self.checkBox_16.raise_()
         self.verticalLayout.addWidget(self.widget)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
 
@@ -267,7 +295,6 @@ class Ui_Form(object):
         self.lineEdit_5.setPlaceholderText(_translate("Form", "R$ "))
         self.lineEdit_2.setPlaceholderText(_translate("Form", "R$ "))
         self.lineEdit_4.setPlaceholderText(_translate("Form", "R$ "))
-        self.lineEdit_17.setPlaceholderText(_translate("Form", "Posse ou Registro"))
         self.checkBox_6.setText(_translate("Form", "Subsidio ?"))
         self.checkBox_7.setText(_translate("Form", "Isenção ou Retorno ?"))
         self.label_4.setText(_translate("Form", "Corretor"))
@@ -276,5 +303,9 @@ class Ui_Form(object):
         self.checkBox_4.setText(_translate("Form", "Financiamento ?"))
         self.lineEdit_7.setPlaceholderText(_translate("Form", "R$ "))
         self.lineEdit_3.setPlaceholderText(_translate("Form", "R$ "))
+        self.lineEdit_9.setPlaceholderText(_translate("Form", "Cartorio"))
+        self.lineEdit_11.setPlaceholderText(_translate("Form", "Matricula"))
+        self.lineEdit_10.setPlaceholderText(_translate("Form", "Inscrição IPTU"))
+        self.textEdit.setPlaceholderText(_translate("Form", "Posse ou Registro"))
+        self.checkBox_16.setText(_translate("Form", "Antes da escritura Pública ?"))
 from front.static import resource
-

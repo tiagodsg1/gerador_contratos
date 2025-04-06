@@ -39,6 +39,28 @@ class autorizacao(QWidget):
         self.ui.label_5.hide()
 
     def get_dados(self):
+
+        cartorio = self.ui.lineEdit_8.text()
+        n_iptu = self.ui.lineEdit_9.text()
+        relogio = self.ui.lineEdit_10.text()
+        monobitrifasico = self.ui.lineEdit_13.text()
+        agua = self.ui.lineEdit_16.text()
+        gas = self.ui.lineEdit_14.text()
+        funesbom = self.ui.lineEdit_15.text()
+        matricula = self.ui.lineEdit_11.text()
+        luz = self.ui.lineEdit_12.text()
+        
+        info_ad = {
+            'cartorio' : cartorio,
+            'n_iptu': n_iptu,
+            'relogio': relogio,
+            'monobitrifasico': monobitrifasico,
+            'agua': agua,
+            'luz': luz,
+            'gas': gas,
+            'funesbom': funesbom,
+            'matricula': matricula,
+        }
         if self.cliente_2 == True:
             self.cliente_2 = self.ui.comboBox_3.currentText()
         if self.cliente_3 == True:
@@ -47,4 +69,4 @@ class autorizacao(QWidget):
         self.cliente = self.ui.comboBox_2.currentText()
         self.corretor = self.ui.comboBox.currentText()
         
-        return self.cliente, self.corretor , self.cliente_2, self.cliente_3
+        return self.cliente, self.corretor , self.cliente_2, self.cliente_3, info_ad

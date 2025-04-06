@@ -5,7 +5,7 @@ from docx.shared import Pt
 from back.docx.src.inserir_tabelas import inserir_tabelas
 
 
-def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, sucesso, error, download):
+def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, info_ad, sucesso, error, download):
     try:
         documento = Document(caminho_documento)
 
@@ -188,82 +188,80 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                         else:
                             celula.text = celula.text.replace('#CEP_IMOVEL', dados_imovel['cep'])
 
-                    '''if '#CARTORIO' in celula.text:
-                        if cartorio == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            celula.text = celula.text.replace('#CARTORIO', dados_imovel['cartorio'])'''
+                    if '#CARTORIO' == celula.text:
+                            if info_ad['cartorio'] == '':
+                                tabela_para_remover = documento.tables[tabela_index]
+                                remover_linha = tabela_para_remover.rows[linha._index]._element
+                                remover_linha.getparent().remove(remover_linha)
+                            else:
+                                celula.text = celula.text.replace('#CARTORIO', info_ad['cartorio'])
 
                     if '#MATRICULA' in celula.text:
-                        if dados_imovel['matricula'] == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                        if info_ad['matricula'] == '':
+                            if dados_imovel['matricula'] == 'None':
+                                tabela_remove = documento.tables[tabela_index]
+                                remover_linha = tabela_remove.rows[linha._index]._element
+                                remover_linha.getparent().remove(remover_linha)
+                            else:
+                                celula.text = celula.text.replace('#MATRICULA', dados_imovel['matricula'])
+                        else:
+                            celula.text = celula.text.replace('#MATRICULA', info_ad['matricula'])
+
+                    if '#INSCRICAO_IPTU' == celula.text:
+                        if info_ad['n_iptu'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#MATRICULA', dados_imovel['matricula'])
+                            celula.text = celula.text.replace('#INSCRICAO_IPTU', info_ad['n_iptu'])        
 
-                    ''''if '#INSCRICAO_IPTU' in celula.text:
-                        if iptu == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                    if '#CONCESSIONARIA_LUZ' == celula.text:
+                        if info_ad['luz'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#INSCRICAO_IPTU', iptu)
-
-                    if 'FUNESEBOM' in celula.text:
-                        if funesbom == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                            celula.text = celula.text.replace('#CONCESSIONARIA_LUZ', info_ad['luz'])
+        
+                    if '#RELOGIO' == celula.text:
+                        if info_ad['relogio'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('FUNESEBOM', funesbom)
+                            celula.text = celula.text.replace('#RELOGIO', info_ad['relogio'])
 
-                    if '#CONCESSIONARIA_LUZ' in celula.text:
-                        if luz == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                    if '#MONOBITRIFASICO' == celula.text:
+                        if info_ad['monobitrifasico'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CONCESSIONARIA_LUZ', luz)
+                            celula.text = celula.text.replace('#MONOBITRIFASICO', info_ad['monobitrifasico'])
 
-                    if '#RELOGIO' in celula.text:
-                        if relogio == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                    if '#CONCESSIONARIA_GAS' == celula.text:
+                        if info_ad['gas']== '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#RELOGIO', relogio)
+                            celula.text = celula.text.replace('#CONCESSIONARIA_GAS', info_ad['gas'])
 
-                    if '#MONOBITRIFASICO' in celula.text:
-                        if monobitrifasico == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                    if '#FUNESBOM' == celula.text:
+                        if info_ad['funesbom'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#MONOBITRIFASICO', monobitrifasico)
+                            celula.text = celula.text.replace('#FUNESBOM', info_ad['funesbom'])
 
-                    if '#CONCESSIONARIA_GAS' in celula.text:
-                        if gas == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
+                    if '#HIDROMETRO' == celula.text:
+                        if info_ad['agua'] == '':
+                            tabela_para_remover = documento.tables[tabela_index]
+                            remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CONCESSIONARIA_GAS', gas)
-
-                    if '#FUNESBOM' in celula.text:
-                        if funesbom == None:
-                            tabela_remove = documento.tables[tabela_index]
-                            remover_linha = tabela_remove.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            celula.text = celula.text.replace('#FUNESBOM', funesbom)'''
-
-                    if '#HIDROMETRO' in celula.text:
-                        tabela_remove = documento.tables[tabela_index]
-                        remover_linha = tabela_remove.rows[linha._index]._element
-                        remover_linha.getparent().remove(remover_linha)
+                            celula.text = celula.text.replace('#HIDROMETRO', info_ad['agua'])
 
         for paragrafo in documento.paragraphs:
 
@@ -277,4 +275,4 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
         
         download.emit(documento)
     except Exception as e:
-        error.emit(e)
+        error.emit(str(e))
