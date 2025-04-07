@@ -24,14 +24,14 @@ class Dados:
                 port= os.getenv("PORT")             
             )
         except Exception as e:
-            '''self.error.emit(f'Erro ao conectar com o banco de dados: {e}')'''
+            self.error.emit(f'Erro ao conectar com o banco de dados: {e}')
             sys.exit()
 
         try:
             self.extrair_nomes_bd()
 
         except Exception as e:
-            '''self.error.emit(f'Erro ao fazer o download{e}')'''
+            self.error.emit(f'Erro ao fazer o download{e}')
             self.servidor.close()
 
     def download_table(self):
@@ -66,11 +66,12 @@ class Dados:
             with page.expect_download() as download_info:
                 page.click('xpath=//*[@id="root"]/div/div/main/div/div/div/div/div/div[2]/table/tbody/tr[1]/td[3]/a')
             download = download_info.value
-            arquivos = os.listdir('Tabelas')
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Tabelas')
+            arquivos = os.listdir(caminho_docx)
             for arquivo in arquivos:
-                if 'tabela_old' in arquivo:
-                    os.remove(f'Tabelas/{arquivo}')
-            download.save_as('Tabelas/tabela_old.xlsx')
+                os.remove(f'{caminho_docx}/{arquivo}')
+            download.save_as(f'{caminho_docx}/tabela_old.xlsx')
             browser.close()
             self.extrair_nomes_bd()
 
@@ -84,7 +85,10 @@ class Dados:
         self.extrair_nomes_planilha()
     
     def extrair_nomes_planilha(self):
-        self.caminho = 'Tabelas/tabela_old.xlsx'
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        caminho_docx = os.path.join(base_dir, 'Tabelas')
+        arquivos = os.listdir(caminho_docx)
+        self.caminho = os.path.join(caminho_docx, 'tabela_old.xlsx')
         planilha = openpyxl.load_workbook(self.caminho)
         aba = planilha['Clientes']
         self.nomes_planilha = [aba[f"D{i}"].value for i in range(2, aba.max_row+1)]

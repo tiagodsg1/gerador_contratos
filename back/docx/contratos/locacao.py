@@ -15,7 +15,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                 for cell in row.cells:
                     # Parte Imovel
                     if '#END_IMOVEL' in cell.text:
-                        cell.text = cell.text.replace('#END_IMOVEL', f'{dados_imovel['logradouro']}, {dados_imovel['numero']}')
+                        cell.text = cell.text.replace('#END_IMOVEL', f'{dados_imovel['logradouro']}, {dados_imovel['numero']}, {dados_imovel['complemento']}, {dados_imovel['bairro']}, {dados_imovel['cidade']}, Rio de Janeiro')
                     if '#CEP' in cell.text:
                         cell.text = cell.text.replace('#CEP', dados_imovel['cep'])
 
@@ -120,61 +120,61 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                     #Parte Locataria
 
                     if '#PARTE_LOCATARIA' in cell.text:
-                        cell.text = cell.text.replace('#PARTE_LOCATARIA', dados_cliente2['nome'])
+                        cell.text = cell.text.replace('#PARTE_LOCATARIA', dados_cliente['nome'])
                     
                     if '#2NACIONALIDADE' in cell.text:
                         cell.text = cell.text.replace('#2NACIONALIDADE', 'Brasileiro(a)')
 
                     if '#2ESTADO CIVIL' in cell.text:
-                        if dados_cliente2['estado_civil'] == None:
+                        if dados_cliente['estado_civil'] == None:
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2ESTADO CIVIL', dados_cliente2['estado_civil'])
+                            cell.text = cell.text.replace('#2ESTADO CIVIL', dados_cliente['estado_civil'])
                     
                     if '#2CPF' in cell.text:
-                        if dados_cliente2['cpf_cnpj'] == 'None':
+                        if dados_cliente['cpf_cnpj'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2CPF', dados_cliente2['cpf_cnpj'])
+                            cell.text = cell.text.replace('#2CPF', dados_cliente['cpf_cnpj'])
 
                     if '#2E_MAIL' in cell.text:
-                        if dados_cliente2['email'] == 'None':
+                        if dados_cliente['email'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2E_MAIL', dados_cliente2['email'])
+                            cell.text = cell.text.replace('#2E_MAIL', dados_cliente['email'])
 
                     if '#TELEFONE_LOCATARIA' in cell.text:
-                        if dados_cliente2['telefone'] == 'None':
+                        if dados_cliente['telefone'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#TELEFONE_LOCATARIA', dados_cliente2['telefone'])
+                            cell.text = cell.text.replace('#TELEFONE_LOCATARIA', dados_cliente['telefone'])
 
                     if '#2ENDEREÇO' in cell.text:
-                        if dados_cliente2['logradouro'] == 'None':
+                        if dados_cliente['logradouro'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2ENDEREÇO', f'{dados_cliente2['logradouro']}, {dados_cliente2['numero']}, {dados_cliente2['bairro']}, {dados_cliente2['cidade']}, {dados_cliente2['estado']}')
+                            cell.text = cell.text.replace('#2ENDEREÇO', f'{dados_cliente['logradouro']}, {dados_cliente['numero']}, {dados_cliente['bairro']}, {dados_cliente['cidade']}, Rio de Janeiro')
                     
                     if '#2CEP' in cell.text:
-                        if dados_cliente2['cep'] == 'None':
+                        if dados_cliente['cep'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2CEP', dados_cliente2['cep'])
+                            cell.text = cell.text.replace('#2CEP', dados_cliente['cep'])
 
                     if '#1PARTE_LOCATARIA' in cell.text:
-                        cell.text = cell.text.replace('#1PARTE_LOCATARIA', dados_cliente2['nome'])
+                        cell.text = cell.text.replace('#1PARTE_LOCATARIA', dados_cliente['nome'])
                         for paragrafo in cell.paragraphs:
                             if cell.text in paragrafo.text:
                                 paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
@@ -195,7 +195,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
 
                     if '#VALOR_ALUGUEL' in cell.text:
                         if info_ad['aluguel'] == None:
-                            cell.text = cell.text.replace('#VALOR_ALUGUEL', dados_imovel['valor'])
+                            cell.text = cell.text.replace('#VALOR_ALUGUEL R$', dados_imovel['valor'])
                         else:
                             cell.text = cell.text.replace('#VALOR_ALUGUEL', info_ad['aluguel'])
 
@@ -263,7 +263,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                     paragraph.text = paragraph.text.replace('#MAXIMO_MORADORES', info_ad['max_moradores'])
             
             if 'Cabe à PARTE LOCATÁRIA cumprir diligentemente ' in text:
-                if info_ad['cond'] == None:
+                if info_ad['cond'] == None: #Rever
                     delete_paragraph(paragraph)
             
             if 'Não é permitida a criação, manutenção, guarda' in text:
