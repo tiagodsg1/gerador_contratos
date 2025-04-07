@@ -15,7 +15,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                 for cell in row.cells:
                     # Parte Imovel
                     if '#END_IMOVEL' in cell.text:
-                        cell.text = cell.text.replace('#END_IMOVEL', f'{dados_imovel['logradouro']}, {dados_imovel['numero']}, {dados_imovel['complemento']}, {dados_imovel['bairro']}, {dados_imovel['cidade']}, Rio de Janeiro')
+                        cell.text = cell.text.replace('#END_IMOVEL', f"{dados_imovel['logradouro']}, {dados_imovel['numero']}, {dados_imovel['complemento']}, {dados_imovel['bairro']}, {dados_imovel['cidade']}, Rio de Janeiro")
                     if '#CEP' in cell.text:
                         cell.text = cell.text.replace('#CEP', dados_imovel['cep'])
 
@@ -70,13 +70,13 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                         else:
                             cell.text = cell.text.replace('#MONOBITRIFASICO', info_ad['monobitrifasico'])
 
-                    if '#AGUA' in cell.text:
+                    if '#CONCESSIONARIA_AGUA' in cell.text:
                         if info_ad['agua'] == '':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#AGUA', info_ad['agua'])
+                            cell.text = cell.text.replace('#CONCESSIONARIA_AGUA', info_ad['agua'])
 
                     if '#CONCESSIONARIA_GAS' in cell.text:
                         if info_ad['gas'] == '':
@@ -86,36 +86,36 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                         else:
                             cell.text = cell.text.replace('#CONCESSIONARIA_GAS', info_ad['gas'])
 
-                    if '#2FUNESBOM_MENSAL' in cell.text:
+                    if '#FUNESBOM' in cell.text:
                         if info_ad['funesbom'] == '':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2FUNESBOM_MENSAL', info_ad['funesbom'])          
+                            cell.text = cell.text.replace('#FUNESBOM', info_ad['funesbom'])          
                     # Parte Locadora
 
                     if '#PARTE_LOCADORA' in cell.text:
-                        cell.text = cell.text.replace('#PARTE_LOCADORA', dados_cliente['nome'])
+                        cell.text = cell.text.replace('#PARTE_LOCADORA', dados_cliente2['nome'])
                     
                     if '#NACIONALIDADE' in cell.text:
                         cell.text = cell.text.replace('#NACIONALIDADE', 'Brasileiro(a)')
                     
                     if '#ESTADO CIVIL' in cell.text:
-                        if dados_cliente['estado_civil'] == None:
+                        if dados_cliente2['estado_civil'] == None:
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#ESTADO CIVIL', dados_cliente['estado_civil'])
+                            cell.text = cell.text.replace('#ESTADO CIVIL', dados_cliente2['estado_civil'])
                     
                     if '#CPF' in cell.text:
-                        if dados_cliente['cpf_cnpj'] == 'None':
+                        if dados_cliente2['cpf_cnpj'] == 'None':
                             tabela_remove = documento.tables[table_index]
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#CPF', dados_cliente['cpf_cnpj'])
+                            cell.text = cell.text.replace('#CPF', dados_cliente2['cpf_cnpj'])
                     
                     #Parte Locataria
 
@@ -163,7 +163,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            cell.text = cell.text.replace('#2ENDEREÇO', f'{dados_cliente['logradouro']}, {dados_cliente['numero']}, {dados_cliente['bairro']}, {dados_cliente['cidade']}, Rio de Janeiro')
+                            cell.text = cell.text.replace('#2ENDEREÇO', f"{dados_cliente['logradouro']}, {dados_cliente['numero']}, {dados_cliente['bairro']}, {dados_cliente['cidade']}, Rio de Janeiro")
                     
                     if '#2CEP' in cell.text:
                         if dados_cliente['cep'] == 'None':
@@ -180,12 +180,11 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                                 paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                 
                     #Locação
-
                     if '#PRAZOCONTRATO_EMMESES meses' in cell.text:
                         if int(info_ad['praz_contr']) == 1:
-                            cell.text = cell.text.replace('#PRAZOCONTRATO_EMMESES meses', f'{info_ad['praz_contr']} mês')
+                            cell.text = cell.text.replace('#PRAZOCONTRATO_EMMESES meses', f"{info_ad['praz_contr']} mês")
                         else:
-                            cell.text = cell.text.replace('#PRAZOCONTRATO_EMMESES meses', f'{info_ad['praz_contr']} meses')
+                            cell.text = cell.text.replace('#PRAZOCONTRATO_EMMESES meses', f"{info_ad['praz_contr']} meses")
                     
                     if '#INICIO_CONTRATO' in cell.text:
                         cell.text = cell.text.replace('#INICIO_CONTRATO', info_ad['inicio_contr'])
@@ -226,57 +225,73 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
 
         #Texto do documento
         for paragraph in documento.paragraphs:
-            retirar(paragraph)
+
             text = paragraph.text
+            
+            if "#CODIGO_CONTRATO" in text:
+                paragraph.text = paragraph.text.replace('#CODIGO_CONTRATO', dados_imovel['referencia'])
+            
             if 'Entretanto, como a data de assinatura é diferente da data da entrega das chaves, o período de ' in text:
+                retirar(text)
                 if info_ad['chav_agr'] == True :
                     delete_paragraph(paragraph)
 
             if 'A PARTE LOCATÁRIA tem direito a uso de uma vaga de garagem.' in text:
+                retirar(text)
                 if info_ad['garagem'] == False:
                     delete_paragraph(paragraph)
 
             if 'A PARTE LOCATÁRIA tem ciência de que o imóvel está gravado com alienação fiduciária' in text:
+                retirar(text)
                 if info_ad['alienado'] == False:
                     delete_paragraph(paragraph)
                     
             if 'Juntamente com o aluguel serão pagos pela PARTE LOCATÁRIA todos os impostos,' in text:
+                retirar(text)
                 if info_ad['enc_loc'] == False:
                     delete_paragraph(paragraph)
 
             if 'Se a PARTE LOCATÁRIA quiser' in text:
+                retirar(text)
                 if info_ad['enc_loc'] == False:
                     delete_paragraph(paragraph)
 
             if 'Havendo cobrança adicional na cota condominial' in text:
+                retirar(text)
                 if info_ad['fic_cond'] == False:
                     delete_paragraph(paragraph) 
 
             if 'Os locatários são integralmente solidários ' in text:
+                retirar(text)
                 if info_ad['max_moradores'] == None:
                     delete_paragraph(paragraph)
             
             if '#MAXIMO_MORADORES' in text:
+                retirar(text)
                 if info_ad['max_moradores'] == None:
                     text.replace('#MAXIMO_MORADORES pessoas', '1 pessoa(s)')   
                 else:
                     paragraph.text = paragraph.text.replace('#MAXIMO_MORADORES', info_ad['max_moradores'])
             
             if 'Cabe à PARTE LOCATÁRIA cumprir diligentemente ' in text:
+                retirar(text)
                 if info_ad['cond'] == None: #Rever
                     delete_paragraph(paragraph)
             
             if 'Não é permitida a criação, manutenção, guarda' in text:
+                retirar(text)
                 if info_ad['act_anm'] == True:
                     delete_paragraph(paragraph)
 
             if 'O Relatório de Vistoria será elaborado ' in text:
+                retirar(text)
                 if info_ad['vist_agr'] == True:
                     text.replace('O Relatório de Vistoria será elaborado antes da entrega das chaves, sendo enviado à PARTE LOCATÁRIA para ciência, e passará a ser parte integrante deste contrato', '')
                 else:
                     text.replace('O Relatório de Vistoria segue anexo ao presente contrato, sendo parte integrante deste', '')
 
             if 'Caso o relatório de vistoria não seja assinado por todos da PARTE LOCATÁRIA' in text:
+                retirar(text)
                 if info_ad['vist_agr'] == True:
                     delete_paragraph(paragraph)
 

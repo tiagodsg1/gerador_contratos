@@ -22,6 +22,9 @@
 QComboBox{
 	border: 2px solid gray;
 	border-radius: 10px;
+	padding-left: 6px;
+	padding-bottom: 2px;
+	padding-top: 2px;
 }
 
 QComboBox::drop-down{
@@ -118,7 +121,7 @@ QDateEdit::down-button, QDateEdit::up-button {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-530</y>
+      <y>0</y>
       <width>514</width>
       <height>1071</height>
      </rect>
@@ -156,42 +159,6 @@ QDateEdit::down-button, QDateEdit::up-button {
        <height>16777215</height>
       </size>
      </property>
-     <widget class="QComboBox" name="comboBox_2">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>250</y>
-        <width>171</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="comboBox_3">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>390</y>
-        <width>171</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>175</x>
-        <y>200</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Parte Locadora</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="Line" name="line_6">
       <property name="geometry">
        <rect>
@@ -205,29 +172,13 @@ QDateEdit::down-button, QDateEdit::up-button {
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>185</x>
-        <y>350</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Corretor</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="Line" name="line">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>460</y>
         <width>16</width>
-        <height>311</height>
+        <height>231</height>
        </rect>
       </property>
       <property name="orientation">
@@ -270,7 +221,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no aluguel ?</string>
+       <string>Mudança no valor aluguel ?</string>
       </property>
      </widget>
      <widget class="Line" name="line_3">
@@ -278,7 +229,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        <rect>
         <x>0</x>
         <y>520</y>
-        <width>471</width>
+        <width>491</width>
         <height>20</height>
        </rect>
       </property>
@@ -289,9 +240,9 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>19</x>
+        <x>30</x>
         <y>450</y>
-        <width>111</width>
+        <width>91</width>
         <height>31</height>
        </rect>
       </property>
@@ -322,7 +273,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no IPTU ?</string>
+       <string>Mudança no valor IPTU ?</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_4">
@@ -348,7 +299,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no Condominio ?</string>
+       <string>Mudança no valor Condominio ?</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_5">
@@ -380,14 +331,14 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>390</x>
+        <x>370</x>
         <y>450</y>
-        <width>51</width>
+        <width>91</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Seguro</string>
+       <string>Seguro Residencial</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox_4">
@@ -426,7 +377,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        </rect>
       </property>
       <property name="text">
-       <string>Maximo moradores</string>
+       <string>Limite maximo de moradores</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_7">
@@ -506,9 +457,9 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QCheckBox" name="checkBox_10">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>350</x>
         <y>690</y>
-        <width>171</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -520,29 +471,10 @@ QDateEdit::down-button, QDateEdit::up-button {
       </property>
       <property name="text">
        <string>Inquilino pagará os 
-encargos de alocação ?</string>
+encargos da locação ?</string>
       </property>
       <property name="tristate">
        <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QDateEdit" name="dateEdit">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>490</y>
-        <width>131</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="currentSection">
-       <enum>QDateTimeEdit::MonthSection</enum>
-      </property>
-      <property name="displayFormat">
-       <string>MM</string>
       </property>
      </widget>
      <widget class="QDateEdit" name="dateEdit_2">
@@ -571,36 +503,10 @@ encargos de alocação ?</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_4">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>70</y>
-        <width>171</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_8">
-      <property name="geometry">
-       <rect>
-        <x>175</x>
-        <y>20</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Parte Locataria</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBox_11">
       <property name="geometry">
        <rect>
-        <x>350</x>
+        <x>180</x>
         <y>690</y>
         <width>151</width>
         <height>31</height>
@@ -614,7 +520,7 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>880</y>
+        <y>830</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -627,7 +533,7 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>830</y>
+        <y>780</y>
         <width>181</width>
         <height>31</height>
        </rect>
@@ -649,7 +555,7 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>880</y>
+        <y>830</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -662,9 +568,9 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>780</y>
-        <width>16</width>
-        <height>311</height>
+        <y>770</y>
+        <width>20</width>
+        <height>320</height>
        </rect>
       </property>
       <property name="orientation">
@@ -714,7 +620,7 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>950</y>
+        <y>800</y>
         <width>121</width>
         <height>22</height>
        </rect>
@@ -782,7 +688,7 @@ encargos de alocação ?</string>
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>800</y>
+        <y>950</y>
         <width>121</width>
         <height>22</height>
        </rect>
@@ -790,6 +696,151 @@ encargos de alocação ?</string>
       <property name="placeholderText">
        <string>Nº Cons D'Água</string>
       </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_17">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+      <property name="placeholderText">
+       <string>30 meses</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>680</y>
+        <width>491</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_8">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>690</y>
+        <width>20</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>760</y>
+        <width>491</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>320</y>
+        <width>341</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="minimumSize">
+          <size>
+           <width>339</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Corretor</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_3"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>180</y>
+        <width>341</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="minimumSize">
+          <size>
+           <width>339</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Parte Locadora</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_2"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>20</y>
+        <width>341</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Parte Locataria</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_4"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>

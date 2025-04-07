@@ -1,5 +1,7 @@
 from front.ui.pages.locacao.locacao import Ui_Form
 from PyQt5.QtWidgets import QWidget
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 class locacao(QWidget):
     def __init__(self):
@@ -38,9 +40,8 @@ class locacao(QWidget):
         self.locataria = self.ui.comboBox_2.currentText()
         self.corretor = self.ui.comboBox_3.currentText()
 
-
-        inicio_contr = self.ui.dateEdit.date()
-        praz_contr = self.ui.dateEdit_2.date()
+        inicio_contr_get = self.ui.dateEdit_2.date()
+        praz_contr = self.ui.lineEdit_17.text()
         seguro = self.ui.lineEdit_6.text()
 
         cartorio = self.ui.lineEdit_8.text()
@@ -53,23 +54,18 @@ class locacao(QWidget):
         matricula = self.ui.lineEdit_11.text()
         luz = self.ui.lineEdit_12.text()
 
-        fim_contr = inicio_contr.month() + praz_contr.month()
-        if fim_contr > 12:
-            dia = inicio_contr.day()
-            mes = fim_contr - 12
-            ano = inicio_contr.year() + 1
-        else:
-            dia = inicio_contr.day()
-            mes = fim_contr
-            ano = inicio_contr.year()
-        if mes < 10:
-            mes = f'0{mes}'
-        if dia < 10:
-            dia = f'0{dia}'
-        fim_contr = f"{dia}/{mes}/{ano}"
-        inicio_contr = f'{inicio_contr.day()}/{inicio_contr.month()}/{inicio_contr.year()}'
-        praz_contr = f'{praz_contr.month()}'
+        dia = inicio_contr_get.day()
+        if int(dia) <= 9:
+            dia = (f'0{dia}')
+        mes = inicio_contr_get.month()
+        ano = inicio_contr_get.year()
 
+        data_calc = datetime()
+
+        inicio_contr = datetime.strftime(f'{dia}/{mes}/{ano}', "%d/%m/%Y")
+        fim_contr = inicio_contr + relativedelta(months=praz_contr)
+
+        print(fim_contr)
         self.info_ad = {
                     'inicio_contr': inicio_contr,
                     'praz_contr': praz_contr,

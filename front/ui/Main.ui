@@ -75,6 +75,9 @@
        <string notr="true">QComboBox{
 	border: 2px solid gray;
 	border-radius: 10px;
+	padding-left: 6px;
+	padding-bottom: 2px;
+	padding-top: 2px;
 }
 
 QComboBox::drop-down{
