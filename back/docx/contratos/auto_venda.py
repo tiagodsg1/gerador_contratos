@@ -3,6 +3,10 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 
 from back.docx.src.inserir_tabelas import inserir_tabelas
+from back.docx.src.retirar import retirar
+from back.docx.src.retirar import substituir_texto
+from back.docx.src.retirar import remover_trecho
+from back.docx.src.retirar import substituir_trecho_tabela
 
 
 def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, info_ad, sucesso, error, download):
@@ -10,6 +14,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
         documento = Document(caminho_documento)
 
         inserir_tabelas(documento, documento.tables[0], dados_cliente2, dados_cliente3)
+        retirar(documento)
         
         for tabela_index, tabela in enumerate(documento.tables):
             for linha in tabela.rows:
@@ -17,18 +22,13 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                     if dados_cliente:
                         #Dados do cliente
                         if '#PARTE_VENDEDORA' == celula.text:
-                            celula.text = celula.text.replace('#PARTE_VENDEDORA', dados_cliente['nome'])
+                            substituir_trecho_tabela(celula, '#PARTE_VENDEDORA', dados_cliente['nome'])
 
                         if '#1PARTE_VENDEDORA' in celula.text:
-                            celula.text = celula.text.replace('#1PARTE_VENDEDORA', dados_cliente['nome'])
-                            celula.text = celula.text.replace('_______________________________', '______________________________________')
-                            for paragrafo in celula.paragraphs:
-                                if celula.text in paragrafo.text:
-                                    paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-                                    paragrafo.style.font.size = Pt(12)
+                            substituir_trecho_tabela(celula, '#1PARTE_VENDEDORA', dados_cliente['nome'])
                         
                         if '#NACIONALIDADE' in celula.text:
-                            celula.text = celula.text.replace('#NACIONALIDADE', 'Brasileiro(a)')
+                            substituir_trecho_tabela(celula, '#NACIONALIDADE', 'Brasileiro(a)')
 
                         if '#ESTADO CIVIL' in celula.text:
                             if dados_cliente['estado_civil'] == None:
@@ -36,7 +36,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#ESTADO CIVIL', dados_cliente['estado_civil'])
+                                substituir_trecho_tabela(celula, '#ESTADO CIVIL', dados_cliente['estado_civil'])
                         
                         if '#CPF' in celula.text:
                             if dados_cliente['cpf_cnpj'] == 'None':
@@ -44,7 +44,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#CPF', dados_cliente['cpf_cnpj'])
+                                substituir_trecho_tabela(celula, '#CPF', dados_cliente['cpf_cnpj'])
                         
                         if '#E_MAIL' in celula.text:
                             if dados_cliente['email'] == 'None':
@@ -53,7 +53,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha.getparent().remove(remover_linha)
 
                             else:
-                                celula.text = celula.text.replace('#E_MAIL', dados_cliente['email'])
+                                substituir_trecho_tabela(celula, '#E_MAIL', dados_cliente['email'])
 
                         if '#ENDERECO' in celula.text:
                             if dados_cliente['logradouro'] == 'None':
@@ -61,7 +61,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#ENDERECO', dados_cliente['logradouro'])
+                                substituir_trecho_tabela(celula, '#ENDERECO', dados_cliente['logradouro'])
 
                         if '#CEP' in celula.text:
                             if dados_cliente['cep'] == 'None':
@@ -69,22 +69,22 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#CEP', dados_cliente['cep'])
+                                substituir_trecho_tabela(celula, '#CEP', dados_cliente['cep'])
 
                     if dados_cliente2:
                         #Dados do cliente 2
                         if '#2PARTE_CLIENTE' == celula.text:
-                            celula.text = celula.text.replace('#2PARTE_CLIENTE', dados_cliente2['nome'])
+                            substituir_trecho_tabela(celula, '#2PARTE_CLIENTE', dados_cliente2['nome'])
 
                         if '#2PARTE_CLIENTE_ASSINATURA' in celula.text:
-                            celula.text = celula.text.replace('#2PARTE_CLIENTE_ASSINATURA', dados_cliente2['nome'])
+                            substituir_trecho_tabela(celula, '#2PARTE_CLIENTE_ASSINATURA', dados_cliente2['nome'])
                             for paragrafo in celula.paragraphs:
                                 if celula.text in paragrafo.text:
                                     paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                                     paragrafo.style.font.size = Pt(12)
 
                         if '#2NACIONALIDADE' == celula.text:
-                            celula.text = celula.text.replace('#2NACIONALIDADE', 'Brasileiro(a)')
+                            substituir_trecho_tabela(celula, '#2NACIONALIDADE', 'Brasileiro(a)')
 
                         if '#2ESTADO CIVIL' == celula.text:
                             if dados_cliente2['estado_civil'] == None:
@@ -92,7 +92,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#2ESTADO CIVIL', dados_cliente2['estado_civil'])
+                                substituir_trecho_tabela(celula, '#2ESTADO CIVIL', dados_cliente2['estado_civil'])
 
                         if '#2CPF' == celula.text:
                             if dados_cliente2['cpf_cnpj'] == 'None':
@@ -100,7 +100,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#2CPF', dados_cliente2['cpf_cnpj'])
+                                substituir_trecho_tabela(celula, '#2CPF', dados_cliente2['cpf_cnpj'])
 
                         if '#2E_MAIL' == celula.text:
                             if dados_cliente2['email'] == 'None':
@@ -108,7 +108,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#2E_MAIL', dados_cliente2['email'])
+                                substituir_trecho_tabela(celula, '#2E_MAIL', dados_cliente2['email'])
 
                         if '#2ENDERECO' == celula.text:
                             if dados_cliente2['logradouro'] == 'None':
@@ -116,7 +116,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#2ENDERECO', dados_cliente2['logradouro'])
+                                substituir_trecho_tabela(celula, '#2ENDERECO', dados_cliente2['logradouro'])
 
                         if '#2CEP' == celula.text:
                             if dados_cliente2['cep'] == 'None':
@@ -127,17 +127,17 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                     if dados_cliente3:
                         #Dados do cliente 3
                         if '#3PARTE_CLIENTE' == celula.text:
-                            celula.text = celula.text.replace('#3PARTE_CLIENTE', dados_cliente3['nome'])
+                            substituir_trecho_tabela(celula, '#3PARTE_CLIENTE', dados_cliente3['nome'])
 
                         if '#3PARTE_CLIENTE_ASSININATURA' in celula.text:
-                            celula.text = celula.text.replace('#3PARTE_CLIENTE_ASSININATURA', dados_cliente3['nome'])
+                            substituir_trecho_tabela(celula, '#3PARTE_CLIENTE_ASSININATURA', dados_cliente3['nome'])
                             for paragrafo in celula.paragraphs:
                                 if celula.text in paragrafo.text:
                                     paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                                     paragrafo.style.font.size = Pt(12)
 
                         if '#3NACIONALIDADE' == celula.text:
-                            celula.text = celula.text.replace('#3NACIONALIDADE', 'Brasileiro(a)')
+                            substituir_trecho_tabela(celula, '#3NACIONALIDADE', 'Brasileiro(a)')
 
                         if '#3ESTADO CIVIL' == celula.text:
                             if dados_cliente3['estado_civil'] == None:
@@ -145,7 +145,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#3ESTADO CIVIL', dados_cliente3['estado_civil'])
+                                substituir_trecho_tabela(celula, '#3ESTADO CIVIL', dados_cliente3['estado_civil'])
 
                         if '#3CPF' == celula.text:
                             if dados_cliente3['cpf_cnpj'] == 'None':
@@ -153,7 +153,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#3CPF', dados_cliente3['cpf_cnpj'])
+                                substituir_trecho_tabela(celula, '#3CPF', dados_cliente3['cpf_cnpj'])
 
                         if '#3E_MAIL' == celula.text:
                             if dados_cliente3['email'] == 'None':
@@ -161,7 +161,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#3E_MAIL', dados_cliente3['email'])
+                                substituir_trecho_tabela(celula, '#3E_MAIL', dados_cliente3['email'])
 
                         if '#3ENDERECO' == celula.text:
                             if dados_cliente3['logradouro'] == 'None':
@@ -169,7 +169,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#3ENDERECO', dados_cliente3['logradouro'])
+                                substituir_trecho_tabela(celula, '#3ENDERECO', dados_cliente3['logradouro'])
 
                         if '#3CEP' == celula.text:
                             if dados_cliente3['cep'] == 'None':
@@ -179,14 +179,14 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
 
                     #Dados Imovel
                     if '#END_IMOVEL' in celula.text:
-                        celula.text = celula.text.replace('#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ', ' + dados_imovel['estado'])
+                        substituir_trecho_tabela(celula, '#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ', ' + dados_imovel['estado'])
                     if '#CEP_IMOVEL' in celula.text:
                         if dados_imovel['cep'] == None:
                             tabela_remove = documento.tables[tabela_index]
                             remover_linha = tabela_remove.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CEP_IMOVEL', dados_imovel['cep'])
+                            substituir_trecho_tabela(celula, '#CEP_IMOVEL', dados_imovel['cep'])
 
                     if '#CARTORIO' == celula.text:
                             if info_ad['cartorio'] == '':
@@ -194,7 +194,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_para_remover.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#CARTORIO', info_ad['cartorio'])
+                                substituir_trecho_tabela(celula, '#CARTORIO', info_ad['cartorio'])
 
                     if '#MATRICULA' in celula.text:
                         if info_ad['matricula'] == '':
@@ -203,9 +203,9 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                                 remover_linha = tabela_remove.rows[linha._index]._element
                                 remover_linha.getparent().remove(remover_linha)
                             else:
-                                celula.text = celula.text.replace('#MATRICULA', dados_imovel['matricula'])
+                                substituir_trecho_tabela(celula, '#MATRICULA', dados_imovel['matricula'])
                         else:
-                            celula.text = celula.text.replace('#MATRICULA', info_ad['matricula'])
+                            substituir_trecho_tabela(celula, '#MATRICULA', info_ad['matricula'])
 
                     if '#INSCRICAO_IPTU' == celula.text:
                         if info_ad['n_iptu'] == '':
@@ -213,7 +213,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#INSCRICAO_IPTU', info_ad['n_iptu'])        
+                            substituir_trecho_tabela(celula, '#INSCRICAO_IPTU', info_ad['n_iptu'])        
 
                     if '#CONCESSIONARIA_LUZ' == celula.text:
                         if info_ad['luz'] == '':
@@ -221,7 +221,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CONCESSIONARIA_LUZ', info_ad['luz'])
+                            substituir_trecho_tabela(celula, '#CONCESSIONARIA_LUZ', info_ad['luz'])
         
                     if '#RELOGIO' == celula.text:
                         if info_ad['relogio'] == '':
@@ -229,7 +229,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#RELOGIO', info_ad['relogio'])
+                            substituir_trecho_tabela(celula, '#RELOGIO', info_ad['relogio'])
 
                     if '#MONOBITRIFASICO' == celula.text:
                         if info_ad['monobitrifasico'] == '':
@@ -237,7 +237,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#MONOBITRIFASICO', info_ad['monobitrifasico'])
+                            substituir_trecho_tabela(celula, '#MONOBITRIFASICO', info_ad['monobitrifasico'])
 
                     if '#CONCESSIONARIA_GAS' == celula.text:
                         if info_ad['gas']== '':
@@ -245,7 +245,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#CONCESSIONARIA_GAS', info_ad['gas'])
+                            substituir_trecho_tabela(celula, '#CONCESSIONARIA_GAS', info_ad['gas'])
 
                     if '#FUNESBOM' == celula.text:
                         if info_ad['funesbom'] == '':
@@ -253,7 +253,7 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#FUNESBOM', info_ad['funesbom'])
+                            substituir_trecho_tabela(celula, '#FUNESBOM', info_ad['funesbom'])
 
                     if '#HIDROMETRO' == celula.text:
                         if info_ad['agua'] == '':
@@ -261,17 +261,18 @@ def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, d
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            celula.text = celula.text.replace('#HIDROMETRO', info_ad['agua'])
+                            substituir_trecho_tabela(celula, '#HIDROMETRO', info_ad['agua'])
 
         for paragrafo in documento.paragraphs:
+            texto = paragrafo.text
 
-            if '#CAPTADOR' in paragrafo.text:
-                paragrafo.text = paragrafo.text.replace('#CAPTADOR', dados_corretor['nome'])
+            if '#CAPTADOR' in texto:
+                substituir_texto(paragrafo, '#CAPTADOR', dados_corretor['nome'])
 
-            if '#CAPTA_CPF' in paragrafo.text:
-                paragrafo.text = paragrafo.text.replace('#CAPTA_CPF', dados_corretor['cpf_cnpj'])
-            if '#FORO' in paragrafo.text:
-                paragrafo.text = paragrafo.text.replace('#FORO', dados_imovel['cidade'])
+            if '#CAPTA_CPF' in texto:
+                substituir_texto(paragrafo, '#CAPTA_CPF', dados_corretor['cpf_cnpj'])
+            if '#FORO' in texto:
+                substituir_texto(paragrafo, '#FORO', dados_imovel['cidade'])
         
         download.emit(documento)
     except Exception as e:
