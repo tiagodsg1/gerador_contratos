@@ -6,3 +6,4 @@ venv
 build
 dist
 .env
+Gerador_de_Contratos.spec
