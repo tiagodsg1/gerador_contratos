@@ -237,6 +237,8 @@ class MainWindow(QMainWindow):
 
         if self.ui.comboBox.currentText() == 'Locação':
             self.worker.cliente, self.worker.cliente2, self.worker.corretor, self.worker.info_ad = self.locacao.get_dados()
+            if self.worker.cliente == None:
+                return
 
         if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
             self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
@@ -289,7 +291,7 @@ class MainWindow(QMainWindow):
 
         if self.ui.comboBox.currentText() == 'Locação':
             self.clear_frame(self.ui.frame_3)
-            self.locacao.insert_dados(self.cliente_lista, self.corretor_lista)
+            self.locacao.insert_dados(self.cliente_lista, self.corretor_lista, self.download_error)
             self.locacao.setParent(self.ui.frame_3)
             self.locacao.show()
 

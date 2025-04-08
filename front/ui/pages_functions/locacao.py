@@ -1,5 +1,5 @@
 from front.ui.pages.locacao.locacao import Ui_Form
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QMessageBox
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -20,10 +20,11 @@ class locacao(QWidget):
                 lambda state, le=line_edit: le.setVisible(state == 2)
             )
 
-    def insert_dados(self, cliente, corretor):
+    def insert_dados(self, cliente, corretor, error):
         self.locador = cliente
         self.locataria = cliente
         self.corretor = corretor
+        self.error = error
         self.hide_all()
         self.ui.comboBox_2.addItems(self.locador)
         self.ui.comboBox_3.addItems(self.corretor)
@@ -58,6 +59,10 @@ class locacao(QWidget):
         date_use = datetime(inicio_contr_get.year(), inicio_contr_get.month(), inicio_contr_get.day())
 
         inicio_contr = datetime.strftime(date_use, "%d/%m/%Y")
+        if praz_contr == "":
+            self.error("Prazo de contrato não pode ser vazio")
+            return None, None, None, None
+            
         prazo_meses = int(praz_contr)
         fim_contr = date_use + relativedelta(months=prazo_meses)
         fim_contr = datetime.strftime(fim_contr, "%d/%m/%Y")
