@@ -201,6 +201,7 @@ class MainWindow(QMainWindow):
         self.corretor_lista.sort()
         
         self.ui.pushButton_2.clicked.connect(self.buscar_imovel)
+        self.ui.pushButton_3.clicked.connect(self.adicionar_endereco)
         self.ui.pushButton_5.clicked.connect(self.chamar_variavel)
         self.ui.pushButton_6.clicked.connect(self.download_table)
 
@@ -212,6 +213,7 @@ class MainWindow(QMainWindow):
         self.worker.sucesso.connect(self.download_sucesso)
         self.worker.error.connect(self.download_error)
         self.worker.download_docx.connect(self.download_docx)
+
 
         if self.ui.comboBox.currentText() == 'Administração de Locação':
             self.worker.percentual, self.worker.cliente, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.administracao_locacao.get_dados()
@@ -323,7 +325,15 @@ class MainWindow(QMainWindow):
         if file_name:
             documento.save(file_name)
             QMessageBox.information(self, 'Sucesso', 'Documento salvo com sucesso!')
-            
+
+    def adicionar_endereco(self):
+        self.tipo = self.ui.comboBox_5.currentText()
+        item = self.ui.comboBox_2.currentText()
+        item = item.split(',')[0]
+        imovel_select = GetDados(item).get_imoveis(self.tipo)
+        self.ui.label_2.setText(f"Endereço : {imovel_select['logradouro']}, {imovel_select['numero']}, {imovel_select['bairro']}, {imovel_select['cidade']}, Rio de Janeiro")
+        self.ui.label_2.setWordWrap(True)
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()

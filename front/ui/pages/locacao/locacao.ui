@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
+    <width>625</width>
     <height>597</height>
    </rect>
   </property>
@@ -86,7 +86,7 @@ QDateEdit::down-button, QDateEdit::up-button {
     <rect>
      <x>11</x>
      <y>40</y>
-     <width>531</width>
+     <width>601</width>
      <height>541</height>
     </rect>
    </property>
@@ -121,8 +121,8 @@ QDateEdit::down-button, QDateEdit::up-button {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>514</width>
+      <y>-393</y>
+      <width>580</width>
       <height>1071</height>
      </rect>
     </property>
@@ -143,7 +143,7 @@ QDateEdit::down-button, QDateEdit::up-button {
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>488</width>
+       <width>561</width>
        <height>1071</height>
       </rect>
      </property>
@@ -175,23 +175,10 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="Line" name="line">
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>205</x>
         <y>460</y>
-        <width>16</width>
+        <width>21</width>
         <height>231</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-     <widget class="Line" name="line_2">
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>460</y>
-        <width>16</width>
-        <height>311</height>
        </rect>
       </property>
       <property name="orientation">
@@ -215,13 +202,14 @@ QDateEdit::down-button, QDateEdit::up-button {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>610</y>
-        <width>151</width>
-        <height>31</height>
+        <y>600</y>
+        <width>171</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no valor aluguel ?</string>
+       <string>Houve Mudança no valor
+aluguel ?</string>
       </property>
      </widget>
      <widget class="Line" name="line_3">
@@ -229,7 +217,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        <rect>
         <x>0</x>
         <y>520</y>
-        <width>491</width>
+        <width>571</width>
         <height>20</height>
        </rect>
       </property>
@@ -237,43 +225,17 @@ QDateEdit::down-button, QDateEdit::up-button {
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>450</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Prazo do Contrato</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>450</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Inicio do Contrato</string>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBox_2">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>530</y>
-        <width>151</width>
+        <width>231</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no valor IPTU ?</string>
+       <string>Houve mudança no valor IPTU ?</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_4">
@@ -292,20 +254,24 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QCheckBox" name="checkBox_3">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>225</x>
         <y>530</y>
-        <width>181</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mudança no valor Condominio ?</string>
+       <string>Houve Mudança no
+valor Condominio ?</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_5">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>235</x>
         <y>570</y>
         <width>131</width>
         <height>22</height>
@@ -315,38 +281,12 @@ QDateEdit::down-button, QDateEdit::up-button {
        <string>R$ </string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_6">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>490</y>
-        <width>121</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="placeholderText">
-       <string>R$ </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_6">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>450</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Seguro Residencial</string>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBox_4">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>225</x>
         <y>610</y>
-        <width>151</width>
+        <width>171</width>
         <height>31</height>
        </rect>
       </property>
@@ -357,8 +297,8 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QCheckBox" name="checkBox_5">
       <property name="geometry">
        <rect>
-        <x>350</x>
-        <y>530</y>
+        <x>390</x>
+        <y>540</y>
         <width>121</width>
         <height>31</height>
        </rect>
@@ -372,7 +312,7 @@ QDateEdit::down-button, QDateEdit::up-button {
        <rect>
         <x>0</x>
         <y>690</y>
-        <width>161</width>
+        <width>201</width>
         <height>31</height>
        </rect>
       </property>
@@ -396,71 +336,23 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="QCheckBox" name="checkBox_7">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>225</x>
         <y>650</y>
-        <width>151</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Alienado ?</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_7">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>570</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Relatorio de Entrega de chaves</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
-      </property>
-      <property name="scaledContents">
-       <bool>false</bool>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_8">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>610</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Agora ?</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_9">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>650</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Pós ?</string>
+       <string>O imovel é alienado ?</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox_10">
       <property name="geometry">
        <rect>
-        <x>350</x>
-        <y>690</y>
-        <width>131</width>
-        <height>31</height>
+        <x>0</x>
+        <y>450</y>
+        <width>211</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="acceptDrops">
@@ -470,24 +362,12 @@ QDateEdit::down-button, QDateEdit::up-button {
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>Inquilino pagará os 
-encargos da locação ?</string>
+       <string>Marque caso a Parte Locatária
+seja aresponsável por pagar os
+encargos da locação</string>
       </property>
       <property name="tristate">
        <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QDateEdit" name="dateEdit_2">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>490</y>
-        <width>131</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="Line" name="line_7">
@@ -506,62 +386,14 @@ encargos da locação ?</string>
      <widget class="QCheckBox" name="checkBox_11">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>690</y>
-        <width>151</width>
+        <x>210</x>
+        <y>710</y>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Garagem ?</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_12">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>830</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Agora ?</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_9">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>780</y>
-        <width>181</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Vistoria enviado agora ou após entrega das chaves</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
-      </property>
-      <property name="scaledContents">
-       <bool>false</bool>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_13">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>830</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Pós ?</string>
+       <string>Garagem disponivel ?</string>
       </property>
      </widget>
      <widget class="Line" name="line_4">
@@ -697,31 +529,12 @@ encargos da locação ?</string>
        <string>Nº Cons D'Água</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_17">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>490</y>
-        <width>121</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="readOnly">
-       <bool>false</bool>
-      </property>
-      <property name="placeholderText">
-       <string>30 meses</string>
-      </property>
-     </widget>
      <widget class="Line" name="line_5">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>680</y>
-        <width>491</width>
+        <width>571</width>
         <height>20</height>
        </rect>
       </property>
@@ -732,7 +545,7 @@ encargos da locação ?</string>
      <widget class="Line" name="line_8">
       <property name="geometry">
        <rect>
-        <x>155</x>
+        <x>195</x>
         <y>690</y>
         <width>20</width>
         <height>81</height>
@@ -747,7 +560,7 @@ encargos da locação ?</string>
        <rect>
         <x>0</x>
         <y>760</y>
-        <width>491</width>
+        <width>561</width>
         <height>20</height>
        </rect>
       </property>
@@ -755,10 +568,10 @@ encargos da locação ?</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>80</x>
         <y>320</y>
         <width>341</width>
         <height>81</height>
@@ -786,10 +599,10 @@ encargos da locação ?</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>80</x>
         <y>180</y>
         <width>341</width>
         <height>81</height>
@@ -817,11 +630,11 @@ encargos da locação ?</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>20</y>
+        <x>80</x>
+        <y>30</y>
         <width>341</width>
         <height>81</height>
        </rect>
@@ -842,6 +655,429 @@ encargos da locação ?</string>
        </item>
       </layout>
      </widget>
+     <widget class="QLineEdit" name="lineEdit_18">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>740</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>161</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>161</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>Dia de vencimento</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_10">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>690</y>
+        <width>20</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>460</y>
+        <width>21</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>880</y>
+        <width>191</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>O recibo de entrega de chaves será entregue agora ou depois?</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QCheckBox" name="checkBox_8">
+           <property name="text">
+            <string>Agora</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_9">
+           <property name="text">
+            <string>Pós </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>610</y>
+        <width>114</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Prazo do Contrato</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_17">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>30 meses</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>780</y>
+        <width>161</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>O relatório de vistoria será enviado agora ou após a entrega das chaves?</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="checkBox_12">
+           <property name="text">
+            <string>Agora</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_13">
+           <property name="text">
+            <string>Pós</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>460</y>
+        <width>141</width>
+        <height>55</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Seguro Residencial</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_6">
+           <property name="minimumSize">
+            <size>
+             <width>121</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>121</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="placeholderText">
+            <string>R$ </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>460</y>
+        <width>151</width>
+        <height>54</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Inicio do Contrato</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateEdit_2">
+           <property name="minimumSize">
+            <size>
+             <width>131</width>
+             <height>21</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>700</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dia de vencimento do contrato</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>line_4</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>line_8</zorder>
+     <zorder>line_10</zorder>
+     <zorder>line_2</zorder>
+     <zorder>line_6</zorder>
+     <zorder>line</zorder>
+     <zorder>lineEdit_3</zorder>
+     <zorder>checkBox</zorder>
+     <zorder>line_3</zorder>
+     <zorder>checkBox_2</zorder>
+     <zorder>lineEdit_4</zorder>
+     <zorder>checkBox_3</zorder>
+     <zorder>lineEdit_5</zorder>
+     <zorder>checkBox_4</zorder>
+     <zorder>checkBox_5</zorder>
+     <zorder>checkBox_6</zorder>
+     <zorder>lineEdit_7</zorder>
+     <zorder>checkBox_7</zorder>
+     <zorder>checkBox_10</zorder>
+     <zorder>line_7</zorder>
+     <zorder>checkBox_11</zorder>
+     <zorder>lineEdit_8</zorder>
+     <zorder>lineEdit_9</zorder>
+     <zorder>lineEdit_10</zorder>
+     <zorder>lineEdit_11</zorder>
+     <zorder>lineEdit_12</zorder>
+     <zorder>lineEdit_13</zorder>
+     <zorder>lineEdit_14</zorder>
+     <zorder>lineEdit_15</zorder>
+     <zorder>lineEdit_16</zorder>
+     <zorder>line_5</zorder>
+     <zorder>line_9</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>lineEdit_18</zorder>
+     <zorder>label_10</zorder>
     </widget>
    </widget>
   </widget>

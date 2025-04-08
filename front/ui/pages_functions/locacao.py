@@ -42,6 +42,7 @@ class locacao(QWidget):
 
         inicio_contr_get = self.ui.dateEdit_2.date()
         praz_contr = self.ui.lineEdit_17.text()
+        data_venc = self.ui.lineEdit_18.text()
         seguro = self.ui.lineEdit_6.text()
 
         cartorio = self.ui.lineEdit_8.text()
@@ -54,22 +55,18 @@ class locacao(QWidget):
         matricula = self.ui.lineEdit_11.text()
         luz = self.ui.lineEdit_12.text()
 
-        dia = inicio_contr_get.day()
-        if int(dia) <= 9:
-            dia = (f'0{dia}')
-        mes = inicio_contr_get.month()
-        ano = inicio_contr_get.year()
+        date_use = datetime(inicio_contr_get.year(), inicio_contr_get.month(), inicio_contr_get.day())
 
-        data_calc = datetime()
-
-        inicio_contr = datetime.strftime(f'{dia}/{mes}/{ano}', "%d/%m/%Y")
-        fim_contr = inicio_contr + relativedelta(months=praz_contr)
-
-        print(fim_contr)
+        inicio_contr = datetime.strftime(date_use, "%d/%m/%Y")
+        prazo_meses = int(praz_contr)
+        fim_contr = date_use + relativedelta(months=prazo_meses)
+        fim_contr = datetime.strftime(fim_contr, "%d/%m/%Y")
+        
         self.info_ad = {
                     'inicio_contr': inicio_contr,
                     'praz_contr': praz_contr,
                     'fim_contr': fim_contr,
+                    'data_venc' : data_venc,
                     'seguro': seguro,
                     'fim_contr': None,
                     'iptu': None,

@@ -1,5 +1,6 @@
 .gitattributes
 Contratos_docx
+Tabelas
 __pycache__
 venv
 build

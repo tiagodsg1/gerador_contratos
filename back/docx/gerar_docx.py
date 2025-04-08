@@ -84,4 +84,4 @@ class GerarDocx:
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            return locacao(self.dados_cliente, self.dados_corretor, self.dados_imovel, self.dados_cliente2, self.caminho_documento, self.info_ad, self.sucesso, self.error, self.download)
+            locacao(self.dados_cliente, self.dados_corretor, self.dados_imovel, self.dados_cliente2, self.caminho_documento, self.info_ad, self.sucesso, self.error, self.download)
