@@ -72,31 +72,31 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
         for paragrafo in documento.paragraphs:
             texto = paragrafo.text
             if '#END_IMOVEL' in texto:
-                substituir_texto('#END_IMOVEL', f'{imovel["logradouro"]}, {imovel["numero"]}, {imovel["bairro"]}, {imovel["cidade"]}, {imovel["estado"]}')
+                substituir_texto(paragrafo, '#END_IMOVEL', f'{imovel["logradouro"]}, {imovel["numero"]}, {imovel["bairro"]}, {imovel["cidade"]}, {imovel["estado"]}')
 
             if '#3CEP' in texto:
-                substituir_texto('#3CEP', imovel['cep'])   
+                substituir_texto(paragrafo, '#3CEP', imovel['cep'])   
 
             if '#MINIMO_COMPRA' in texto:
                 if min_valor == None:
-                    substituir_texto('#MINIMO_COMPRA', imovel['valor'])
+                    substituir_texto(paragrafo, '#MINIMO_COMPRA', imovel['valor'])
                 else:
-                    substituir_texto('#MINIMO_COMPRA', min_valor)
+                    substituir_texto(paragrafo, '#MINIMO_COMPRA', min_valor)
 
             if '#VALOR_AVALIADO' in texto:
                 if av_valor == None:
-                    substituir_texto('#VALOR_AVALIADO', imovel['valor'])
+                    substituir_texto(paragrafo, '#VALOR_AVALIADO', imovel['valor'])
                 else:
-                    substituir_texto('#VALOR_AVALIADO', av_valor)
+                    substituir_texto(paragrafo, '#VALOR_AVALIADO', av_valor)
 
             if '#PROP_AUTORIZADO' in texto:
-                substituir_texto('#PROP_AUTORIZADO', pro_valor)
+                substituir_texto(paragrafo, '#PROP_AUTORIZADO', pro_valor)
             
             if 'CONSULTORIA_R$' in texto:
-                substituir_texto('CONSULTORIA_R$', cons_valor)
+                substituir_texto(paragrafo, 'CONSULTORIA_R$', cons_valor)
 
             if '#FORO' in texto:
-                substituir_texto('#FORO', imovel['cidade'])
+                substituir_texto(paragrafo, '#FORO', imovel['cidade'])
         
         download.emit(documento)
     except Exception as e:
