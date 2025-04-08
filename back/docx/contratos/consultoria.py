@@ -7,7 +7,6 @@ from back.docx.src.retirar import delete_paragraph
 from back.docx.src.retirar import substituir_texto
 from back.docx.src.retirar import remover_trecho
 from back.docx.src.retirar import substituir_trecho_tabela
-
 def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_valor, caminho_documento, sucesso, error, download):
     try:
         documento = Document(caminho_documento)
@@ -18,10 +17,10 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                 for cell in row.cells:
                     #Parte compradora
                     if '#PARTE_CONTRATANTE' in cell.text:
-                        substituir_trecho_tabela('#PARTE_CONTRATANTE', cliente['nome'])
+                        substituir_trecho_tabela(cell, '#PARTE_CONTRATANTE', cliente['nome'])
                         
                     if '#NACIONALIDADE' in cell.text:
-                        substituir_trecho_tabela('#NACIONALIDADE', 'Brasileiro(a)')
+                        substituir_trecho_tabela(cell, '#NACIONALIDADE', 'Brasileiro(a)')
 
                     if '#ESTADO CIVIL' in cell.text:
                         if cliente['estado_civil'] == None:
@@ -29,7 +28,7 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela('#ESTADO CIVIL', cliente['estado_civil'])
+                            substituir_trecho_tabela(cell, '#ESTADO CIVIL', cliente['estado_civil'])
                     
                     if '#CPF' in cell.text:
                         if cliente['cpf_cnpj'] == 'None':
@@ -37,7 +36,7 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela('#CPF', cliente['cpf_cnpj'])
+                            substituir_trecho_tabela(cell, '#CPF', cliente['cpf_cnpj'])
                     
                     if '#E_MAIL' in cell.text:
                         if cliente['email'] == 'None':
@@ -45,7 +44,7 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela('#E_MAIL', cliente['email'])
+                            substituir_trecho_tabela(cell, '#E_MAIL', cliente['email'])
 
                     
                     if '#ENDEREÇO' in cell.text:
@@ -55,7 +54,7 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                             remover_linha.getparent().remove(remover_linha)
                         
                         else:
-                            substituir_trecho_tabela('#ENDEREÇO', cliente['logradouro'])
+                            substituir_trecho_tabela(cell, '#ENDEREÇO', cliente['logradouro'])
 
                     
                     if '#CEP' in cell.text:
@@ -64,10 +63,10 @@ def consultoria(cliente, corretor, imovel, min_valor, av_valor, pro_valor, cons_
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela('#CEP', cliente['cep'])
+                            substituir_trecho_tabela(cell, '#CEP', cliente['cep'])
                     
                     if '#1PARTE_CONTRATANTE' in cell.text:
-                        substituir_trecho_tabela('#1PARTE_CONTRATANTE', cliente['nome'])
+                        substituir_trecho_tabela(cell, '#1PARTE_CONTRATANTE', cliente['nome'])
 
         #Parte Imobiliária
         for paragrafo in documento.paragraphs:
