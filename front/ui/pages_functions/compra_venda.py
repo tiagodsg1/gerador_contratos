@@ -21,39 +21,31 @@ class compra_venda(QWidget):
                 lambda state, le=line_edit: le.setVisible(state == 2)
             )
 
-        self.ui.pushButton.clicked.connect(self.cliente2)
-        self.ui.pushButton_2.clicked.connect(self.cliente3)
+        self.ui.radioButton.clicked.connect(self.radio_button_clicked)
+        self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
 
     def insert_dados(self, comprador, vendedor, corretor):
         self.comprador = comprador
         self.vendedor = vendedor
         self.corretor = corretor
-        self.hide_all()
-        self.hide_combobox()
         self.ui.comboBox.addItems(self.vendedor)
-        self.ui.comboBox_2.addItems(self.comprador)
-        self.ui.comboBox_3.addItems(self.corretor)
-    
-    def hide_all(self):
-
-        for line_edit in self.checkbox_lineedit_map.values():
-            line_edit.hide()
-
-    def hide_combobox(self):
-        self.ui.comboBox_4.hide()
-        self.ui.comboBox_5.hide()
-
-    def cliente2(self):
-        self.ui.comboBox_4.show()
         self.ui.comboBox_4.addItems(self.vendedor)
-        self.ui.pushButton.hide()
-        self.cliente_2 = True
 
-    def cliente3(self):
-        self.ui.comboBox_5.show()
+        self.ui.comboBox_2.addItems(self.comprador)
         self.ui.comboBox_5.addItems(self.comprador)
-        self.ui.pushButton_2.hide()
-        self.cliente_3 = True
+
+        self.ui.comboBox_3.addItems(self.corretor)
+
+    def radio_button_clicked(self):
+        if self.ui.radioButton.isChecked():
+            self.ui.comboBox_4.setEnabled(True)
+        else:
+            self.ui.comboBox_4.setEnabled(False)
+
+        if self.ui.radioButton_2.isChecked():
+            self.ui.comboBox_5.setEnabled(True)
+        else:
+            self.ui.comboBox_5.setEnabled(False)        
 
     def get_dados(self):
 
@@ -85,9 +77,11 @@ class compra_venda(QWidget):
             'posse': posse,
             'escritura': False
         }
-        if self.cliente_2:
+
+        if self.ui.radioButton.isChecked():
             self.cliente_2 = self.ui.comboBox_4.currentText()
-        if self.cliente_3:
+
+        if self.ui.radioButton_2.isChecked():
             self.cliente_3 = self.ui.comboBox_5.currentText()
 
         if self.ui.checkBox_16.isChecked():

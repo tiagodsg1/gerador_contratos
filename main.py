@@ -209,6 +209,9 @@ class MainWindow(QMainWindow):
         self.worker.t_contrato = self.ui.comboBox.currentText()
         item = self.ui.comboBox_2.currentText()
         item = item.split(',')[0]
+        if item == '' or item == None:
+            QMessageBox.warning(self, 'Erro', 'Selecione um imóvel')
+            return
         self.worker.imovel = item
         self.worker.sucesso.connect(self.download_sucesso)
         self.worker.error.connect(self.download_error)
@@ -233,6 +236,7 @@ class MainWindow(QMainWindow):
         if self.ui.comboBox.currentText() == 'Consultoria':
             self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()
 
+        
         self.worker.tipo = self.tipo
         self.iniciar()
 
@@ -330,9 +334,16 @@ class MainWindow(QMainWindow):
         self.tipo = self.ui.comboBox_5.currentText()
         item = self.ui.comboBox_2.currentText()
         item = item.split(',')[0]
-        imovel_select = GetDados(item).get_imoveis(self.tipo)
-        self.ui.label_2.setText(f"Endereço : {imovel_select['logradouro']}, {imovel_select['numero']}, {imovel_select['bairro']}, {imovel_select['cidade']}, Rio de Janeiro")
-        self.ui.label_2.setWordWrap(True)
+        if item == '' or item == None:
+            QMessageBox.warning(self, 'Erro', 'Selecione um imóvel')
+            return
+        try:
+            imovel_select = GetDados(item).get_imoveis(self.tipo)
+            self.ui.label_2.setText(f"Endereço : {imovel_select['logradouro']}, {imovel_select['numero']}, {imovel_select['bairro']}, {imovel_select['cidade']}, Rio de Janeiro")
+            self.ui.label_2.setWordWrap(True)
+        except Exception as e:
+            QMessageBox.warning(self, 'Erro', f'Erro ao buscar endereço: {str(e)}\nVerifique se o imóvel está cadastrado ou se os dados estão corretos.')
+            return
 
 if __name__ == "__main__":
     app = QApplication([])

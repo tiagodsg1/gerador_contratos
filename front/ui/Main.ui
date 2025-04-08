@@ -403,6 +403,13 @@ QPushButton::hover{
          <height>201</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Endereço :</string>
        </property>
