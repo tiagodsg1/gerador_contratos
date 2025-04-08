@@ -442,7 +442,7 @@ class Ui_Form(object):
         self.lineEdit_7.setPlaceholderText(_translate("Form", "1 ou Mais"))
         self.checkBox_7.setText(_translate("Form", "O imovel é alienado ?"))
         self.checkBox_10.setText(_translate("Form", "Marque caso a Parte Locatária\n"
-"seja aresponsável por pagar os\n"
+"seja a responsável por pagar os\n"
 "encargos da locação"))
         self.checkBox_11.setText(_translate("Form", "Garagem disponivel ?"))
         self.lineEdit_8.setPlaceholderText(_translate("Form", "Cartorio"))
