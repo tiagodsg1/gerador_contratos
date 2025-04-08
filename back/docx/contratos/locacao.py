@@ -179,7 +179,6 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                             substituir_trecho_tabela(cell, '#2CEP', dados_cliente['cep'])
 
                     if '#1PARTE_LOCATARIA' in cell.text:
-                        print('Entrou aqui')
                         substituir_trecho_tabela(cell, '#1PARTE_LOCATARIA', dados_cliente['nome'])
                 
                     #Locação
@@ -227,7 +226,7 @@ def locacao(dados_cliente, dados_corretor, dados_imovel, dados_cliente2, caminho
                         substituir_trecho_tabela(cell, '#SEGURO_MENSAL', info_ad['seguro'])
 
                     if '#DIA_VENCIMENTO' in cell.text:
-                        substituir_trecho_tabela(cell, '#DIA_VENCIMENTO', '20')
+                        substituir_trecho_tabela(cell, '#DIA_VENCIMENTO', info_ad['data_venc'])
 
         #Texto do documento
         for paragraph in documento.paragraphs:
