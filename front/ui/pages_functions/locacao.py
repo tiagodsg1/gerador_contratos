@@ -20,24 +20,36 @@ class locacao(QWidget):
                 lambda state, le=line_edit: le.setVisible(state == 2)
             )
 
+        self.ui.radioButton.clicked.connect(self.radio_button_clicked)
+        self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
+
     def insert_dados(self, cliente, corretor, error):
         self.locador = cliente
         self.locataria = cliente
         self.corretor = corretor
         self.error = error
-        self.hide_all()
+        self.ui.comboBox.addItems(self.locataria)
+        self.ui.comboBox_4.addItems(self.locataria)
+
         self.ui.comboBox_2.addItems(self.locador)
+        self.ui.comboBox_5.addItems(self.locador)
+
         self.ui.comboBox_3.addItems(self.corretor)
-        self.ui.comboBox_4.addItems(self.locador)
 
-    def hide_all(self):
+    def radio_button_clicked(self):
+        if self.ui.radioButton.isChecked():
+            self.ui.comboBox_4.setEnabled(True)
+        else:
+            self.ui.comboBox_4.setEnabled(False)
 
-        for line_edit in self.checkbox_lineedit_map.values():
-            line_edit.hide()
+        if self.ui.radioButton_2.isChecked():
+            self.ui.comboBox_5.setEnabled(True)
+        else:
+            self.ui.comboBox_5.setEnabled(False)
 
     def get_dados(self):
 
-        self.locador = self.ui.comboBox_4.currentText()
+        self.locador = self.ui.comboBox_4.currentText() 
         self.locataria = self.ui.comboBox_2.currentText()
         self.corretor = self.ui.comboBox_3.currentText()
 
@@ -68,6 +80,8 @@ class locacao(QWidget):
         fim_contr = datetime.strftime(fim_contr, "%d/%m/%Y")
         
         self.info_ad = {
+                    'locaratio2': None,
+                    'locador2': None,
                     'inicio_contr': inicio_contr,
                     'praz_contr': praz_contr,
                     'fim_contr': fim_contr,
