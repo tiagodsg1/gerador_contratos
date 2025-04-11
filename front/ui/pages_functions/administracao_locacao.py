@@ -1,44 +1,40 @@
 from PyQt5.QtWidgets import QWidget
 from front.ui.pages.administracao_locacao.administracao_locacao import Ui_Form
+import time
 
 class administracao_locacao(QWidget):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.clientes = None
-        self.cliente_2 = False
-        self.cliente_3 = False
-        self.ui.pushButton.clicked.connect(self.cliente2)
-        self.ui.pushButton_3.clicked.connect(self.cliente3)
 
-    def insert_dados(self, clientes):
-        self.clientes = clientes
-        self.hiden()
-        self.ui.comboBox.addItems(self.clientes)
-        self.cliente = self.ui.comboBox.currentText()
+        self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
 
-    def cliente2(self):
-        self.ui.pushButton.hide()
-        self.ui.comboBox_2.show()
-        self.ui.label_3.show()
-        self.ui.comboBox_2.addItems(self.clientes)
-        self.cliente_2 = True
+    def insert_dados(self, clientes, corretor, error):
+        self.cliente = clientes
+        self.corretor = corretor
+        self.error = error
+        self.ui.comboBox_2.addItems(self.cliente)
+        self.ui.comboBox_5.addItems(self.cliente)
 
-    def cliente3(self):
-        self.ui.pushButton_3.hide()
-        self.ui.comboBox_3.show()
-        self.ui.label_4.show()
-        self.ui.comboBox_3.addItems(self.clientes)
-        self.cliente_3 = True
-    
-    def hiden(self):
-        self.ui.comboBox_2.hide()
-        self.ui.label_3.hide()
-        self.ui.comboBox_3.hide()
-        self.ui.label_4.hide()
+        self.ui.comboBox_3.addItems(self.corretor)
+
+    def radio_button_clicked(self):
+        if self.ui.radioButton_2.isChecked():
+            self.ui.comboBox_5.setEnabled(True)
+        else:
+            self.ui.comboBox_5.setEnabled(False)
 
     def get_dados(self):
+
+        self.cliente = self.ui.comboBox_2.currentText()
+        self.corretor = self.ui.comboBox_3.currentText()
+        porcentagem = self.ui.lineEdit.text()
+
+        if porcentagem == '':
+            self.ui.lineEdit.setStyleSheet("border-color: red;")
+            self.error('Campo de Porcentagem não pode ficar vazio')
+            return None, None
         cartorio = self.ui.lineEdit_8.text()
         n_iptu = self.ui.lineEdit_9.text()
         relogio = self.ui.lineEdit_10.text()
@@ -50,6 +46,9 @@ class administracao_locacao(QWidget):
         luz = self.ui.lineEdit_12.text()
 
         info_ad = {
+            'cliente0': self.cliente,
+            'cliente1': None,
+            'porcentagem': porcentagem,
             'cartorio' : cartorio,
             'n_iptu': n_iptu,
             'relogio': relogio,
@@ -60,10 +59,9 @@ class administracao_locacao(QWidget):
             'funesbom': funesbom,
             'matricula': matricula,
         }
-        if self.cliente_2 == True:
-            self.cliente_2 = self.ui.comboBox_2.currentText()
-        if self.cliente_3 == True:
-            self.cliente_3 = self.ui.comboBox_3.currentText()
 
-        print(info_ad)
-        return self.ui.lineEdit.text(), self.cliente, self.cliente_2, self.cliente_3, info_ad
+        if self.ui.radioButton_2.isChecked():
+            self.cliente_2 = self.ui.comboBox_5.currentText()
+            info_ad['cliente1'] = self.cliente_2
+            
+        return self.corretor, info_ad

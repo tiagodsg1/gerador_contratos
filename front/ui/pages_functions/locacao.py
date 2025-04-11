@@ -49,8 +49,8 @@ class locacao(QWidget):
 
     def get_dados(self):
 
-        self.locador = self.ui.comboBox_4.currentText() 
-        self.locataria = self.ui.comboBox_2.currentText()
+        self.locataria = self.ui.comboBox.currentText() 
+        self.locador = self.ui.comboBox_2.currentText()
         self.corretor = self.ui.comboBox_3.currentText()
 
         inicio_contr_get = self.ui.dateEdit_2.date()
@@ -72,6 +72,7 @@ class locacao(QWidget):
 
         inicio_contr = datetime.strftime(date_use, "%d/%m/%Y")
         if praz_contr == "":
+            self.ui.lineEdit_17.setStyleSheet("border-color: red;")
             self.error("Prazo de contrato não pode ser vazio")
             return None, None, None, None
             
@@ -80,6 +81,8 @@ class locacao(QWidget):
         fim_contr = datetime.strftime(fim_contr, "%d/%m/%Y")
         
         self.info_ad = {
+                    'cliente0': self.locataria,
+                    'cliente1': self.locador,
                     'locaratio2': None,
                     'locador2': None,
                     'inicio_contr': inicio_contr,
@@ -138,6 +141,8 @@ class locacao(QWidget):
         if self.ui.checkBox_11.isChecked() : self.info_ad["garagem"] = True
         if self.ui.checkBox_12.isChecked() : self.info_ad["vist_agr"] = True
         if self.ui.checkBox_13.isChecked() : self.info_ad["vist_post"] = True
+
+        self.ui.lineEdit_17.setStyleSheet("")
         
         return self.locador, self.locataria, self.corretor, self.info_ad
 

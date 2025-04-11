@@ -12,16 +12,13 @@ class GerarDocx:
         self.t_contrato = t_contrato
 
         if self.t_contrato == 'Administração de Locação':
-            self.dados_cliente = dicionario['cliente']
+            self.dados_corretor = dicionario['corretor']
             self.dados_imovel = dicionario['imovel']
-            self.dados_cliente2 = dicionario['cliente2']
-            self.dados_cliente3 = dicionario['cliente3']
             self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
-            self.percentual = dicionario['percentual']
             self.download = dicionario['download']
-            administracao_locacao(self.dados_cliente, self.dados_imovel, self.dados_cliente2, self.dados_cliente3, self.info_ad, self.caminho_documento, self.sucesso, self.error, self.percentual, self.download)
+            administracao_locacao(self.dados_corretor, self.dados_imovel, self.info_ad, self.caminho_documento, self.sucesso, self.error, self.download)
 
         if self.t_contrato == 'Autorização de Venda':
 
@@ -76,12 +73,10 @@ class GerarDocx:
             consultoria(self.dados_cliente, self.dados_corretor, self.dados_imovel, self.min_valor, self.av_valor, self.pro_valor, self.cons_valor, self.caminho_documento, self.sucesso, self.error, self.download)
         
         if self.t_contrato == 'Locação':
-            self.dados_cliente = dicionario['cliente']
-            self.dados_cliente2 = dicionario['cliente2']
             self.dados_corretor = dicionario['corretor']
             self.dados_imovel = dicionario['imovel']
             self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            locacao(self.dados_cliente, self.dados_corretor, self.dados_imovel, self.dados_cliente2, self.caminho_documento, self.info_ad, self.sucesso, self.error, self.download)
+            locacao(self.dados_corretor, self.dados_imovel, self.caminho_documento, self.info_ad, self.sucesso, self.error, self.download)

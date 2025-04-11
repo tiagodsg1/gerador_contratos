@@ -121,7 +121,7 @@ QDateEdit::down-button, QDateEdit::up-button {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-525</y>
+      <y>-225</y>
       <width>580</width>
       <height>1071</height>
      </rect>
@@ -162,9 +162,9 @@ QDateEdit::down-button, QDateEdit::up-button {
      <widget class="Line" name="line_6">
       <property name="geometry">
        <rect>
-        <x>-2</x>
+        <x>-22</x>
         <y>290</y>
-        <width>481</width>
+        <width>661</width>
         <height>20</height>
        </rect>
       </property>
@@ -196,6 +196,9 @@ QDateEdit::down-button, QDateEdit::up-button {
       </property>
       <property name="placeholderText">
        <string>R$ </string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox">
@@ -250,12 +253,15 @@ aluguel ?</string>
       <property name="placeholderText">
        <string>R$ </string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox_3">
       <property name="geometry">
        <rect>
-        <x>225</x>
-        <y>530</y>
+        <x>220</x>
+        <y>534</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -271,14 +277,17 @@ valor Condominio ?</string>
      <widget class="QLineEdit" name="lineEdit_5">
       <property name="geometry">
        <rect>
-        <x>235</x>
-        <y>570</y>
+        <x>230</x>
+        <y>580</y>
         <width>131</width>
         <height>22</height>
        </rect>
       </property>
       <property name="placeholderText">
        <string>R$ </string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox_4">
@@ -332,6 +341,9 @@ valor Condominio ?</string>
       <property name="placeholderText">
        <string>1 ou Mais</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox_7">
       <property name="geometry">
@@ -373,10 +385,10 @@ encargos da locação</string>
      <widget class="Line" name="line_7">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>140</y>
-        <width>481</width>
-        <height>16</height>
+        <x>-20</x>
+        <y>136</y>
+        <width>641</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="orientation">
@@ -408,6 +420,9 @@ encargos da locação</string>
       <property name="placeholderText">
        <string>Cartorio</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_9">
       <property name="geometry">
@@ -420,6 +435,9 @@ encargos da locação</string>
       </property>
       <property name="placeholderText">
        <string>Inscrição IPTU</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_10">
@@ -434,6 +452,9 @@ encargos da locação</string>
       <property name="placeholderText">
        <string>Relogio</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_11">
       <property name="geometry">
@@ -446,6 +467,9 @@ encargos da locação</string>
       </property>
       <property name="placeholderText">
        <string>Matricula</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_12">
@@ -463,6 +487,9 @@ encargos da locação</string>
       <property name="placeholderText">
        <string>Nº Cons Luz</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_13">
       <property name="geometry">
@@ -475,6 +502,9 @@ encargos da locação</string>
       </property>
       <property name="placeholderText">
        <string>Monobitrifasico</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_14">
@@ -489,6 +519,9 @@ encargos da locação</string>
       <property name="placeholderText">
        <string>Nº Cons Gás</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_15">
       <property name="geometry">
@@ -502,6 +535,9 @@ encargos da locação</string>
       <property name="placeholderText">
        <string>Funesbom</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_16">
       <property name="geometry">
@@ -514,6 +550,9 @@ encargos da locação</string>
       </property>
       <property name="placeholderText">
        <string>Nº Cons D'Água</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="Line" name="line_5">
@@ -596,6 +635,9 @@ encargos da locação</string>
       </property>
       <property name="placeholderText">
        <string>Dia de vencimento</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="Line" name="line_10">
@@ -700,6 +742,9 @@ encargos da locação</string>
          </property>
          <property name="placeholderText">
           <string>30 meses</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -832,6 +877,9 @@ encargos da locação</string>
            </property>
            <property name="placeholderText">
             <string>R$ </string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
