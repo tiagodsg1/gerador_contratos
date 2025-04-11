@@ -17,6 +17,7 @@ from front.ui.pages_functions.compra_venda import compra_venda
 from front.ui.pages_functions.locacao import locacao
 from front.ui.pages_functions.recibo import recibo
 from front.ui.pages_functions.consultoria import consultoria
+from front.ui.pages_functions.area import Area
 
 class WorkerDownload(QThread):
     sucesso = pyqtSignal(str)
@@ -204,6 +205,7 @@ class MainWindow(QMainWindow):
         
         self.ui.pushButton_2.clicked.connect(self.buscar_imovel)
         self.ui.pushButton_3.clicked.connect(self.adicionar_endereco)
+        self.ui.pushButton_4.clicked.connect(self.area)
         self.ui.pushButton_5.clicked.connect(self.chamar_variavel)
         self.ui.pushButton_6.clicked.connect(self.download_table)
 
@@ -351,6 +353,10 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, 'Erro', f'Erro ao buscar endereço: {str(e)}\nVerifique se o imóvel está cadastrado ou se os dados estão corretos.')
             return
 
+    def area(self):
+        self.area_contratos = Area()
+        self.area_contratos.dados_corretor(self.corretor_lista)
+        self.area_contratos.show()
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()

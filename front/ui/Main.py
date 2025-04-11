@@ -131,7 +131,7 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.pushButton_5 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_5.setGeometry(QtCore.QRect(270, 87, 31, 28))
+        self.pushButton_5.setGeometry(QtCore.QRect(270, 84, 31, 28))
         self.pushButton_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_5.setStyleSheet("QPushButton{\n"
 "    border 0px;\n"
@@ -162,7 +162,12 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.frame_2)
         self.pushButton_3.setGeometry(QtCore.QRect(10, 310, 141, 28))
+        self.pushButton_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_4.setGeometry(QtCore.QRect(312, 10, 131, 28))
+        self.pushButton_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_4.setObjectName("pushButton_4")
         self.gridLayout.addWidget(self.frame_2, 1, 0, 1, 2)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -186,4 +191,5 @@ class Ui_MainWindow(object):
         self.pushButton_6.setText(_translate("MainWindow", "Atualizar database"))
         self.label_2.setText(_translate("MainWindow", "Endereço :"))
         self.pushButton_3.setText(_translate("MainWindow", "Verificar Endereço"))
+        self.pushButton_4.setText(_translate("MainWindow", "Área do Corretor"))
 from front.static import resource

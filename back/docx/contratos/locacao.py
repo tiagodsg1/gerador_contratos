@@ -274,7 +274,7 @@ def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, e
             if '#FORO' in text:
                 substituir_texto(paragraph, '#FORO', dados_imovel['cidade'])
 
-        LogCorretor(
+        list_envio = [
             dados_corretor['nome'],
             dados_corretor['id'],
             dados_corretor['creci'],
@@ -288,8 +288,10 @@ def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, e
             info_ad['cliente0']['nome'],
             info_ad['cliente0']['bairro'],
             info_ad['cliente0']['cidade'],
-            info_ad['cliente0']['id']
-        )
+            info_ad['cliente0']['id'] ]
+        
+        log_corretor = LogCorretor()
+        log_corretor.insert_logs(list_envio)
 
         download.emit(documento)
     except Exception as e:
