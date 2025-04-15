@@ -11,14 +11,10 @@ from back.docx.src.retirar import substituir_trecho_tabela
 from back.bd.update.logs.log_corretor import LogCorretor
 
 def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, error, download):
-
-    try:
-
-        
     
         documento = Document(caminho_documento)
 
-        inserir_tabelas(documento, documento.tables[2], info_ad['cliente1'])
+        inserir_tabelas(documento, documento.tables[2], info_ad['cliente2'])
         for table_index, table in enumerate(documento.tables):
             for row in table.rows:
                 for cell in row.cells:
@@ -103,8 +99,12 @@ def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, e
                             remover_linha = tabela_remove.rows[row._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela(cell, '#FUNESBOM', info_ad['funesbom'])  
+                            substituir_trecho_tabela(cell, '#FUNESBOM', info_ad['funesbom'])
+
                     index = 2
+                    if info_ad['cliente2'] != None or info_ad['cliente3'] != None:
+                        index = 3
+                    
                     for i in range(index):
 
                         if f'#{i}PARTE_CLIENTE' in cell.text:
@@ -299,5 +299,3 @@ def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, e
         log_corretor.insert_logs(list_envio)
 
         download.emit(documento)
-    except Exception as e:
-        error.emit(str(e))

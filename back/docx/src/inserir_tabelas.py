@@ -49,13 +49,13 @@ def inserir_tabelas(documento, tabela, dados_cliente2):
         tabela_cliente2.rows[5].cells[0].text = 'Endereço'
         tabela_cliente2.rows[6].cells[0].text = 'CEP'
 
-        tabela_cliente2.rows[0].cells[1].text = '#1PARTE_CLIENTE'
-        tabela_cliente2.rows[1].cells[1].text = '#1NACIONALIDADE'
-        tabela_cliente2.rows[2].cells[1].text = '#1ESTADO CIVIL'
-        tabela_cliente2.rows[3].cells[1].text = '#1CPF'
-        tabela_cliente2.rows[4].cells[1].text = '#1E_MAIL'
-        tabela_cliente2.rows[5].cells[1].text = '#1ENDEREÇO'
-        tabela_cliente2.rows[6].cells[1].text = '#1CEP'
+        tabela_cliente2.rows[0].cells[1].text = '#2PARTE_CLIENTE'
+        tabela_cliente2.rows[1].cells[1].text = '#2NACIONALIDADE'
+        tabela_cliente2.rows[2].cells[1].text = '#2ESTADO CIVIL'
+        tabela_cliente2.rows[3].cells[1].text = '#2CPF'
+        tabela_cliente2.rows[4].cells[1].text = '#2E_MAIL'
+        tabela_cliente2.rows[5].cells[1].text = '#2ENDEREÇO'
+        tabela_cliente2.rows[6].cells[1].text = '#2CEP'
 
         elemento_tabela_vazia.addnext(tabela_cliente2._element)
         tabela_cliente2.style = tabela_existente.style
@@ -67,7 +67,7 @@ def inserir_tabelas(documento, tabela, dados_cliente2):
         tabela_assinatura_new_cliente = documento.add_table(rows=1, cols=2)
 
         elemento_tabela_assinatura_new_cliente = tabela_assinatura_new_cliente._element
-        tabela_assinatura_new_cliente.rows[0].cells[0].text = '\n_____________________________________________________\n#1PARTE_CLIENTE\nPARTE CONTRATANTE'
+        tabela_assinatura_new_cliente.rows[0].cells[0].text = '\n_____________________________________________________\n#2PARTE_CLIENTE\nPARTE CONTRATANTE'
         for i in range(2):
             for paragraph in tabela_assinatura_new_cliente.rows[0].cells[i].paragraphs:
                 paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER

@@ -83,8 +83,8 @@ class locacao(QWidget):
         self.info_ad = {
                     'cliente0': self.locataria,
                     'cliente1': self.locador,
-                    'locaratio2': None,
-                    'locador2': None,
+                    'cliente2': None,
+                    'cliente3': None,
                     'inicio_contr': inicio_contr,
                     'praz_contr': praz_contr,
                     'fim_contr': fim_contr,
@@ -131,6 +131,9 @@ class locacao(QWidget):
         if self.ui.checkBox_6.isChecked():
             valor = self.ui.lineEdit_7.text()
             self.info_ad["max_moradores"] = valor
+
+        if self.ui.radioButton.isChecked():
+            self.info_ad["cliente2"] = self.ui.comboBox_4.currentText()
 
         if self.ui.checkBox_5.isChecked() : self.info_ad["act_anm"] = True
         if self.ui.checkBox_4.isChecked() : self.info_ad["fic_cond"] = True

@@ -70,7 +70,10 @@ class Worker(QThread):
 
             self.cliente = self.info_ad['cliente0']
             self.cliente2 = self.info_ad['cliente1']
-        
+            self.cliente3 = self.info_ad['cliente2']
+
+            
+
             if self.cliente:
                 dados_cliente = GetDados(self.cliente).get_clientes()
                 self.info_ad['cliente0'] = dados_cliente
@@ -79,102 +82,102 @@ class Worker(QThread):
                 dados_cliente2 = GetDados(self.cliente2).get_clientes()
                 self.info_ad['cliente1'] = dados_cliente2
 
+            if self.cliente3:
+                dados_cliente3 = GetDados(self.cliente3).get_clientes()
+                self.info_ad['cliente2'] = dados_cliente3
+
         except Exception as e:
             self.error.emit(f'Erro ao buscar dados: {str(e)}\nVerifique se os clientes estão cadastrados ou se os dados estão corretos.\nCaso não esteja cadastrado, cadastre o cliente antes de gerar o contrato.')
             return
-        
-        try:
-            if self.t_contrato == 'Administração de Locação':
-                base_dir = os.path.dirname(os.path.abspath(__file__))
-                caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Administração de Locação.docx')
+        if self.t_contrato == 'Administração de Locação':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Administração de Locação.docx')
 
-                self.dicionario = {
-                                'imovel': dados_imovel, 
-                                'corretor': dados_corretor,
-                                'info_ad': self.info_ad,
-                                'sucesso':self.sucesso, 
-                                'error':self.error, 
-                                'download': self.download_docx}            
-                self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
+            self.dicionario = {
+                            'imovel': dados_imovel, 
+                            'corretor': dados_corretor,
+                            'info_ad': self.info_ad,
+                            'sucesso':self.sucesso, 
+                            'error':self.error, 
+                            'download': self.download_docx}            
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-            if self.t_contrato == 'Autorização de Venda':
-                base_dir = os.path.dirname(os.path.abspath(__file__))
-                caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Autorização de Venda.docx')
-                self.dicionario = {'cliente': dados_cliente,
-                                'corretor': dados_corretor,
-                                    'imovel': dados_imovel,
-                                    'cliente2': dados_cliente2,
-                                    'cliente3': dados_cliente3,
-                                    'info_ad': self.info_ad,
-                                    'sucesso': self.sucesso,
-                                    'error': self.error,
-                                    'download': self.download_docx}
-                self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
-
-            '''if self.t_contrato == 'Compromisso de Compra e Venda':
-                base_dir = os.path.dirname(os.path.abspath(__file__))
-                caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Compromisso de Compra e Venda.docx')
-                self.dicionario = {'comprador': dados_comprador,
+        if self.t_contrato == 'Autorização de Venda':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Autorização de Venda.docx')
+            self.dicionario = {'cliente': dados_cliente,
+                            'corretor': dados_corretor,
                                 'imovel': dados_imovel,
-                                    'vendedor': dados_vendedor,
-                                    'corretor': dados_corretor,
-                                    'cliente2': dados_cliente2,
-                                    'cliente3': dados_cliente3,
-                                    'sucesso': self.sucesso,
-                                    'info_ad': self.info_ad,
-                                    'error': self.error,
-                                    'download': self.download_docx}
-                self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)'''
-
-            if self.t_contrato == 'Locação':
-                base_dir = os.path.dirname(os.path.abspath(__file__))
-                caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Locação Residencial.docx')
-                self.dicionario = {
-                                'corretor': dados_corretor,
-                                'imovel': dados_imovel,
+                                'cliente2': dados_cliente2,
+                                'cliente3': dados_cliente3,
                                 'info_ad': self.info_ad,
                                 'sucesso': self.sucesso,
                                 'error': self.error,
                                 'download': self.download_docx}
-                self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-            if self.t_contrato == 'Recibo de Pagamento':
-                base_dir = os.path.dirname(os.path.abspath(__file__))
-                caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Recibo de Pagamento.docx')
-                self.dicionario = {'corretor': dados_corretor,
-                                'pagador': dados_cliente,
-                                'recebedor': dados_cliente2,
-                                'tipo_pag': self.tipo_pag,
-                                'quant_pag': self.quant_pag,
-                                'mot_pag': self.mot_pag,
-                                'data_pag': self.data_pag,
+        '''if self.t_contrato == 'Compromisso de Compra e Venda':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Compromisso de Compra e Venda.docx')
+            self.dicionario = {'comprador': dados_comprador,
+                            'imovel': dados_imovel,
+                                'vendedor': dados_vendedor,
+                                'corretor': dados_corretor,
+                                'cliente2': dados_cliente2,
+                                'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
+                                'info_ad': self.info_ad,
                                 'error': self.error,
                                 'download': self.download_docx}
-                self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)'''
 
-            if self.t_contrato == 'Consultoria':
-                if self.min_valor == None:
-                    self.min_valor = dados_imovel['valor']
+        if self.t_contrato == 'Locação':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Locação Residencial.docx')
+            self.dicionario = {
+                            'corretor': dados_corretor,
+                            'imovel': dados_imovel,
+                            'info_ad': self.info_ad,
+                            'sucesso': self.sucesso,
+                            'error': self.error,
+                            'download': self.download_docx}
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-                if self.av_valor == None:
-                    self.av_valor = dados_imovel['valor']
+        if self.t_contrato == 'Recibo de Pagamento':
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Recibo de Pagamento.docx')
+            self.dicionario = {'corretor': dados_corretor,
+                            'pagador': dados_cliente,
+                            'recebedor': dados_cliente2,
+                            'tipo_pag': self.tipo_pag,
+                            'quant_pag': self.quant_pag,
+                            'mot_pag': self.mot_pag,
+                            'data_pag': self.data_pag,
+                            'sucesso': self.sucesso,
+                            'error': self.error,
+                            'download': self.download_docx}
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-                self.dicionario = {'corretor': dados_corretor,
-                                'cliente': dados_cliente,
-                                'imovel': dados_imovel,
-                                'min_valor': self.min_valor,
-                                'av_valor': self.av_valor,
-                                'pro_valor': self.pro_valor,
-                                'cons_valor': self.cons_valor,
-                                'sucesso': self.sucesso,
-                                'error': self.error,
-                                'download': self.download_docx}
-                
-                self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
-        except Exception as e:
-            self.error.emit(f'Erro ao gerar o contrato: {str(e)}\nVerifique se os dados estão corretos.')
-            return    
+        if self.t_contrato == 'Consultoria':
+            if self.min_valor == None:
+                self.min_valor = dados_imovel['valor']
+
+            if self.av_valor == None:
+                self.av_valor = dados_imovel['valor']
+
+            self.dicionario = {'corretor': dados_corretor,
+                            'cliente': dados_cliente,
+                            'imovel': dados_imovel,
+                            'min_valor': self.min_valor,
+                            'av_valor': self.av_valor,
+                            'pro_valor': self.pro_valor,
+                            'cons_valor': self.cons_valor,
+                            'sucesso': self.sucesso,
+                            'error': self.error,
+                            'download': self.download_docx}
+            
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
