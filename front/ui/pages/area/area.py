@@ -160,6 +160,7 @@ class Ui_MainWindow(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
         self.horizontalLayout_2.addWidget(self.comboBox_2)
         self.verticalLayout_4.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3.addLayout(self.verticalLayout_4)
@@ -185,4 +186,5 @@ class Ui_MainWindow(object):
         self.comboBox_2.setItemText(3, _translate("MainWindow", "Locação"))
         self.comboBox_2.setItemText(4, _translate("MainWindow", "Recibo de Pagamaento"))
         self.comboBox_2.setItemText(5, _translate("MainWindow", "Consultoria"))
+        self.comboBox_2.setItemText(6, _translate("MainWindow", "Todos"))
 from front.static import resource

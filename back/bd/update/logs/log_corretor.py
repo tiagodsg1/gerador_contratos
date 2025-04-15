@@ -56,7 +56,7 @@ class LogCorretor:
         self.cursor.execute("""
         SELECT * FROM log_corretor WHERE nome_corretor = %s
         """, (corretor,))
-        logs = self.cursor.fetchall()
+        logs = self.cursor.fetchone()
         self.servidor.commit()
         self.cursor.close()
         self.servidor.close()

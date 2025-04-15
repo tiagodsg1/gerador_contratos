@@ -1,6 +1,7 @@
 import datetime
 
 from docx import Document
+from back.docx.src.inserir_tabelas import inserir_tabelas
 from back.docx.src.retirar import delete_paragraph
 from back.docx.src.retirar import retirar
 from back.docx.src.retirar import substituir_texto
@@ -12,8 +13,12 @@ from back.bd.update.logs.log_corretor import LogCorretor
 def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, error, download):
 
     try:
+
+        
     
         documento = Document(caminho_documento)
+
+        inserir_tabelas(documento, documento.tables[2], info_ad['cliente1'])
         for table_index, table in enumerate(documento.tables):
             for row in table.rows:
                 for cell in row.cells:

@@ -357,6 +357,7 @@ class MainWindow(QMainWindow):
         self.area_contratos = Area()
         self.area_contratos.dados_corretor(self.corretor_lista)
         self.area_contratos.show()
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()

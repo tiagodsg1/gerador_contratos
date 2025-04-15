@@ -343,6 +343,11 @@ QComboBox::down-arrow::hover{
                <string>Consultoria</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>Todos</string>
+              </property>
+             </item>
             </widget>
            </item>
           </layout>
