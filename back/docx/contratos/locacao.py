@@ -334,16 +334,18 @@ def inserir_tabelas(documento, tabela, dados_cliente2, dados_cliente3):
         tabela_cliente2.rows[2].cells[0].text = 'Estado Civil'
         tabela_cliente2.rows[3].cells[0].text = 'CPF'
         tabela_cliente2.rows[4].cells[0].text = 'E-mail'
-        tabela_cliente2.rows[5].cells[0].text = 'Endereço'
-        tabela_cliente2.rows[6].cells[0].text = 'CEP'
+        tabela_cliente2.rows[5].cells[0].text = 'Telefone'
+        tabela_cliente2.rows[6].cells[0].text = 'Endereço'
+        tabela_cliente2.rows[7].cells[0].text = 'CEP'
 
         tabela_cliente2.rows[0].cells[1].text = '#2PARTE_CLIENTE'
         tabela_cliente2.rows[1].cells[1].text = '#2NACIONALIDADE'
         tabela_cliente2.rows[2].cells[1].text = '#2ESTADO CIVIL'
         tabela_cliente2.rows[3].cells[1].text = '#2CPF'
         tabela_cliente2.rows[4].cells[1].text = '#2E_MAIL'
-        tabela_cliente2.rows[5].cells[1].text = '#2ENDEREÇO'
-        tabela_cliente2.rows[6].cells[1].text = '#2CEP'
+        tabela_cliente2.rows[5].cells[1].text = '#2TELEFONE_LOCATARIA'
+        tabela_cliente2.rows[6].cells[1].text = '#2ENDEREÇO'
+        tabela_cliente2.rows[7].cells[1].text = '#2CEP'
 
         elemento_tabela_vazia.addnext(tabela_cliente2._element)
         tabela_cliente2.style = tabela_existente.style
@@ -393,17 +395,11 @@ def inserir_tabelas(documento, tabela, dados_cliente2, dados_cliente3):
         tabela_cliente3.rows[1].cells[0].text = 'Nacionalidade'
         tabela_cliente3.rows[2].cells[0].text = 'Estado Civil'
         tabela_cliente3.rows[3].cells[0].text = 'CPF'
-        tabela_cliente3.rows[4].cells[0].text = 'E-mail'
-        tabela_cliente3.rows[5].cells[0].text = 'Endereço'
-        tabela_cliente3.rows[6].cells[0].text = 'CEP'
 
         tabela_cliente3.rows[0].cells[1].text = '#3PARTE_CLIENTE'
         tabela_cliente3.rows[1].cells[1].text = '#3NACIONALIDADE'
         tabela_cliente3.rows[2].cells[1].text = '#3ESTADO CIVIL'
         tabela_cliente3.rows[3].cells[1].text = '#3CPF'
-        tabela_cliente3.rows[4].cells[1].text = '#3E_MAIL'
-        tabela_cliente3.rows[5].cells[1].text = '#3ENDEREÇO'
-        tabela_cliente3.rows[6].cells[1].text = '#3CEP'
 
         elemento_tabela_vazia.addnext(tabela_cliente3._element)
         tabela_cliente3.style = tabela_existente.style

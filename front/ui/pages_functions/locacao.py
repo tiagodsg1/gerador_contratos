@@ -152,6 +152,6 @@ class locacao(QWidget):
 
         self.ui.lineEdit_17.setStyleSheet("")
         
-        return self.locador, self.locataria, self.corretor, self.info_ad
+        return self.corretor, self.info_ad
 
     
