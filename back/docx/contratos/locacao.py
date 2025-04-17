@@ -14,8 +14,9 @@ from back.docx.src.retirar import substituir_trecho_tabela
 from back.bd.update.logs.log_corretor import LogCorretor
 
 def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, error, download):
+    try:
         documento = Document(caminho_documento)
-
+    
         inserir_tabelas(documento, documento.tables, info_ad['cliente2'], info_ad['cliente3'])
         for table_index, table in enumerate(documento.tables):
             for row in table.rows:
@@ -306,8 +307,8 @@ def locacao(dados_corretor, dados_imovel, caminho_documento, info_ad, sucesso, e
 
         download.emit(documento)
 
-        '''except Exception as e:
-        error.emit(f"Erro ao gerar o contrato de locação: {e}")'''
+    except Exception as e:
+        error.emit(f"Erro ao gerar o contrato de locação: {e}")
 
 
 def inserir_tabelas(documento, tabela, dados_cliente2, dados_cliente3):
