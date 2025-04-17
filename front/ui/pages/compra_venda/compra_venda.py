@@ -328,6 +328,14 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        
+        self.lineEdit.hide()
+        self.lineEdit_2.hide()
+        self.lineEdit_3.hide()
+        self.lineEdit_4.hide()
+        self.lineEdit_5.hide()
+        self.lineEdit_6.hide()
+        self.lineEdit_7.hide()
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
