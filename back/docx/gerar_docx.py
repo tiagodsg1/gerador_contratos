@@ -41,16 +41,11 @@ class GerarDocx:
             
         if self.t_contrato == 'Recibo de Pagamento':
             self.dados_corretor = dicionario['corretor']
-            self.dados_pagador = dicionario['pagador']
-            self.dados_recebedor = dicionario['recebedor']
-            self.tipo_pagamento = dicionario['tipo_pag']
-            self.motivo_pagamento = dicionario['mot_pag']
-            self.quantia_pagamento = dicionario['quant_pag']
-            self.data_pag = dicionario['data_pag']
+            self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            recibo_pagamento(self.dados_corretor, self.dados_pagador, self.dados_recebedor, self.tipo_pagamento, self.motivo_pagamento, self.quantia_pagamento, self.caminho_documento, self.data_pag, self.sucesso, self.error, self.download)
+            recibo_pagamento(self.dados_corretor, self.info_ad, self.caminho_documento, self.sucesso, self.error, self.download)
 
         if self.t_contrato == 'Consultoria':
             self.dados_cliente = dicionario['cliente']

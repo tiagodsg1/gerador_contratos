@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(1, _translate("MainWindow", "Compromisso de Compra e Venda"))
         self.comboBox.setItemText(2, _translate("MainWindow", "Autorização de Venda"))
         self.comboBox.setItemText(3, _translate("MainWindow", "Locação"))
-        self.comboBox.setItemText(4, _translate("MainWindow", "Recibo de Pagamaento"))
+        self.comboBox.setItemText(4, _translate("MainWindow", "Recibo de Pagamento"))
         self.comboBox.setItemText(5, _translate("MainWindow", "Consultoria"))
         self.label_5.setText(_translate("MainWindow", "Buscar Imóvel"))
         self.comboBox_5.setItemText(0, _translate("MainWindow", "Logradouro"))

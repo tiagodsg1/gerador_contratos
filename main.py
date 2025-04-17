@@ -129,22 +129,17 @@ class Worker(QThread):
                             'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-        '''if self.t_contrato == 'Recibo de Pagamento':
+        if self.t_contrato == 'Recibo de Pagamento':
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Recibo de Pagamento.docx')
             self.dicionario = {'corretor': dados_corretor,
-                            'pagador': dados_cliente,
-                            'recebedor': dados_cliente2,
-                            'tipo_pag': self.tipo_pag,
-                            'quant_pag': self.quant_pag,
-                            'mot_pag': self.mot_pag,
-                            'data_pag': self.data_pag,
+                            'info_ad': self.info_ad,
                             'sucesso': self.sucesso,
                             'error': self.error,
                             'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)'''
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-        '''if self.t_contrato == 'Consultoria':
+        if self.t_contrato == 'Consultoria':
             if self.min_valor == None:
                 self.min_valor = dados_imovel['valor']
 
@@ -162,7 +157,7 @@ class Worker(QThread):
                             'error': self.error,
                             'download': self.download_docx}
             
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)'''
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
 
 class MainWindow(QMainWindow):
 
@@ -229,10 +224,10 @@ class MainWindow(QMainWindow):
             if self.worker.corretor == None:
                 return
 
-        '''if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
-            self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
+        if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
+            self.worker.corretor, self.worker.info_ad = self.recibo.get_dados()
 
-        if self.ui.comboBox.currentText() == 'Consultoria':
+        '''if self.ui.comboBox.currentText() == 'Consultoria':
             self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()'''
 
         
