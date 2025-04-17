@@ -71,8 +71,7 @@ class Worker(QThread):
             self.cliente = self.info_ad['cliente0']
             self.cliente2 = self.info_ad['cliente1']
             self.cliente3 = self.info_ad['cliente2']
-
-            
+            self.cliente4 = self.info_ad['cliente3']
 
             if self.cliente:
                 dados_cliente = GetDados(self.cliente).get_clientes()
@@ -86,9 +85,14 @@ class Worker(QThread):
                 dados_cliente3 = GetDados(self.cliente3).get_clientes()
                 self.info_ad['cliente2'] = dados_cliente3
 
+            if self.cliente4:
+                dados_cliente4 = GetDados(self.cliente4).get_clientes()
+                self.info_ad['cliente3'] = dados_cliente4
+
         except Exception as e:
             self.error.emit(f'Erro ao buscar dados: {str(e)}\nVerifique se os clientes estão cadastrados ou se os dados estão corretos.\nCaso não esteja cadastrado, cadastre o cliente antes de gerar o contrato.')
             return
+        
         if self.t_contrato == 'Administração de Locação':
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Administração de Locação.docx')

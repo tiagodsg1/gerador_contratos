@@ -65,6 +65,7 @@ class locacao(QWidget):
         agua = self.ui.lineEdit_16.text()
         gas = self.ui.lineEdit_14.text()
         funesbom = self.ui.lineEdit_15.text()
+        n_funesbom = self.ui.lineEdit_19.text()
         matricula = self.ui.lineEdit_11.text()
         luz = self.ui.lineEdit_12.text()
 
@@ -103,6 +104,7 @@ class locacao(QWidget):
                     'luz': luz,
                     'gas': gas,
                     'funesbom': funesbom,
+                    'n_funesbom': n_funesbom,
                     'matricula': matricula,
                     'act_anm': False,
                     'fic_cond': False,
@@ -134,6 +136,9 @@ class locacao(QWidget):
 
         if self.ui.radioButton.isChecked():
             self.info_ad["cliente2"] = self.ui.comboBox_4.currentText()
+
+        if self.ui.radioButton_2.isChecked():
+            self.info_ad["cliente3"] = self.ui.comboBox_5.currentText()
 
         if self.ui.checkBox_5.isChecked() : self.info_ad["act_anm"] = True
         if self.ui.checkBox_4.isChecked() : self.info_ad["fic_cond"] = True

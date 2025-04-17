@@ -121,7 +121,7 @@ QDateEdit::down-button, QDateEdit::up-button {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-225</y>
+      <y>-530</y>
       <width>580</width>
       <height>1071</height>
      </rect>
@@ -475,7 +475,7 @@ encargos da locação</string>
      <widget class="QLineEdit" name="lineEdit_12">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>260</x>
         <y>990</y>
         <width>121</width>
         <height>22</height>
@@ -1296,6 +1296,22 @@ encargos da locação</string>
        </item>
       </layout>
      </widget>
+     <widget class="QLineEdit" name="lineEdit_19">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>990</y>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Funesbom Mensal</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
@@ -1336,6 +1352,7 @@ encargos da locação</string>
      <zorder>label_10</zorder>
      <zorder>layoutWidget_2</zorder>
      <zorder>layoutWidget_3</zorder>
+     <zorder>lineEdit_19</zorder>
     </widget>
    </widget>
   </widget>

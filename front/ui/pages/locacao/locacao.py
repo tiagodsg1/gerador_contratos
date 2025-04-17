@@ -80,7 +80,7 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -225, 580, 1071))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -530, 580, 1071))
         self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(510, 1071))
         self.scrollAreaWidgetContents.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
@@ -173,7 +173,7 @@ class Ui_Form(object):
         self.lineEdit_11.setClearButtonEnabled(True)
         self.lineEdit_11.setObjectName("lineEdit_11")
         self.lineEdit_12 = QtWidgets.QLineEdit(self.widget)
-        self.lineEdit_12.setGeometry(QtCore.QRect(330, 990, 121, 22))
+        self.lineEdit_12.setGeometry(QtCore.QRect(260, 990, 121, 22))
         self.lineEdit_12.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.lineEdit_12.setClearButtonEnabled(True)
         self.lineEdit_12.setObjectName("lineEdit_12")
@@ -437,6 +437,10 @@ class Ui_Form(object):
         spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_10.addItem(spacerItem19)
         self.verticalLayout_10.addLayout(self.horizontalLayout_10)
+        self.lineEdit_19 = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_19.setGeometry(QtCore.QRect(400, 990, 121, 22))
+        self.lineEdit_19.setClearButtonEnabled(True)
+        self.lineEdit_19.setObjectName("lineEdit_19")
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
@@ -477,10 +481,16 @@ class Ui_Form(object):
         self.label_10.raise_()
         self.layoutWidget_2.raise_()
         self.layoutWidget_3.raise_()
+        self.lineEdit_19.raise_()
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.lineEdit_3.setVisible(False)
+        self.lineEdit_4.setVisible(False)
+        self.lineEdit_5.setVisible(False)
+        self.lineEdit_7.setVisible(False)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -528,4 +538,5 @@ class Ui_Form(object):
         self.label_10.setText(_translate("Form", "Dia de vencimento do contrato"))
         self.label_8.setText(_translate("Form", "Parte Locataria"))
         self.label_11.setText(_translate("Form", "Parte Locadora"))
+        self.lineEdit_19.setPlaceholderText(_translate("Form", "Funesbom Mensal"))
 from front.static import resource
