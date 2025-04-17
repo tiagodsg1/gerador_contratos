@@ -35,6 +35,7 @@ class administracao_locacao(QWidget):
             self.ui.lineEdit.setStyleSheet("border-color: red;")
             self.error('Campo de Porcentagem não pode ficar vazio')
             return None, None
+        
         cartorio = self.ui.lineEdit_8.text()
         n_iptu = self.ui.lineEdit_9.text()
         relogio = self.ui.lineEdit_10.text()
@@ -48,6 +49,8 @@ class administracao_locacao(QWidget):
         info_ad = {
             'cliente0': self.cliente,
             'cliente1': None,
+            'cliente2': None,
+            'cliente3': None,
             'porcentagem': porcentagem,
             'cartorio' : cartorio,
             'n_iptu': n_iptu,

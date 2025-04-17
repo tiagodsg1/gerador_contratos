@@ -241,8 +241,8 @@ class MainWindow(QMainWindow):
             self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.compra_venda.get_dados()
 
         if self.ui.comboBox.currentText() == 'Locação':
-            self.worker.cliente, self.worker.cliente2, self.worker.corretor, self.worker.info_ad = self.locacao.get_dados()
-            if self.worker.cliente == None:
+            self.worker.corretor, self.worker.info_ad = self.locacao.get_dados()
+            if self.worker.corretor == None:
                 return
 
         if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
