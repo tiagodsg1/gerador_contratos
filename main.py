@@ -42,20 +42,8 @@ class Worker(QThread):
         self.t_contrato = None
         self.imovel = None
         self.corretor = None
-        self.comprador = None
-        self.vendedor = None
         self.tipo = None
-        self.percentual = None
         self.download = None
-        self.corretor = None
-        self.tipo_pag = None
-        self.min_valor = None
-        self.av_valor = None
-        self.pro_valor = None
-        self.cons_valor = None
-        self.mot_pag = None
-        self.quant_pag = None
-        self.data_pag = None
         self.info_ad = None
 
     def run(self):
@@ -109,31 +97,25 @@ class Worker(QThread):
         if self.t_contrato == 'Autorização de Venda':
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Autorização de Venda.docx')
-            self.dicionario = {'cliente': dados_cliente,
-                                'corretor': dados_corretor,
+            self.dicionario = {'corretor': dados_corretor,
                                 'imovel': dados_imovel,
-                                'cliente2': dados_cliente2,
-                                'cliente3': dados_cliente3,
                                 'info_ad': self.info_ad,
                                 'sucesso': self.sucesso,
                                 'error': self.error,
                                 'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-        '''if self.t_contrato == 'Compromisso de Compra e Venda':
+        if self.t_contrato == 'Compromisso de Compra e Venda':
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Compromisso de Compra e Venda.docx')
-            self.dicionario = {'comprador': dados_comprador,
-                            'imovel': dados_imovel,
-                                'vendedor': dados_vendedor,
+            self.dicionario = {               
+                                'imovel': dados_imovel,
                                 'corretor': dados_corretor,
-                                'cliente2': dados_cliente2,
-                                'cliente3': dados_cliente3,
                                 'sucesso': self.sucesso,
                                 'info_ad': self.info_ad,
                                 'error': self.error,
                                 'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)'''
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Locação':
             base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -147,7 +129,7 @@ class Worker(QThread):
                             'download': self.download_docx}
             self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
-        if self.t_contrato == 'Recibo de Pagamento':
+        '''if self.t_contrato == 'Recibo de Pagamento':
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Recibo de Pagamento.docx')
             self.dicionario = {'corretor': dados_corretor,
@@ -160,9 +142,9 @@ class Worker(QThread):
                             'sucesso': self.sucesso,
                             'error': self.error,
                             'download': self.download_docx}
-            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)'''
 
-        if self.t_contrato == 'Consultoria':
+        '''if self.t_contrato == 'Consultoria':
             if self.min_valor == None:
                 self.min_valor = dados_imovel['valor']
 
@@ -180,7 +162,7 @@ class Worker(QThread):
                             'error': self.error,
                             'download': self.download_docx}
             
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)'''
 
 class MainWindow(QMainWindow):
 
@@ -238,18 +220,20 @@ class MainWindow(QMainWindow):
             self.worker.corretor, self.worker.info_ad = self.autorizacao.get_dados()
         
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
-            self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.compra_venda.get_dados()
+            self.worker.corretor, self.worker.info_ad = self.compra_venda.get_dados()
+            if self.worker.corretor == None:
+                return
 
         if self.ui.comboBox.currentText() == 'Locação':
             self.worker.corretor, self.worker.info_ad = self.locacao.get_dados()
             if self.worker.corretor == None:
                 return
 
-        if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
+        '''if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
             self.worker.corretor, self.worker.tipo_pag, self.worker.mot_pag, self.worker.quant_pag, self.worker.cliente, self.worker.cliente2, self.worker.data_pag = self.recibo.get_dados()
 
         if self.ui.comboBox.currentText() == 'Consultoria':
-            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()
+            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()'''
 
         
         self.worker.tipo = self.tipo
@@ -290,7 +274,7 @@ class MainWindow(QMainWindow):
 
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
             self.clear_frame(self.ui.frame_3)
-            self.compra_venda.insert_dados(self.cliente_lista, self.cliente_lista, self.corretor_lista)
+            self.compra_venda.insert_dados(self.cliente_lista, self.corretor_lista, self.download_error)
             self.compra_venda.setParent(self.ui.frame_3)
             self.compra_venda.show()
 

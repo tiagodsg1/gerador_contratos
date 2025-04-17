@@ -24,15 +24,15 @@ class compra_venda(QWidget):
         self.ui.radioButton.clicked.connect(self.radio_button_clicked)
         self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
 
-    def insert_dados(self, comprador, vendedor, corretor):
-        self.comprador = comprador
-        self.vendedor = vendedor
+    def insert_dados(self, cliente, corretor, download):
+        self.cliente = cliente
         self.corretor = corretor
-        self.ui.comboBox.addItems(self.vendedor)
-        self.ui.comboBox_4.addItems(self.vendedor)
+        self.download = download
+        self.ui.comboBox.addItems(self.cliente)
+        self.ui.comboBox_4.addItems(self.cliente)
 
-        self.ui.comboBox_2.addItems(self.comprador)
-        self.ui.comboBox_5.addItems(self.comprador)
+        self.ui.comboBox_2.addItems(self.cliente)
+        self.ui.comboBox_5.addItems(self.cliente)
 
         self.ui.comboBox_3.addItems(self.corretor)
 
@@ -48,7 +48,10 @@ class compra_venda(QWidget):
             self.ui.comboBox_5.setEnabled(False)        
 
     def get_dados(self):
-
+        
+        cliente0 = self.ui.comboBox.currentText()
+        cliente1 = self.ui.comboBox_2.currentText()
+        self.corretor = self.ui.comboBox_3.currentText()
         cartorio = self.ui.lineEdit_9.text()
         n_iptu = self.ui.lineEdit_10.text()
         matricula = self.ui.lineEdit_11.text()
@@ -63,6 +66,10 @@ class compra_venda(QWidget):
         posse = self.ui.textEdit.toPlainText()
 
         info_ad = {
+            'cliente0': cliente0,
+            'cliente1': cliente1,
+            'cliente2': None,
+            'cliente3': None,
             'cartorio': cartorio,
             'n_iptu': n_iptu,
             'matricula': matricula,
@@ -79,16 +86,16 @@ class compra_venda(QWidget):
         }
 
         if self.ui.radioButton.isChecked():
-            self.cliente_2 = self.ui.comboBox_4.currentText()
+            info_ad['cliente2'] = self.ui.comboBox_4.currentText()
 
         if self.ui.radioButton_2.isChecked():
-            self.cliente_3 = self.ui.comboBox_5.currentText()
+            info_ad['cliente3'] = self.ui.comboBox_5.currentText()
 
         if self.ui.checkBox_16.isChecked():
             info_ad['escritura'] = True
-
-        self.vendedor = self.ui.comboBox.currentText()
-        self.comprador = self.ui.comboBox_2.currentText()
-        self.corretor = self.ui.comboBox_3.currentText()
         
-        return self.comprador, self.vendedor, self.corretor, self.cliente_2, self.cliente_3, info_ad
+        if prazo == '':
+            self.download('Prazo não pode ser vazio')
+            return None, None
+        
+        return self.corretor, info_ad

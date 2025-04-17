@@ -31,17 +31,13 @@ class GerarDocx:
             auto_venda(self.caminho_documento, self.dados_corretor, self.dados_imovel, self.info_ad, self.sucesso, self.error, self.download)
                         
         if self.t_contrato == 'Compromisso de Compra e Venda':
-            self.dados_comprador = dicionario['comprador']
-            self.dados_vendedor = dicionario['vendedor']
             self.dados_imovel = dicionario['imovel']
             self.dados_corretor = dicionario['corretor']
-            self.dados_cliente2 = dicionario['cliente2']
-            self.dados_cliente3 = dicionario['cliente3']
             self.info_ad = dicionario['info_ad']
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            compra_venda(self.caminho_documento, self.dados_comprador, self.dados_vendedor, self.dados_imovel, self.dados_corretor, self.dados_cliente2, self.dados_cliente3, self.info_ad, self.sucesso, self.error, self.download)
+            compra_venda(self.caminho_documento, self.dados_imovel, self.dados_corretor, self.info_ad, self.sucesso, self.error, self.download)
             
         if self.t_contrato == 'Recibo de Pagamento':
             self.dados_corretor = dicionario['corretor']
