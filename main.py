@@ -140,24 +140,17 @@ class Worker(QThread):
             self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
         if self.t_contrato == 'Consultoria':
-            if self.min_valor == None:
-                self.min_valor = dados_imovel['valor']
-
-            if self.av_valor == None:
-                self.av_valor = dados_imovel['valor']
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Consultoria.docx')
 
             self.dicionario = {'corretor': dados_corretor,
                             'cliente': dados_cliente,
                             'imovel': dados_imovel,
-                            'min_valor': self.min_valor,
-                            'av_valor': self.av_valor,
-                            'pro_valor': self.pro_valor,
-                            'cons_valor': self.cons_valor,
                             'sucesso': self.sucesso,
                             'error': self.error,
                             'download': self.download_docx}
             
-            self.contrato = GerarDocx(self.t_contrato, "./Contratos_docx/Consultoria.docx", self.dicionario)
+            self.contrato = GerarDocx(self.t_contrato, caminho_docx, self.dicionario)
 
 class MainWindow(QMainWindow):
 
@@ -227,8 +220,8 @@ class MainWindow(QMainWindow):
         if self.ui.comboBox.currentText() == 'Recibo de Pagamento':
             self.worker.corretor, self.worker.info_ad = self.recibo.get_dados()
 
-        '''if self.ui.comboBox.currentText() == 'Consultoria':
-            self.worker.corretor, self.worker.min_valor, self.worker.av_valor, self.worker.pro_valor, self.worker.cons_valor, self.worker.cliente = self.consultoria.get_dados()'''
+        if self.ui.comboBox.currentText() == 'Consultoria':
+            self.worker.corretor, self.worker.info_ad = self.consultoria.get_dados()
 
         
         self.worker.tipo = self.tipo

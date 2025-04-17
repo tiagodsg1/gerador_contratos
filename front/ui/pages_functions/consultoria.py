@@ -40,7 +40,19 @@ class consultoria(QWidget):
         cons_valor = self.ui.lineEdit_8.text()
         self.corretor = self.ui.comboBox_3.currentText()
         self.cliente = self.ui.comboBox_6.currentText()
-        return self.corretor, min_valor, av_valor, pro_valor, cons_valor, self.cliente
+
+
+        info_ad = {
+            'cliente0': self.cliente,
+            'cliente1': None,
+            'cliente2': None,
+            'cliente3': None,
+            'min_valor': min_valor,
+            'av_valor': av_valor,
+            'pro_valor': pro_valor,
+            'cons_valor': cons_valor
+        }
+        return self.corretor, info_ad
 
     
 
