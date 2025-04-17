@@ -1,4 +1,5 @@
 from docx import Document
+import datetime
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 from docx.shared import Cm
@@ -10,6 +11,8 @@ from back.docx.src.retirar import retirar
 from back.docx.src.retirar import substituir_texto
 from back.docx.src.retirar import remover_trecho
 from back.docx.src.retirar import substituir_trecho_tabela
+
+from back.bd.update.logs.log_corretor import LogCorretor
     
 def administracao_locacao( dados_corretor, dados_imovel, info_ad, caminho_documento, sucesso, error, download):
 
@@ -178,6 +181,25 @@ def administracao_locacao( dados_corretor, dados_imovel, info_ad, caminho_docume
                     substituir_texto(paragrafo, 'de R$ 100,00 (R$50,00 se for no plano de 20%)', 'R$ 50,00')
                 else:
                     substituir_texto(paragrafo, 'de R$ 100,00 (R$50,00 se for no plano de 20%)', 'R$ 100,00')
+
+        list_envio = [
+            dados_corretor['nome'],
+            dados_corretor['id'],
+            dados_corretor['creci'],
+            'INSERT',
+            'Administração de Locação',	
+            datetime.datetime.now().strftime("%d/%m/%Y"),
+            dados_imovel['referencia'],
+            dados_imovel['bairro'],
+            dados_imovel['cidade'],
+            dados_imovel['id'],
+            info_ad['cliente0']['nome'],
+            info_ad['cliente0']['bairro'],
+            info_ad['cliente0']['cidade'],
+            info_ad['cliente0']['id'] ]
+        
+        log_corretor = LogCorretor()
+        log_corretor.insert_logs(list_envio)
         download.emit(documento)
         
     except Exception as e:
