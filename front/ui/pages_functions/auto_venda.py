@@ -6,40 +6,26 @@ class autorizacao(QWidget):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.cliente_2 = False
-        self.cliente_3 = False
-        self.ui.pushButton_3.clicked.connect(self.cliente2)
-        self.ui.pushButton_4.clicked.connect(self.cliente3)
+
+        self.ui.radioButton_2.clicked.connect(self.radio_button)
     
     def insert_dados(self, clientes, corretor):
         self.clientes = clientes
         self.corretor = corretor
-        self.hiden()
-        self.ui.comboBox.addItems(self.corretor)
         self.ui.comboBox_2.addItems(self.clientes)
+        self.ui.comboBox_5.addItems(self.clientes)
+        self.ui.comboBox_3.addItems(self.corretor)
 
-    def cliente2(self):
-        self.ui.pushButton_3.hide()
-        self.ui.comboBox_3.show()
-        self.ui.label_4.show()
-        self.ui.comboBox_3.addItems(self.clientes)
-        self.cliente_2 = True
+    def radio_button(self):
+        if self.ui.radioButton_2.isChecked():
+            self.ui.comboBox_5.setEnabled(True)
+        else:
+            self.ui.comboBox_5.setEnabled(False)
 
-    def cliente3(self):
-        self.ui.pushButton_4.hide()
-        self.ui.comboBox_4.show()
-        self.ui.label_5.show()
-        self.ui.comboBox_4.addItems(self.clientes)
-        self.cliente_3 = True
-
-    def hiden(self):
-        self.ui.comboBox_3.hide()
-        self.ui.label_4.hide()
-        self.ui.comboBox_4.hide()
-        self.ui.label_5.hide()
 
     def get_dados(self):
-
+        
+        cliente0 = self.ui.comboBox_2.currentText()
         cartorio = self.ui.lineEdit_8.text()
         n_iptu = self.ui.lineEdit_9.text()
         relogio = self.ui.lineEdit_10.text()
@@ -51,6 +37,10 @@ class autorizacao(QWidget):
         luz = self.ui.lineEdit_12.text()
         
         info_ad = {
+            'cliente0': cliente0,
+            'cliente1': None,
+            'cliente2': None,
+            'cliente3': None,
             'cartorio' : cartorio,
             'n_iptu': n_iptu,
             'relogio': relogio,
@@ -61,12 +51,9 @@ class autorizacao(QWidget):
             'funesbom': funesbom,
             'matricula': matricula,
         }
-        if self.cliente_2 == True:
-            self.cliente_2 = self.ui.comboBox_3.currentText()
-        if self.cliente_3 == True:
-            self.cliente_3 = self.ui.comboBox_4.currentText()
+        if self.ui.radioButton_2.isChecked():
+            info_ad['cliente1'] = self.ui.comboBox_5.currentText()
 
-        self.cliente = self.ui.comboBox_2.currentText()
-        self.corretor = self.ui.comboBox.currentText()
+        self.corretor = self.ui.comboBox_3.currentText()
         
-        return self.cliente, self.corretor , self.cliente_2, self.cliente_3, info_ad
+        return self.corretor, info_ad

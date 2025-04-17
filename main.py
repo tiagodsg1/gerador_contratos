@@ -110,7 +110,7 @@ class Worker(QThread):
             base_dir = os.path.dirname(os.path.abspath(__file__))
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Autorização de Venda.docx')
             self.dicionario = {'cliente': dados_cliente,
-                            'corretor': dados_corretor,
+                                'corretor': dados_corretor,
                                 'imovel': dados_imovel,
                                 'cliente2': dados_cliente2,
                                 'cliente3': dados_cliente3,
@@ -235,7 +235,7 @@ class MainWindow(QMainWindow):
                return
 
         if self.ui.comboBox.currentText() == 'Autorização de Venda':
-            self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.autorizacao.get_dados()
+            self.worker.corretor, self.worker.info_ad = self.autorizacao.get_dados()
         
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
             self.worker.comprador, self.worker.vendedor, self.worker.corretor, self.worker.cliente2, self.worker.cliente3, self.worker.info_ad = self.compra_venda.get_dados()

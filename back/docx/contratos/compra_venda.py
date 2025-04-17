@@ -4,7 +4,6 @@ from back.docx.src.inserir_tabelas import inserir_tabelas
 from back.docx.src.retirar import retirar
 from back.docx.src.retirar import delete_paragraph
 from back.docx.src.retirar import substituir_texto
-from back.docx.src.retirar import remover_trecho
 from back.docx.src.retirar import substituir_trecho_tabela
 def compra_venda(caminho_documento, dados_comprador, dados_vendedor, dados_imovel, dados_corretor, dados_cliente2, dados_cliente3, info_ad, sucesso, error, download):
     try:

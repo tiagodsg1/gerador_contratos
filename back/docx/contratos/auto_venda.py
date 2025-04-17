@@ -1,279 +1,252 @@
-from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
+from docx.shared import Cm
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx import Document
 
-from back.docx.src.inserir_tabelas import inserir_tabelas
 from back.docx.src.retirar import retirar
 from back.docx.src.retirar import substituir_texto
 from back.docx.src.retirar import remover_trecho
 from back.docx.src.retirar import substituir_trecho_tabela
 
 
-def auto_venda(caminho_documento, dados_cliente, dados_corretor, dados_imovel, dados_cliente2, dados_cliente3, info_ad, sucesso, error, download):
-    try:
-        documento = Document(caminho_documento)
+def auto_venda(caminho_documento, dados_corretor, dados_imovel, info_ad, sucesso, error, download):
+    '''try:'''
+    documento = Document(caminho_documento)
 
-        inserir_tabelas(documento, documento.tables[0], dados_cliente2, dados_cliente3)
-        retirar(documento)
-        
-        for tabela_index, tabela in enumerate(documento.tables):
-            for linha in tabela.rows:
-                for celula in linha.cells:
-                    if dados_cliente:
-                        #Dados do cliente
-                        if '#PARTE_VENDEDORA' == celula.text:
-                            substituir_trecho_tabela(celula, '#PARTE_VENDEDORA', dados_cliente['nome'])
+    inserir_tabelas(documento, documento.tables[0], info_ad['cliente1'])
+    index = 1
+    if info_ad['cliente1'] != None:
+        index = 2
+    
+    for tabela_index, tabela in enumerate(documento.tables):
+        for linha in tabela.rows:
+            for celula in linha.cells:
+                for i in range(index):
+                    #Dados do cliente
+                    if f'#{i}PARTE_CLIENTE' in celula.text:
+                        substituir_trecho_tabela(celula, f'#{i}PARTE_CLIENTE', info_ad[f'cliente{i}']['nome'])
+                    
+                    if f'#{i}NACIONALIDADE' in celula.text:
+                        substituir_trecho_tabela(celula, f'#{i}NACIONALIDADE', 'Brasileiro(a)')
 
-                        if '#1PARTE_VENDEDORA' in celula.text:
-                            substituir_trecho_tabela(celula, '#1PARTE_VENDEDORA', dados_cliente['nome'])
-                        
-                        if '#NACIONALIDADE' in celula.text:
-                            substituir_trecho_tabela(celula, '#NACIONALIDADE', 'Brasileiro(a)')
-
-                        if '#ESTADO CIVIL' in celula.text:
-                            if dados_cliente['estado_civil'] == None:
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#ESTADO CIVIL', dados_cliente['estado_civil'])
-                        
-                        if '#CPF' in celula.text:
-                            if dados_cliente['cpf_cnpj'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#CPF', dados_cliente['cpf_cnpj'])
-                        
-                        if '#E_MAIL' in celula.text:
-                            if dados_cliente['email'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-
-                            else:
-                                substituir_trecho_tabela(celula, '#E_MAIL', dados_cliente['email'])
-
-                        if '#ENDERECO' in celula.text:
-                            if dados_cliente['logradouro'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#ENDERECO', dados_cliente['logradouro'])
-
-                        if '#CEP' in celula.text:
-                            if dados_cliente['cep'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#CEP', dados_cliente['cep'])
-
-                    if dados_cliente2:
-                        #Dados do cliente 2
-                        if '#2PARTE_CLIENTE' == celula.text:
-                            substituir_trecho_tabela(celula, '#2PARTE_CLIENTE', dados_cliente2['nome'])
-
-                        if '#2PARTE_CLIENTE_ASSINATURA' in celula.text:
-                            substituir_trecho_tabela(celula, '#2PARTE_CLIENTE_ASSINATURA', dados_cliente2['nome'])
-                            for paragrafo in celula.paragraphs:
-                                if celula.text in paragrafo.text:
-                                    paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-                                    paragrafo.style.font.size = Pt(12)
-
-                        if '#2NACIONALIDADE' == celula.text:
-                            substituir_trecho_tabela(celula, '#2NACIONALIDADE', 'Brasileiro(a)')
-
-                        if '#2ESTADO CIVIL' == celula.text:
-                            if dados_cliente2['estado_civil'] == None:
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#2ESTADO CIVIL', dados_cliente2['estado_civil'])
-
-                        if '#2CPF' == celula.text:
-                            if dados_cliente2['cpf_cnpj'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#2CPF', dados_cliente2['cpf_cnpj'])
-
-                        if '#2E_MAIL' == celula.text:
-                            if dados_cliente2['email'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#2E_MAIL', dados_cliente2['email'])
-
-                        if '#2ENDERECO' == celula.text:
-                            if dados_cliente2['logradouro'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#2ENDERECO', dados_cliente2['logradouro'])
-
-                        if '#2CEP' == celula.text:
-                            if dados_cliente2['cep'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                        
-                    if dados_cliente3:
-                        #Dados do cliente 3
-                        if '#3PARTE_CLIENTE' == celula.text:
-                            substituir_trecho_tabela(celula, '#3PARTE_CLIENTE', dados_cliente3['nome'])
-
-                        if '#3PARTE_CLIENTE_ASSININATURA' in celula.text:
-                            substituir_trecho_tabela(celula, '#3PARTE_CLIENTE_ASSININATURA', dados_cliente3['nome'])
-                            for paragrafo in celula.paragraphs:
-                                if celula.text in paragrafo.text:
-                                    paragrafo.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-                                    paragrafo.style.font.size = Pt(12)
-
-                        if '#3NACIONALIDADE' == celula.text:
-                            substituir_trecho_tabela(celula, '#3NACIONALIDADE', 'Brasileiro(a)')
-
-                        if '#3ESTADO CIVIL' == celula.text:
-                            if dados_cliente3['estado_civil'] == None:
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#3ESTADO CIVIL', dados_cliente3['estado_civil'])
-
-                        if '#3CPF' == celula.text:
-                            if dados_cliente3['cpf_cnpj'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#3CPF', dados_cliente3['cpf_cnpj'])
-
-                        if '#3E_MAIL' == celula.text:
-                            if dados_cliente3['email'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#3E_MAIL', dados_cliente3['email'])
-
-                        if '#3ENDERECO' == celula.text:
-                            if dados_cliente3['logradouro'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#3ENDERECO', dados_cliente3['logradouro'])
-
-                        if '#3CEP' == celula.text:
-                            if dados_cliente3['cep'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-
-                    #Dados Imovel
-                    if '#END_IMOVEL' in celula.text:
-                        substituir_trecho_tabela(celula, '#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ', ' + dados_imovel['estado'])
-                    if '#CEP_IMOVEL' in celula.text:
-                        if dados_imovel['cep'] == None:
+                    if f'#{i}ESTADO CIVIL' in celula.text:
+                        if info_ad[f'cliente{i}']['estado_civil'] == None:
                             tabela_remove = documento.tables[tabela_index]
                             remover_linha = tabela_remove.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela(celula, '#CEP_IMOVEL', dados_imovel['cep'])
-
-                    if '#CARTORIO' == celula.text:
-                            if info_ad['cartorio'] == '':
-                                tabela_para_remover = documento.tables[tabela_index]
-                                remover_linha = tabela_para_remover.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#CARTORIO', info_ad['cartorio'])
-
-                    if '#MATRICULA' in celula.text:
-                        if info_ad['matricula'] == '':
-                            if dados_imovel['matricula'] == 'None':
-                                tabela_remove = documento.tables[tabela_index]
-                                remover_linha = tabela_remove.rows[linha._index]._element
-                                remover_linha.getparent().remove(remover_linha)
-                            else:
-                                substituir_trecho_tabela(celula, '#MATRICULA', dados_imovel['matricula'])
+                            substituir_trecho_tabela(celula, f'#{i}ESTADO CIVIL', info_ad[f'cliente{i}']['estado_civil'])
+                    
+                    if f'#{i}CPF' in celula.text:
+                        if info_ad[f'cliente{i}']['cpf_cnpj'] == 'None':
+                            tabela_remove = documento.tables[tabela_index]
+                            remover_linha = tabela_remove.rows[linha._index]._element
+                            remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela(celula, '#MATRICULA', info_ad['matricula'])
+                            substituir_trecho_tabela(celula, f'#{i}CPF', info_ad[f'cliente{i}']['cpf_cnpj'])
+                    
+                    if f'#{i}E_MAIL' in celula.text:
+                        if info_ad[f'cliente{i}']['email'] == 'None':
+                            tabela_remove = documento.tables[tabela_index]
+                            remover_linha = tabela_remove.rows[linha._index]._element
+                            remover_linha.getparent().remove(remover_linha)
 
-                    if '#INSCRICAO_IPTU' == celula.text:
-                        if info_ad['n_iptu'] == '':
+                        else:
+                            substituir_trecho_tabela(celula, f'#{i}E_MAIL', info_ad[f'cliente{i}']['email'])
+
+                    if f'#{i}ENDEREÇO' in celula.text:
+                        if info_ad[f'cliente{i}']['logradouro'] == 'None':
+                            tabela_remove = documento.tables[tabela_index]
+                            remover_linha = tabela_remove.rows[linha._index]._element
+                            remover_linha.getparent().remove(remover_linha)
+                        else:
+                            substituir_trecho_tabela(celula, f'#{i}ENDEREÇO', info_ad[f'cliente{i}']['logradouro'])
+
+                    if f'#{i}CEP' in celula.text:
+                        if info_ad[f'cliente{i}']['cep'] == 'None':
+                            tabela_remove = documento.tables[tabela_index]
+                            remover_linha = tabela_remove.rows[linha._index]._element
+                            remover_linha.getparent().remove(remover_linha)
+                        else:
+                            substituir_trecho_tabela(celula, f'#{i}CEP', info_ad[f'cliente{i}']['cep'])
+
+                #Dados Imovel
+                if '#END_IMOVEL' in celula.text:
+                    substituir_trecho_tabela(celula, '#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ', ' + dados_imovel['estado'])
+                if '#CEP_IMOVEL' in celula.text:
+                    if dados_imovel['cep'] == None:
+                        tabela_remove = documento.tables[tabela_index]
+                        remover_linha = tabela_remove.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#CEP_IMOVEL', dados_imovel['cep'])
+
+                if '#CARTORIO' == celula.text:
+                        if info_ad['cartorio'] == '':
                             tabela_para_remover = documento.tables[tabela_index]
                             remover_linha = tabela_para_remover.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela(celula, '#INSCRICAO_IPTU', info_ad['n_iptu'])        
+                            substituir_trecho_tabela(celula, '#CARTORIO', info_ad['cartorio'])
 
-                    if '#CONCESSIONARIA_LUZ' == celula.text:
-                        if info_ad['luz'] == '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
+                if '#MATRICULA' in celula.text:
+                    if info_ad['matricula'] == '':
+                        if dados_imovel['matricula'] == None:
+                            tabela_remove = documento.tables[tabela_index]
+                            remover_linha = tabela_remove.rows[linha._index]._element
                             remover_linha.getparent().remove(remover_linha)
                         else:
-                            substituir_trecho_tabela(celula, '#CONCESSIONARIA_LUZ', info_ad['luz'])
-        
-                    if '#RELOGIO' == celula.text:
-                        if info_ad['relogio'] == '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            substituir_trecho_tabela(celula, '#RELOGIO', info_ad['relogio'])
+                            substituir_trecho_tabela(celula, '#MATRICULA', dados_imovel['matricula'])
+                    else:
+                        substituir_trecho_tabela(celula, '#MATRICULA', info_ad['matricula'])
 
-                    if '#MONOBITRIFASICO' == celula.text:
-                        if info_ad['monobitrifasico'] == '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            substituir_trecho_tabela(celula, '#MONOBITRIFASICO', info_ad['monobitrifasico'])
+                if '#INSCRICAO_IPTU' == celula.text:
+                    if info_ad['n_iptu'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#INSCRICAO_IPTU', info_ad['n_iptu'])        
 
-                    if '#CONCESSIONARIA_GAS' == celula.text:
-                        if info_ad['gas']== '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            substituir_trecho_tabela(celula, '#CONCESSIONARIA_GAS', info_ad['gas'])
+                if '#CONCESSIONARIA_LUZ' == celula.text:
+                    if info_ad['luz'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#CONCESSIONARIA_LUZ', info_ad['luz'])
+    
+                if '#RELOGIO' == celula.text:
+                    if info_ad['relogio'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#RELOGIO', info_ad['relogio'])
 
-                    if '#FUNESBOM' == celula.text:
-                        if info_ad['funesbom'] == '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            substituir_trecho_tabela(celula, '#FUNESBOM', info_ad['funesbom'])
+                if '#MONOBITRIFASICO' == celula.text:
+                    if info_ad['monobitrifasico'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#MONOBITRIFASICO', info_ad['monobitrifasico'])
 
-                    if '#HIDROMETRO' == celula.text:
-                        if info_ad['agua'] == '':
-                            tabela_para_remover = documento.tables[tabela_index]
-                            remover_linha = tabela_para_remover.rows[linha._index]._element
-                            remover_linha.getparent().remove(remover_linha)
-                        else:
-                            substituir_trecho_tabela(celula, '#HIDROMETRO', info_ad['agua'])
+                if '#CONCESSIONARIA_GAS' == celula.text:
+                    if info_ad['gas']== '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#CONCESSIONARIA_GAS', info_ad['gas'])
 
-        for paragrafo in documento.paragraphs:
-            texto = paragrafo.text
+                if '#FUNESBOM' == celula.text:
+                    if info_ad['funesbom'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#FUNESBOM', info_ad['funesbom'])
 
-            if '#CAPTADOR' in texto:
-                substituir_texto(paragrafo, '#CAPTADOR', dados_corretor['nome'])
+                if '#HIDROMETRO' == celula.text:
+                    if info_ad['agua'] == '':
+                        tabela_para_remover = documento.tables[tabela_index]
+                        remover_linha = tabela_para_remover.rows[linha._index]._element
+                        remover_linha.getparent().remove(remover_linha)
+                    else:
+                        substituir_trecho_tabela(celula, '#HIDROMETRO', info_ad['agua'])
 
-            if '#CAPTA_CPF' in texto:
-                substituir_texto(paragrafo, '#CAPTA_CPF', dados_corretor['cpf_cnpj'])
-            if '#FORO' in texto:
-                substituir_texto(paragrafo, '#FORO', dados_imovel['cidade'])
-        
-        download.emit(documento)
-    except Exception as e:
-        error.emit(str(e))
+    for paragrafo in documento.paragraphs:
+        texto = paragrafo.text
+
+        if '#CAPTADOR' in texto:
+            substituir_texto(paragrafo, '#CAPTADOR', dados_corretor['nome'])
+
+        if '#CAPTA_CPF' in texto:
+            substituir_texto(paragrafo, '#CAPTA_CPF', dados_corretor['cpf_cnpj'])
+        if '#FORO' in texto:
+            substituir_texto(paragrafo, '#FORO', dados_imovel['cidade'])
+    
+    download.emit(documento)
+    '''except Exception as e:
+        error.emit('Erro ao gerar o documento: ' + str(e))'''
+
+def add_table_borders(table):
+    """
+    Adiciona bordas à tabela.
+    """
+    tbl = table._element  # Obtenha o elemento XML subjacente da tabela
+    tbl_pr = tbl.tblPr  # Acesse as propriedades da tabela
+    tbl_borders = OxmlElement('w:tblBorders')
+
+    for border in ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']:
+        border_el = OxmlElement(f'w:{border}')
+        border_el.set(qn('w:val'), 'single')  # Tipo de borda
+        border_el.set(qn('w:sz'), '4')  # Espessura (em oitavos de ponto)
+        border_el.set(qn('w:space'), '0')  # Espaçamento
+        border_el.set(qn('w:color'), '000000')  # Cor (hexadecimal)
+        tbl_borders.append(border_el)
+
+    tbl_pr.append(tbl_borders)
+
+def inserir_tabelas(documento, tabela, dados_cliente2):
+
+    if dados_cliente2:
+        tabela_existente = tabela
+        elemento_tabela = tabela_existente._element
+
+        tabela_vazia = documento.add_table(rows=1, cols=1)
+        elemento_tabela_vazia = tabela_vazia._element
+        elemento_tabela.addnext(elemento_tabela_vazia)
+
+        tabela_cliente2 = documento.add_table(rows=7, cols=2)
+
+        column_widths = [Cm(9.25), Cm(20)]  # Defina a largura de cada coluna
+
+        for col_index, width in enumerate(column_widths):
+            for cell in tabela_cliente2.columns[col_index].cells:
+                cell.width = width
+
+        tabela_cliente2.rows[0].cells[0].text = 'Nome'
+        tabela_cliente2.rows[1].cells[0].text = 'Nacionalidade'
+        tabela_cliente2.rows[2].cells[0].text = 'Estado Civil'
+        tabela_cliente2.rows[3].cells[0].text = 'CPF'
+        tabela_cliente2.rows[4].cells[0].text = 'E-mail'
+        tabela_cliente2.rows[5].cells[0].text = 'Endereço'
+        tabela_cliente2.rows[6].cells[0].text = 'CEP'
+
+        tabela_cliente2.rows[0].cells[1].text = '#1PARTE_CLIENTE'
+        tabela_cliente2.rows[1].cells[1].text = '#1NACIONALIDADE'
+        tabela_cliente2.rows[2].cells[1].text = '#1ESTADO CIVIL'
+        tabela_cliente2.rows[3].cells[1].text = '#1CPF'
+        tabela_cliente2.rows[4].cells[1].text = '#1E_MAIL'
+        tabela_cliente2.rows[5].cells[1].text = '#1ENDEREÇO'
+        tabela_cliente2.rows[6].cells[1].text = '#1CEP'
+
+        elemento_tabela_vazia.addnext(tabela_cliente2._element)
+        tabela_cliente2.style = tabela_existente.style
+
+        total_tabelas = len(documento.tables)
+        tabela_assinatura = documento.tables[total_tabelas - 1]
+        elemento_tabela_assinatura = tabela_assinatura._element
+
+        tabela_assinatura_new_cliente = documento.add_table(rows=1, cols=2)
+
+        elemento_tabela_assinatura_new_cliente = tabela_assinatura_new_cliente._element
+        tabela_assinatura_new_cliente.rows[0].cells[0].text = '\n_______________________________\n#1PARTE_CLIENTE\nPARTE CONTRATANTE'
+        for i in range(2):
+            for paragraph in tabela_assinatura_new_cliente.rows[0].cells[i].paragraphs:
+                paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+                for run in paragraph.runs:
+                    run.font.size = Pt(12)
+
+        for row in tabela_cliente2.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.size = Pt(12)
+
+        elemento_tabela_assinatura.addnext(elemento_tabela_assinatura_new_cliente)
+        add_table_borders(tabela_cliente2)
