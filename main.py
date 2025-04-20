@@ -20,15 +20,18 @@ from front.ui.pages_functions.consultoria import consultoria
 from front.ui.pages_functions.area import Area
 
 class WorkerDownload(QThread):
+    
     sucesso = pyqtSignal(str)
     error = pyqtSignal(str)
     finished = pyqtSignal()
     
     def __init__(self):
         super().__init__()
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        self.caminho_table = os.path.join(base_dir, 'Tabelas')
 
     def run(self):
-        Dados(self.sucesso, self.error, self.finished)
+        Dados(self.sucesso, self.error, self.finished, self.caminho_table)
 
 class Worker(QThread):
 

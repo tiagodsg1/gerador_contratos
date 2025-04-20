@@ -7,11 +7,12 @@ from back.bd.update.delete import Delete
 from back.bd.verif import get_env_path
 
 class Dados:
-    def __init__(self, sucesso, error, finished):
+    def __init__(self, sucesso, error, finished, caminho_table):
         super().__init__()
         self.sucesso = sucesso  
         self.error = error
         self.finished = finished
+        self.caminho_table = caminho_table
         self.bd = get_env_path()
         load_dotenv(self.bd)
 
@@ -28,7 +29,7 @@ class Dados:
             sys.exit()
 
         try:
-            self.extrair_nomes_bd()
+            self.download_table()
 
         except Exception as e:
             self.error.emit(f'Erro ao fazer o download{e}')
@@ -66,12 +67,10 @@ class Dados:
             with page.expect_download() as download_info:
                 page.click('xpath=//*[@id="root"]/div/div/main/div/div/div/div/div/div[2]/table/tbody/tr[1]/td[3]/a')
             download = download_info.value
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            caminho_docx = os.path.join(base_dir, 'Tabelas')
-            arquivos = os.listdir(caminho_docx)
+            arquivos = os.listdir(self.caminho_table)
             for arquivo in arquivos:
-                os.remove(f'{caminho_docx}/{arquivo}')
-            download.save_as(f'{caminho_docx}/tabela_old.xlsx')
+                os.remove(f'{self.caminho_table}/{arquivo}')
+            download.save_as(f'{self.caminho_table}/tabela_old.xlsx')
             browser.close()
             self.extrair_nomes_bd()
 
@@ -85,10 +84,8 @@ class Dados:
         self.extrair_nomes_planilha()
     
     def extrair_nomes_planilha(self):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        caminho_docx = os.path.join(base_dir, 'Tabelas')
-        arquivos = os.listdir(caminho_docx)
-        self.caminho = os.path.join(caminho_docx, 'tabela_old.xlsx')
+        arquivos = os.listdir(self.caminho_table)
+        self.caminho = os.path.join(arquivos, 'tabela_old.xlsx')
         planilha = openpyxl.load_workbook(self.caminho)
         aba = planilha['Clientes']
         self.nomes_planilha = [aba[f"D{i}"].value for i in range(2, aba.max_row+1)]

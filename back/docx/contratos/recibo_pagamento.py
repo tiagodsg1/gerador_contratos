@@ -52,7 +52,7 @@ def recibo_pagamento(corretor, info_ad, caminho_documento, sucesso, error, downl
 
             else:
                 if 'por transferência bancária' in texto:
-                    substituir_texto(paragrafo, 'por transferência bancária', f'por {info_ad['tipo_pag']}')
+                    substituir_texto(paragrafo, 'por transferência bancária', f"por {info_ad['tipo_pag']}")
 
             #Inserir data
             if '#DATA_TRANSFERENCIA' in texto:
