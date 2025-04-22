@@ -250,28 +250,40 @@ class MainWindow(QMainWindow):
         pass
 
     def chamar_variavel(self):
-        
+
         if self.ui.comboBox.currentText() == 'Administração de Locação':
             self.clear_frame(self.ui.frame_3)
-            self.administracao_locacao.setParent(self.ui.frame_3)
             self.administracao_locacao.insert_dados(self.cliente_lista, self.corretor_lista, self.download_error)
+            self.administracao_locacao.setParent(self.ui.frame_3)
             self.administracao_locacao.show()
         
         if self.ui.comboBox.currentText() == 'Autorização de Venda':
             self.clear_frame(self.ui.frame_3)
-            self.autorizacao.insert_dados(self.cliente_lista, self.corretor_lista)
+            self.autorizacao.insert_dados( self.cliente_lista, self.corretor_lista)
             self.autorizacao.setParent(self.ui.frame_3)
             self.autorizacao.show()
 
         if self.ui.comboBox.currentText() == 'Compromisso de Compra e Venda':
+            if self.ui.comboBox_2.currentText() == '':
+                QMessageBox.warning(self, 'Erro', 'Selecione um imóvel')
+                return
             self.clear_frame(self.ui.frame_3)
-            self.compra_venda.insert_dados(self.cliente_lista, self.corretor_lista, self.download_error)
+            imovel_select = self.ui.comboBox_2.currentText()
+            imovel_select = imovel_select.split(',')[0]
+            tipo_imovel = self.ui.comboBox_5.currentText()
+            self.compra_venda.insert_dados(imovel_select, tipo_imovel, self.cliente_lista, self.corretor_lista, self.download_error)
             self.compra_venda.setParent(self.ui.frame_3)
             self.compra_venda.show()
 
         if self.ui.comboBox.currentText() == 'Locação':
+            if self.ui.comboBox_2.currentText() == '':
+                QMessageBox.warning(self, 'Erro', 'Selecione um imóvel')
+                return
             self.clear_frame(self.ui.frame_3)
-            self.locacao.insert_dados(self.cliente_lista, self.corretor_lista, self.download_error)
+            imovel_select = self.ui.comboBox_2.currentText()
+            imovel_select = imovel_select.split(',')[0]
+            tipo_imovel = self.ui.comboBox_5.currentText()
+            self.locacao.insert_dados(imovel_select, tipo_imovel, self.cliente_lista, self.corretor_lista, self.download_error)
             self.locacao.setParent(self.ui.frame_3)
             self.locacao.show()
 
@@ -282,8 +294,14 @@ class MainWindow(QMainWindow):
             self.recibo.show()
 
         if self.ui.comboBox.currentText() == 'Consultoria':
+            if self.ui.comboBox_2.currentText() == '':
+                QMessageBox.warning(self, 'Erro', 'Selecione um imóvel')
+                return
             self.clear_frame(self.ui.frame_3)
-            self.consultoria.insert_dados(self.corretor_lista, self.cliente_lista)
+            imovel_select = self.ui.comboBox_2.currentText()
+            imovel_select = imovel_select.split(',')[0]
+            tipo_imovel = self.ui.comboBox_5.currentText()
+            self.consultoria.insert_dados(imovel_select, tipo_imovel, self.corretor_lista, self.cliente_lista)
             self.consultoria.setParent(self.ui.frame_3)
             self.consultoria.show()
 

@@ -1,4 +1,6 @@
 from front.ui.pages.consultoria.consultoria import Ui_Form
+from back.bd.dados import GetDados
+
 from PyQt5.QtWidgets import QWidget
 
 class consultoria(QWidget):
@@ -16,12 +18,17 @@ class consultoria(QWidget):
                 lambda state, le=line_edit: le.setVisible(state == 2)
             )
 
-    def insert_dados(self, corretor, cliente):
+    def insert_dados(self,imoveis, tipo, corretor, cliente):
         self.corretor = corretor
         self.cliente = cliente
+        self.imoveis = GetDados(imoveis).get_imoveis(tipo)
         self.hide_all()
+
         self.ui.comboBox_3.addItems(self.corretor)
         self.ui.comboBox_6.addItems(self.cliente)
+
+        self.ui.lineEdit_4.setText(self.imoveis['valor'])
+        self.ui.lineEdit_6.setText(self.imoveis['preco_anterior'])
 
     def hide_all(self):
         for line_edit in self.checkbox_lineedit_map.values():

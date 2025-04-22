@@ -1,4 +1,6 @@
 from front.ui.pages.locacao.locacao import Ui_Form
+from back.bd.dados import GetDados
+
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -23,11 +25,22 @@ class locacao(QWidget):
         self.ui.radioButton.clicked.connect(self.radio_button_clicked)
         self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
 
-    def insert_dados(self, cliente, corretor, error):
+    def insert_dados(self, imoveis, tipo, cliente, corretor, error):
         self.locador = cliente
         self.locataria = cliente
         self.corretor = corretor
         self.error = error
+        self.imoveis = GetDados(imoveis).get_imoveis(tipo)
+
+        self.ui.lineEdit_3.setText(self.imoveis['valor'])
+        self.ui.lineEdit_4.setText(self.imoveis['valor_iptu'])
+        self.ui.lineEdit_5.setText(self.imoveis['valor_condominio'])
+        self.ui.lineEdit_11.setText(self.imoveis['matricula'])
+        if self.imoveis['garagens'] != 'None':
+            self.ui.checkBox_11.setChecked(True)
+        else:
+            self.ui.checkBox_11.setChecked(False)
+
         self.ui.comboBox.addItems(self.locataria)
         self.ui.comboBox_4.addItems(self.locataria)
 

@@ -1,4 +1,6 @@
 from front.ui.pages.compra_venda.compra_venda import Ui_Form
+from back.bd.dados import GetDados
+
 from PyQt5.QtWidgets import QWidget
 
 class compra_venda(QWidget):
@@ -24,10 +26,17 @@ class compra_venda(QWidget):
         self.ui.radioButton.clicked.connect(self.radio_button_clicked)
         self.ui.radioButton_2.clicked.connect(self.radio_button_clicked)
 
-    def insert_dados(self, cliente, corretor, download):
+    def insert_dados(self, imovel, tipo, cliente, corretor, download):
         self.cliente = cliente
         self.corretor = corretor
         self.download = download
+        self.imovel = GetDados(imovel).get_imoveis(tipo)
+
+        print(self.imovel['matricula'])
+        self.ui.lineEdit_11.setText(self.imovel['matricula'])
+        self.ui.lineEdit.setText(self.imovel['valor'])
+        
+
         self.ui.comboBox.addItems(self.cliente)
         self.ui.comboBox_4.addItems(self.cliente)
 
