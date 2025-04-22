@@ -54,7 +54,7 @@ class GerarDocx:
             self.sucesso = dicionario['sucesso']
             self.error = dicionario['error']
             self.download = dicionario['download']
-            consultoria(self.dados_corretor, self.dados_imovel, self.caminho_documento, self.sucesso, self.error, self.download)
+            consultoria(self.dados_corretor, self.dados_imovel, self.info_ad, self.caminho_documento, self.sucesso, self.error, self.download)
         
         if self.t_contrato == 'Locação':
             self.dados_corretor = dicionario['corretor']

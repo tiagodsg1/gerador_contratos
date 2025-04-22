@@ -147,6 +147,7 @@ class Worker(QThread):
             caminho_docx = os.path.join(base_dir, 'Contratos_docx', 'Consultoria.docx')
 
             self.dicionario = {'corretor': dados_corretor,
+                            'info_ad': self.info_ad,
                             'cliente': dados_cliente,
                             'imovel': dados_imovel,
                             'sucesso': self.sucesso,
