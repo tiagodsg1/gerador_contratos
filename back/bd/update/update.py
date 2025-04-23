@@ -1,10 +1,10 @@
 import psycopg2, openpyxl
 from dotenv import load_dotenv
-import os
+import os, time
 
 from back.bd.verif import get_env_path
 class Update_Dados:
-    def __init__(self, nomes, imoveis, caminho):
+    def __init__(self, nomes, imoveis, caminho, download_label, download_value, index):
         super().__init__()
         self.bd = get_env_path()
         load_dotenv(self.bd)
@@ -18,6 +18,9 @@ class Update_Dados:
         self.nomes = nomes
         self.caminho = caminho
         self.imoveis = imoveis
+        self.download_label = download_label
+        self.download_value = download_value
+        self.index = index
         self.carregar_dados()
 
     def carregar_dados(self):
@@ -41,6 +44,7 @@ class Update_Dados:
                         break
 
     def update_dados(self, linha):
+        self.download_label.emit("Atualizando clientes...")
         cursor = self.servidor.cursor()
         linha_str = list(map(str, linha))
         del linha_str[20]
@@ -63,7 +67,6 @@ class Update_Dados:
         result_data_cadastro = cursor.fetchall()
 
         if result_nome and result_telefone and result_cpf_cnpj and result_data_cadastro:
-            print(f"Cliente {nome} já cadastrado")
             return
         
         cursor.execute('''
@@ -71,9 +74,14 @@ class Update_Dados:
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', linha_str)
         self.servidor.commit()
         cursor.close()
+        for i in range(25):
+            self.download_value.emit(self.index)
+            self.index += 1
+            time.sleep(0.1)
 
     def update_imoveis(self, linha):
         try:
+            self.download_label.emit("Atualizando imóveis...")
             cursor = self.servidor.cursor()
             linha_str = list(map(str, linha))
 
@@ -81,7 +89,6 @@ class Update_Dados:
             cursor.execute("SELECT referencia FROM imoveis WHERE referencia = %s", (referencia,))
             result = cursor.fetchall()
             if result:
-                print(f"Imóvel {referencia} já cadastrado")
                 return
 
             cursor.execute('''
@@ -126,6 +133,10 @@ class Update_Dados:
                     %s, %s, %s, %s, %s,
                     %s, %s, %s)''', linha_str)
             self.servidor.commit()
+            for i in range(25):
+                self.download_value.emit(self.index)
+                self.index += 1
+                time.sleep(0.1)
         except Exception as e:
             print(e)
         cursor.close()

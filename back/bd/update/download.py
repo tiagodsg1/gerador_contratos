@@ -1,18 +1,23 @@
 from playwright.sync_api import sync_playwright
 import os, psycopg2, openpyxl, sys
 from dotenv import load_dotenv
+import time
 
 from back.bd.update.update import Update_Dados
 from back.bd.update.delete import Delete
 from back.bd.verif import get_env_path
 
 class Dados:
-    def __init__(self, sucesso, error, finished, caminho_table):
+    def __init__(self, sucesso, error, finished, caminho_table, show_download, download_value, download_label):
         super().__init__()
         self.sucesso = sucesso  
         self.error = error
         self.finished = finished
         self.caminho_table = caminho_table
+        self.show_download = show_download
+        self.download_value = download_value
+        self.download_label = download_label
+        self.index = 0
         self.bd = get_env_path()
         load_dotenv(self.bd)
 
@@ -27,13 +32,12 @@ class Dados:
         except Exception as e:
             self.error.emit(f'Erro ao conectar com o banco de dados: {e}')
             sys.exit()
+        
+        self.download_table()
 
-        try:
-            self.download_table()
-
-        except Exception as e:
+        '''except Exception as e:
             self.error.emit(f'Erro ao fazer o download{e}')
-            self.servidor.close()
+            self.servidor.close()'''
 
     def download_table(self):
         with sync_playwright() as p:
@@ -74,7 +78,13 @@ class Dados:
             browser.close()
             self.extrair_nomes_bd()
 
-    def extrair_nomes_bd(self):    
+    def extrair_nomes_bd(self):
+        self.show_download.emit()
+        self.download_label.emit('Extraindo dados do banco de dados...')
+        for i in range(25):
+            self.download_value.emit(self.index)
+            self.index += 1
+            time.sleep(0.1)
         cursor = self.servidor.cursor()
         cursor.execute("SELECT nome FROM Clientes")
         self.nomes = [nome[0] for nome in cursor.fetchall()]
@@ -84,8 +94,8 @@ class Dados:
         self.extrair_nomes_planilha()
     
     def extrair_nomes_planilha(self):
-        arquivos = os.listdir(self.caminho_table)
-        self.caminho = os.path.join(arquivos, 'tabela_old.xlsx')
+        self.download_label.emit('Extraindo dados da planilha...')
+        self.caminho = os.path.join(self.caminho_table, 'tabela_old.xlsx')
         planilha = openpyxl.load_workbook(self.caminho)
         aba = planilha['Clientes']
         self.nomes_planilha = [aba[f"D{i}"].value for i in range(2, aba.max_row+1)]
@@ -93,10 +103,14 @@ class Dados:
         aba_2 = planilha['Imóveis']
         self.referencias_planilha = [aba_2[f"B{i}"].value for i in range(2, aba_2.max_row+1)]
         planilha.close()
+        for i in range(25):
+            self.download_value.emit(self.index)
+            self.index += 1
+            time.sleep(0.1)
         self.comparar_dados()
         
     def comparar_dados(self):
-
+        self.download_label.emit('Comparando dados...')
         lista_incluir_nomes = []
         for nome in self.nomes_planilha:
             if nome not in self.nomes:
@@ -119,11 +133,15 @@ class Dados:
         for referencia in self.referencias:
             if referencia not in self.referencias_planilha:
                 lista_excluir_imoveis.append(referencia)
-
-        self.sucesso.emit('Clientes comparados. Iniciando atualização dos dados...')
         try:
+            self.download_label.emit('Excluindo clientes...')
             Delete(lista_excluir_nomes, lista_excluir_imoveis)
-            Update_Dados(lista_incluir_nomes, lista_incluir_imoveis, self.caminho)
+            for i in range(25):
+                self.download_value.emit(self.index)
+                self.index += 1
+                time.sleep(0.1)
+            self.download_label.emit('Atualizando clientes...')
+            Update_Dados(lista_incluir_nomes, lista_incluir_imoveis, self.caminho, self.download_label, self.download_value, self.index)
             self.sucesso.emit('Dados atualizados com sucesso.')
         except Exception as e:
             self.error.emit('Erro ao atualizar os dados.\n' + str(e))

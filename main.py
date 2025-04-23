@@ -18,12 +18,17 @@ from front.ui.pages_functions.locacao import locacao
 from front.ui.pages_functions.recibo import recibo
 from front.ui.pages_functions.consultoria import consultoria
 from front.ui.pages_functions.area import Area
+from front.ui.pages_functions.download import Download
+
 
 class WorkerDownload(QThread):
     
     sucesso = pyqtSignal(str)
     error = pyqtSignal(str)
     finished = pyqtSignal()
+    show_download = pyqtSignal()
+    download_value = pyqtSignal(int)
+    download_label = pyqtSignal(str)
     
     def __init__(self):
         super().__init__()
@@ -31,7 +36,7 @@ class WorkerDownload(QThread):
         self.caminho_table = os.path.join(base_dir, 'Tabelas')
 
     def run(self):
-        Dados(self.sucesso, self.error, self.finished, self.caminho_table)
+        Dados(self.sucesso, self.error, self.finished, self.caminho_table, self.show_download, self.download_value, self.download_label)
 
 class Worker(QThread):
 
@@ -166,6 +171,7 @@ class MainWindow(QMainWindow):
         self.worker = Worker()
         self.worker_download = WorkerDownload()
         self.bd = GetNomes()
+        
 
         self.administracao_locacao = administracao_locacao()
         self.autorizacao = autorizacao()
@@ -315,6 +321,9 @@ class MainWindow(QMainWindow):
         self.worker_download.sucesso.connect(self.download_sucesso)
         self.worker_download.error.connect(self.download_error)
         self.worker_download.finished.connect(self.download_finished)
+        self.worker_download.show_download.connect(self.show_downloadform)
+        self.worker_download.download_value.connect(self.change_progress)
+        self.worker_download.download_label.connect(self.change_label)
         self.worker_download.start()
 
     def download_sucesso(self, msg):
@@ -358,6 +367,15 @@ class MainWindow(QMainWindow):
         self.area_contratos = Area()
         self.area_contratos.dados_corretor(self.corretor_lista)
         self.area_contratos.show()
+
+    def show_downloadform(self):
+        self.download_ui = Download()
+
+    def change_label(self, text):
+        self.download_ui.change_label(text)
+
+    def change_progress(self, value):
+        self.download_ui.change_progress(value)
 
 if __name__ == "__main__":
     app = QApplication([])
