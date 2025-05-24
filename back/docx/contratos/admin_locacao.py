@@ -154,7 +154,7 @@ def administracao_locacao( dados_corretor, dados_imovel, info_ad, caminho_docume
                 substituir_texto(paragrafo, 'São Gonçalo', dados_imovel['cidade'])
 
             if '#END_IMOVEL' in texto:
-                substituir_texto(paragrafo, '#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ' - ' + dados_imovel['estado'])
+                substituir_texto(paragrafo, '#END_IMOVEL', dados_imovel['logradouro'] + ', ' + dados_imovel['numero'] + ', ' + dados_imovel['complemento'] + dados_imovel['bairro'] + ', ' + dados_imovel['cidade'] + ' - ' + dados_imovel['estado'])
             
             if '#CEP' in texto:
                 substituir_texto(paragrafo, '#CEP', dados_imovel['cep'])

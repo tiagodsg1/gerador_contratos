@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog
-import os
+import os, subprocess, sys
 
 from front.ui.Main import Ui_MainWindow
 
@@ -19,7 +19,6 @@ from front.ui.pages_functions.recibo import recibo
 from front.ui.pages_functions.consultoria import consultoria
 from front.ui.pages_functions.area import Area
 from front.ui.pages_functions.download import Download
-
 
 class WorkerDownload(QThread):
     
@@ -171,7 +170,7 @@ class MainWindow(QMainWindow):
         self.worker = Worker()
         self.worker_download = WorkerDownload()
         self.bd = GetNomes()
-        
+
 
         self.administracao_locacao = administracao_locacao()
         self.autorizacao = autorizacao()
@@ -377,8 +376,8 @@ class MainWindow(QMainWindow):
     def change_progress(self, value):
         self.download_ui.change_progress(value)
 
-if __name__ == "__main__":
-    app = QApplication([])
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    app.exec_()
+    sys.exit(app.exec_())

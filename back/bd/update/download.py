@@ -136,12 +136,12 @@ class Dados:
         try:
             self.download_label.emit('Excluindo clientes...')
             Delete(lista_excluir_nomes, lista_excluir_imoveis)
+            self.download_label.emit('Atualizando clientes...')
+            Update_Dados(lista_incluir_nomes, lista_incluir_imoveis, self.caminho, self.download_label, self.download_value, self.index)
             for i in range(25):
                 self.download_value.emit(self.index)
                 self.index += 1
                 time.sleep(0.1)
-            self.download_label.emit('Atualizando clientes...')
-            Update_Dados(lista_incluir_nomes, lista_incluir_imoveis, self.caminho, self.download_label, self.download_value, self.index)
             self.sucesso.emit('Dados atualizados com sucesso.')
         except Exception as e:
             self.error.emit('Erro ao atualizar os dados.\n' + str(e))
