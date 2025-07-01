@@ -14,7 +14,7 @@ from back.docx.src.retirar import substituir_trecho_tabela
 
 from back.bd.update.logs.log_corretor import LogCorretor
     
-def administracao_locacao( dados_corretor, dados_imovel, info_ad, caminho_documento, sucesso, error, download):
+def administracao_locacao(dados_corretor, dados_imovel, info_ad, caminho_documento, sucesso, error, download):
 
     try:
 
